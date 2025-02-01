@@ -16,43 +16,121 @@
       </div>
     </div>
     <!-- form tambah transaksi -->
-    <div class="container w-200 bg-zinc-400 rounded-md p-4 hidden center m-auto ">
-    <form action="">
-        <div class="grid grid-cols-2">
-            
+    <div
+      class="container border border-blue-400 bg-slate-300 w-200  rounded-md p-4 visible center m-auto"
+    >
+      <form action="">
+        <div class="container p-2 mt-2 rounded-sm bg-blue-300">
+          <label for="filter">Nama transaksi</label>
+          <input type="text" name="filterTransactionName" id="filterTransactionName" class="grow py-1.5 pr-3
+          pl-1 text-base text-blue-900 placeholder:text-white-400 bg-slate-300
+          focus:outline-none sm:text-sm/6 rounded-sm w-full mt-2"
+          placeholder="Masukkan nama transaksi disini"><br />
         </div>
-        <label for="filter">Nama transaksi</label>
-            <input type="text" name="filter id="filter" class="block min-w-0
-            grow py-1.5 pr-3 pl-1 text-base text-blue-900
-            placeholder:text-white-400 bg-white focus:outline-none sm:text-sm/6
-            rounded-sm w-full" placeholder="Masukkan nama transaksi disini"><br />
-        
-            <label for="html">Tipe transaksi</label><br />
-            <input type="radio" id="html" name="fav_language" value="HTML" />
-            <label for="html">Pemasukan</label><br />
-            <input type="radio" id="css" name="fav_language" value="CSS" />
-            <label for="css">Pengeluaran</label><br />
-    </form>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-rows-2 gap 4">
+            <div class="container mt-2 p-2 rounded-md bg-blue-300">
+              <label for="transactionType">Tipe transaksi</label><br />
+              <input type="radio" id="pemasukan" name="pemasukan" value="pemasukan" />
+              <label for="html">Pemasukan</label><br />
+              <input type="radio" id="pengeluaran" name="pengeluaran" value="pengeluaran" />
+              <label for="css">Pengeluaran</label><br />
+            </div>
+            <div class="container bg-blue-300 mt-2 p-2 rounded-md">
+              <label for="">Tanggal transaksi</label><br />
+              <input
+                type="date"
+                id="tanggalTransaksi"
+                name="tanggalTransaksi"
+                class="w-full bg-zinc-200 rounded-sm mt-1 p-1"
+              />
+            </div>
+          </div>
+          <div class="container bg-blue-300 mt-2 p-2 rounded-md">
+            <label for="">Jenis label</label><br />
+            <input
+              type="checkbox"
+              id="vehicle2"
+              name="vehicle2"
+              value="Jajan"
+            />
+            <label for="vehicle1"> Jajan</label><br />
+            <input
+              type="checkbox"
+              id="vehicle2"
+              name="vehicle2"
+              value="Jajan"
+            />
+            <label for="vehicle1"> Skincare</label><br />
+            <input
+              type="checkbox"
+              id="vehicle2"
+              name="vehicle2"
+              value="Skincare"
+            />
+            <label for="vehicle1"> Sedekah</label><br />
+            <input
+              type="checkbox"
+              id="vehicle2"
+              name="vehicle2"
+              value="sedekah"
+            />
+            <label for="vehicle1"> Transport</label><br />
+            <input
+              type="checkbox"
+              id="vehicle2"
+              name="vehicle2"
+              value="Transport"
+            />
+            <label for="vehicle1"> Bonus</label><br />
+            <input
+              type="checkbox"
+              id="vehicle2"
+              name="vehicle2"
+              value="Jajan"
+            />
+            <label for="vehicle1"> Gifting</label><br />
+          </div>
+        </div>
+        <div class="container p-2 mt-2 rounded-sm bg-blue-300">
+          <label for="">Nominal transaksi</label>
+          <input type="number" name="filterNominal" id="filterNominal" class=" grow py-1.5 pr-3
+          pl-1 text-base text-blue-900 placeholder:text-white-400 bg-zinc-200
+          focus:outline-none sm:text-sm/6 rounded-sm w-full mt-2"
+          placeholder="Masukkan nominal transaksi disini"><br />
+        </div>
+        <div class="grid justify-items-center">
+          <button class="bg-green-400 p-2 m-2 rounded-sm justify-self-auto" id="buttonAddTransaction">
+            Tambahkan transaksi
+          </button>
+        </div>
+      </form>
     </div>
+    <!-- tabel & sidebar -->
     <div class="container rounded-md m-8 mr-5">
       <div class="grid grid-cols-5 h-screen">
         <!-- sidebar -->
         <div class="bg-blue-400 rounded-md p-4">
           <form action="">
-            <label for="filter">Filter</label>
-            <input type="text" name="filter id="filter" class="block min-w-0
-            grow py-1.5 pr-3 pl-1 text-base text-blue-900
-            placeholder:text-white-400 bg-white focus:outline-none sm:text-sm/6
-            rounded-sm w-full" placeholder="Masukkan nama transaksi disini">
+            <label for="filter" class="ml-1">Filter transaksi</label>
+            <div class="container bg-white mt-2 p-2 rounded-md ">
+            <label for="filter">Nama transaksi</label>
+            <input type="text" name="filterName" id="filterName" class="block min-w-0
+            grow py-1.5 text-base text-blue-900
+            placeholder:text-white-400 bg-slate-300 focus:outline-none sm:text-sm/6
+            rounded-sm w-full mt-2" placeholder="Masukkan nama transaksi disini">
+            </div>
+           
             <div class="container bg-white mt-2 p-2 rounded-md">
               <label for="html">Tipe transaksi</label><br />
-              <input type="radio" id="html" name="fav_language" value="HTML" />
+              <input type="radio" id="pemasukan" name="pemasukan" value="pemasukan" />
               <label for="html">Pemasukan</label><br />
-              <input type="radio" id="css" name="fav_language" value="CSS" />
+              <input type="radio" id="pengeluaran" name="pengeluaran" value="pengeluaran" />
               <label for="css">Pengeluaran</label><br />
             </div>
 
-            <div class="container bg-white mt-2 p-2 rounded-md h-auto">
+            <div class="container bg-white mt-2 p-2 rounded-md h-auto" id="sidebar">
               <label for="">Jenis label</label><br />
               <input
                 type="checkbox"
@@ -101,16 +179,16 @@
             <div class="container bg-white mt-2 p-2 rounded-md h-auto">
               <label for="">Rentang transaksi</label><br />
               <label for="">Dimulai dari</label>
-              <input type="number" class="bg-slate-300 w-full" />
+              <input type="number" class="bg-slate-300 w-full" id="transactionStartFrom" />
               <label for="">Sampai dengan</label>
-              <input type="number" class="bg-slate-300 w-full" />
+              <input type="number" class="bg-slate-300 w-full" id="transactionUntil"/>
             </div>
             <div class="container bg-white mt-2 p-2 rounded-md h-auto">
               <label for="">Tanggal transaksi</label> <br />
-              <input type="date" id="birthday" name="birthday" class="w-full" />
+              <input type="date" id="filterDateTransaction" name="filterDateTransaction" class="w-full" />
             </div>
-            <button class="bg-green-500 rounded-sm p-2 mt-2 px-3 w-full">
-              Submit
+            <button class="bg-green-500 rounded-sm p-2 mt-2 px-3 w-full" id="filterTransactionButton">
+              Mulai filter
             </button>
           </form>
         </div>
@@ -118,7 +196,7 @@
         <div class="bg-blue-300 rounded-md col-span-4">
           <div class="overflow-x-auto rounded-md">
             <table class="min-w-full divide-y divide-gray-200">
-                <!-- Judul kolom transaksi -->
+              <!-- Judul kolom transaksi -->
               <thead class="bg-blue-50">
                 <tr>
                   <th
@@ -154,8 +232,7 @@
                   <th
                     scope="col"
                     class="px-6 py-3 text-left text-xs font-medium text-blue-500 uppercase tracking-wider"
-                  >
-                  </th>
+                  ></th>
                 </tr>
               </thead>
               <!-- isi kolom transaksi -->
@@ -183,13 +260,13 @@
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
-                      id="button-edit"
+                      id="buttonEdit"
                     >
                       Edit
                     </button>
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
-                      id="button-edit"
+                      id="buttonDelete"
                     >
                       Hapus
                     </button>
@@ -218,13 +295,13 @@
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
-                      id="button-edit"
+                      id="buttonEdit"
                     >
                       Edit
                     </button>
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
-                      id="button-edit"
+                      id="buttonDelete"
                     >
                       Hapus
                     </button>
@@ -255,13 +332,13 @@
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
-                      id="button-edit"
+                      id="buttonEdit"
                     >
                       Edit
                     </button>
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
-                      id="button-edit"
+                      id="buttonDelete"
                     >
                       Hapus
                     </button>
@@ -290,13 +367,13 @@
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
-                      id="button-edit"
+                      id="buttonEdit"
                     >
                       Edit
                     </button>
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
-                      id="button-edit"
+                      id="buttonDelete"
                     >
                       Hapus
                     </button>
@@ -325,13 +402,13 @@
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
-                      id="button-edit"
+                      id="buttonEdit"
                     >
                       Edit
                     </button>
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
-                      id="button-edit"
+                      id="buttonDelete"
                     >
                       Hapus
                     </button>
@@ -350,7 +427,9 @@
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     10 Januari 2025
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 bg">
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 bg"
+                  >
                     <div
                       class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-sky-100 text-sky-800"
                     >
@@ -360,13 +439,13 @@
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
-                      id="button-edit"
+                      id="buttonEdit"
                     >
                       Edit
                     </button>
                     <button
                       class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
-                      id="button-edit"
+                      id="buttonDelete"
                     >
                       Hapus
                     </button>
