@@ -1,9 +1,6 @@
 console.log("ADAAA");
-// const buttonEdit = document.getElementById('button-edit')
-// function editTransaksi() {
-//     console.log('buttonEdit');
-// }
 
+// data awal
 let data = [
   {
     categoryTransaction: "jajan",
@@ -46,7 +43,8 @@ let data = [
     typeTransaction: "transactionIncome",
   },
 ];
-// buttonEdit.addEventListener('click', editTransaksi)
+
+// fungsi untuk menambah data transaksi
 function add(event) {
   event.preventDefault();
   const transactionName = document.getElementById("transactionName");
@@ -100,6 +98,7 @@ function add(event) {
 const buttonAdd = document.getElementById("buttonAddTransaction");
 buttonAdd.addEventListener("click", add);
 
+// fungsi untuk memfilter transaksi
 function filter(event) {
   event.preventDefault();
   const filterTransactionName = document.getElementById(
@@ -166,6 +165,7 @@ const buttonFilter = document.getElementById("transactionFilterButton");
 
 buttonFilter.addEventListener("click", filter);
 
+// fungsi untuk menampilkan formulir tambah transaksi dan menghilangkan kembali tabel transaksi
 function showModalAddForm(event) {
   event.preventDefault();
   console.log(`clicked!`);
@@ -183,6 +183,7 @@ function showModalAddForm(event) {
 const buttonShowModal = document.getElementById("addModalsTransactionButton");
 buttonShowModal.addEventListener("click", showModalAddForm);
 
+// fungsi untuk menghilangkan formulir tambah transaksi dan memunculkan kembali tabel transaksi
 function hideFormModal() {
   const formTransaction = document.getElementById("addFormTransaction");
   const sidebarAndTable = document.getElementById("transactionDataSidebar");
@@ -190,6 +191,7 @@ function hideFormModal() {
   sidebarAndTable.classList.remove("hidden");
 }
 
+// fungsi untuk memunculkan data transaksi
 function showData(data) {
   let array = data;
   let tableData = document.getElementById("transactionTable");
@@ -241,6 +243,7 @@ function showData(data) {
   }
 }
 
+// fungsi untuk mengubah format tanggal YYYY-MM-DD menjadi kata yg dipahami
 function dateToWord(data) {
   let array = [];
   let container = "";
