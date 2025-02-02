@@ -151,8 +151,8 @@
               <label for="filter" class="block mb-2 font-medium">Nama transaksi</label>
               <input
                 type="text"
-                name="filterName"
-                id="filterName"
+                name="filterTransactionName"
+                id="filterTransactionName"
                 class="block min-w-0 grow py-1.5 text-base text-blue-900 placeholder:text-white-400 bg-slate-300 focus:outline-none sm:text-sm/6 rounded-sm w-full mt-2"
                 placeholder="Masukkan nama transaksi disini"
               />
@@ -165,14 +165,14 @@
               <input
                 type="radio"
                 id="transactionIncome"
-                name="transactionIncome"
+                name="transactionType"
                 value="transactionIncome"
               />
               <label for="transactionIncome">Pemasukan</label><br />
               <input
                 type="radio"
                 id="transactionExpense"
-                name="transactionExpense"
+                name="transactionType"
                 value="transactionExpense"
               />
               <label for="transactionExpense">Pengeluaran</label><br />
@@ -188,10 +188,11 @@
                 >Kategori transaksi</label
               >
               <select
+              name="transactionCategory"
                 id="transactionCategory"
                 class="bg-gray-50 border border-gray-300 text-white-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
-                <option selected>Pilih kategori disini</option>
+                <option selected value="default">Pilih kategori disini</option>
                 <option
                   class="items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800"
                   value="jajan"
@@ -239,12 +240,14 @@
               <input
                 type="number"
                 class="bg-slate-300 w-full"
+                name="transactionStartFromNominal"
                 id="transactionStartFromNominal"
               />
               <label for="transactionUntilNominal">Sampai dengan</label>
               <input
                 type="number"
                 class="bg-slate-300 w-full"
+                name="transactionUntilNominal"
                 id="transactionUntilNominal"
               />
             </div>
