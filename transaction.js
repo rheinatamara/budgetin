@@ -21,41 +21,38 @@ function add(event) {
   } else if (transactionExpense.checked) {
     transactionType = transactionExpense.value;
   } else {
-    transactionType = false
+    transactionType = false;
   }
 
-  if(transactionName.value.length < 1 || transactionType === false || transactionDate.value.length < 1 || transactionNominal.value.length < 1 || transactionNote.value.length < 1) {
-    return alert(`input jangan kosong!`)
+  if (
+    transactionName.value.length < 1 ||
+    transactionType === false ||
+    transactionDate.value.length < 1 ||
+    transactionNominal.value.length < 1 ||
+    transactionNote.value.length < 1
+  ) {
+    return alert(`input jangan kosong!`);
   } else {
     let object = {};
-  if (object === undefined) {
-    object["nameTransaction"] = "";
-    object["typeTransaction"] = "";
-    object["nominalTransaction"] = 0;
-    object["dateTransaction"] = "";
-    object["categoryTransaction"] = "";
-    object["noteTransaction"] = "";
-  }
-  object["nameTransaction"] = transactionName.value;
-  object["typeTransaction"] = transactionType;
-  object["nominalTransaction"] = Number(transactionNominal.value);
-  object["dateTransaction"] = transactionDate.value;
-  object["categoryTransaction"] = transactionCategory.value;
-  object["noteTransaction"] = transactionNote.value;
+    if (object === undefined) {
+      object["nameTransaction"] = "";
+      object["typeTransaction"] = "";
+      object["nominalTransaction"] = 0;
+      object["dateTransaction"] = "";
+      object["categoryTransaction"] = "";
+      object["noteTransaction"] = "";
+    }
+    object["nameTransaction"] = transactionName.value;
+    object["typeTransaction"] = transactionType;
+    object["nominalTransaction"] = Number(transactionNominal.value);
+    object["dateTransaction"] = transactionDate.value;
+    object["categoryTransaction"] = transactionCategory.value;
+    object["noteTransaction"] = transactionNote.value;
 
-  data.push(object);
-  hideFormModal()
-  console.log(data);
-//   console.log(typeof transactionName.value, transactionName.value.length);
-//   console.log(transactionType);
-//   console.log(typeof transactionDate.value, transactionDate.value.length);
-//   console.log(typeof transactionNominal.value, transactionNominal.value.length);
-//   console.log(typeof transactionCategory.value, transactionCategory.value.length);
-//   console.log(typeof transactionNote.value, transactionNote.value.length);
+    data.push(object);
+    hideFormModal();
+    showData(data);
   }
-
-  
-  
 }
 
 const buttonAdd = document.getElementById("buttonAddTransaction");
@@ -128,28 +125,115 @@ const buttonFilter = document.getElementById("transactionFilterButton");
 buttonFilter.addEventListener("click", filter);
 
 function showModalAddForm(event) {
-    event.preventDefault()
-    console.log(`clicked!`);
+  event.preventDefault();
+  console.log(`clicked!`);
 
-    const formTransaction = document.getElementById('addFormTransaction')
-    const sidebarAndTable =document.getElementById('transactionDataSidebar')
-        // asalnya form add hidden dan trensaction detail visible
-    // ketika diklik
-    // form add visible dan transaction detail hidden,
-    sidebarAndTable.classList.add('hidden')
-    formTransaction.classList.remove('hidden')
-    
-    //  ketika form submit kembali lagi ke awal
-    
+  const formTransaction = document.getElementById("addFormTransaction");
+  const sidebarAndTable = document.getElementById("transactionDataSidebar");
+  // asalnya form add hidden dan trensaction detail visible
+  // ketika diklik
+  // form add visible dan transaction detail hidden,
+  sidebarAndTable.classList.add("hidden");
+  formTransaction.classList.remove("hidden");
 
-
+  //  ketika form submit kembali lagi ke awal
 }
-const buttonShowModal = document.getElementById('addModalsTransactionButton')
-buttonShowModal.addEventListener('click', showModalAddForm)
+const buttonShowModal = document.getElementById("addModalsTransactionButton");
+buttonShowModal.addEventListener("click", showModalAddForm);
 
 function hideFormModal() {
-    const formTransaction = document.getElementById('addFormTransaction')
-    const sidebarAndTable =document.getElementById('transactionDataSidebar')
-    formTransaction.classList.add('hidden')
-    sidebarAndTable.classList.remove('hidden')
+  const formTransaction = document.getElementById("addFormTransaction");
+  const sidebarAndTable = document.getElementById("transactionDataSidebar");
+  formTransaction.classList.add("hidden");
+  sidebarAndTable.classList.remove("hidden");
+}
+
+function showData(data) {
+  let array = data;
+  let tableData = document.getElementById("transactionTable");
+  let template = '';
+
+  for (let a = 0; a < array.length; a++) {
+    let transactionData = array[a];
+    console.log(transactionData);
+    let nameTransaction = transactionData.nameTransaction;
+    let nominalTransaction = transactionData.nominalTransaction;
+    let dateTransaction = dateToWord(transactionData.dateTransaction);
+    let categoryTransaction = transactionData.categoryTransaction;
+    let typeTransaction = transactionData.typeTransaction;
+    let colorTransaction = "yellow";
+    let word = "";
+    if (typeTransaction === "transactionExpense") {
+      word = "Pengeluaran";
+    } else if (typeTransaction === "transactionIncome") {
+      word = "Pemasukan";
+    }
+
+    // console.log(nameTransaction);
+    template += `<tr>                  
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    ${nameTransaction}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Rp. ${nominalTransaction}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    ${word}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    ${dateTransaction}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div
+                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-${colorTransaction}-100 text-${colorTransaction}-800"
+                    >
+                      ${categoryTransaction}
+                    </div>
+                  </td>
+                </tr>
+    `;
+    tableData.innerHTML = template;
+  }
+}
+
+function dateToWord(data) {
+  let array = [];
+  let container = "";
+  for (let a = 0; a <= data.length; a++) {
+    let digit = data[a];
+    if (digit === "-" || digit === undefined) {
+      array.push(container);
+      container = "";
+    } else {
+      container += digit;
+    }
+  }
+  let groupMonth = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
+  ];
+  let year = array[0];
+  let month = array[1];
+  let date = array[2];
+  let newDate = "";
+  for (let a = 0; a < groupMonth.length; a++) {
+    if (month[0] === "0") {
+      month = month[1] - 1;
+    } else if (month[0] === "1") {
+      month = month - 1;
+    }
+
+    newDate = `${date} ${groupMonth[month]} ${year}`;
+    return newDate;
+  }
 }
