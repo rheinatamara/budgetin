@@ -173,7 +173,7 @@ function showModalAddForm(event) {
 
   const formTransaction = document.getElementById("addFormTransaction");
   const sidebarAndTable = document.getElementById("transactionDataSidebar");
-  const buttonAdd = document.getElementById('buttonAddTransaction')
+  const buttonAdd = document.getElementById('addModalsTransactionButton')
   const buttonBack = document.getElementById('buttonBack')
   const titleBar = document.getElementById('titleBar')
   // asalnya form add hidden dan trensaction detail visible
@@ -181,7 +181,7 @@ function showModalAddForm(event) {
   // form add visible dan transaction detail hidden,
   titleBar.textContent = 'Tambah Transaksi'
   sidebarAndTable.classList.add("hidden");
-  buttonAdd.classList.add('hidden')
+  buttonAdd.classList.add('invisible')
   formTransaction.classList.remove("hidden");
   buttonBack.classList.remove('hidden')
 
@@ -202,7 +202,7 @@ function hideFormModal() {
   formTransaction.classList.add("hidden");
   buttonBack.classList.add('hidden')
   sidebarAndTable.classList.remove("hidden");
-  buttonAdd.classList.remove('hidden')
+  buttonAdd.classList.remove('invisible')
   
 }
 
