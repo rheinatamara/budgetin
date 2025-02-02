@@ -21,11 +21,11 @@
     >
       <form action="">
         <div class="container p-2 mt-2 rounded-sm bg-blue-300">
-          <label for="addTransactionName" class="mb-2 font-medium"">Nama transaksi</label>
+          <label for="transactionName" class="mb-2 font-medium"">Nama transaksi</label>
           <input
             type="text"
-            name="addTransactionName"
-            id="addTransactionName"
+            name="transactionName"
+            id="transactionName"
             class="grow py-1.5 pr-3 pl-1 text-base text-blue-900 placeholder:text-white-400 bg-slate-300 focus:outline-none sm:text-sm/6 rounded-sm w-full mt-2"
             placeholder="Masukkan nama transaksi disini"
           /><br />
@@ -34,28 +34,28 @@
         <div class="grid grid-cols-2 gap-4">
           <div class="grid grid-rows-2 gap 4">
             <div class="container mt-2 p-2 rounded-md bg-blue-300">
-              <label for="addTransactionType">Tipe transaksi</label><br />
+              <!-- <label for="transactionType">Tipe transaksi</label><br /> -->
               <input
                 type="radio"
-                id="addTransactionIncome"
-                name="addTransactionType"
-                value="addTransactionIncome"
+                id="transactionIncome"
+                name="transactionType"
+                value="transactionIncome"
               />
-              <label for="addTransactionIncome">Pemasukan</label><br />
+              <label for="transactionIncome">Pemasukan</label><br />
               <input
                 type="radio"
-                id="addTransactionExpense"
-                name="addTransactionType"
-                value="addTransactionExpense"
+                id="transactionExpense"
+                name="transactionType"
+                value="transactionExpense"
               />
-              <label for="addTransactionExpense">Pengeluaran</label><br />
+              <label for="transactionExpense">Pengeluaran</label><br />
             </div>
             <div class="container bg-blue-300 mt-2 p-2 rounded-md">
               <label for="">Tanggal transaksi</label><br />
               <input
                 type="date"
-                id="addTransactionDate"
-                name="addTransactionDate"
+                id="transactionDate"
+                name="transactionDate"
                 class="w-full bg-zinc-200 rounded-sm mt-1 p-1"
               />
             </div>
@@ -68,8 +68,8 @@
                 >Kategori transaksi</label
               >
               <select
-                id="addTransactionCategory"
-                name="addTransactionCategory"
+                id="transactionCategory"
+                name="transactionCategory"
                 class="bg-gray-50 border border-gray-300 text-white-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
                 <option selected>Pilih kategori disini</option>
@@ -118,8 +118,8 @@
           <label for="">Nominal transaksi</label>
           <input
             type="number"
-            name="addTransactionNominal"
-            id="addTransactionNominal"
+            name="transactionNominal"
+            id="transactionNominal"
             class="grow py-1.5 pr-3 pl-1 text-base text-blue-900 placeholder:text-white-400 bg-zinc-200 focus:outline-none sm:text-sm/6 rounded-sm w-full mt-2"
             placeholder="Masukkan nominal transaksi disini"
           /><br />
