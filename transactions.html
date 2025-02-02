@@ -34,7 +34,7 @@
         <div class="grid grid-cols-2 gap-4">
           <div class="grid grid-rows-2 gap 4">
             <div class="container mt-2 p-2 rounded-md bg-blue-300">
-              <!-- <label for="transactionType">Tipe transaksi</label><br /> -->
+              <label for="transactionType">Tipe transaksi</label><br />
               <input
                 type="radio"
                 id="transactionIncome"
@@ -72,7 +72,7 @@
                 name="transactionCategory"
                 class="bg-gray-50 border border-gray-300 text-white-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
-                <option selected>Pilih kategori disini</option>
+                <option selected value="default">Pilih kategori disini</option>
                 <option
                   class="items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800"
                   value="jajan"
@@ -163,14 +163,14 @@
                 </h1>
               <input
                 type="radio"
-                id="transactionIncome"
+                id="filterTransactionIncome"
                 name="transactionType"
                 value="transactionIncome"
               />
               <label for="transactionIncome">Pemasukan</label><br />
               <input
                 type="radio"
-                id="transactionExpense"
+                id="filterTransactionExpense"
                 name="transactionType"
                 value="transactionExpense"
               />
@@ -188,7 +188,7 @@
               >
               <select
               name="transactionCategory"
-                id="transactionCategory"
+                id="filterTransactionCategory"
                 class="bg-gray-50 border border-gray-300 text-white-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
                 <option selected value="default">Pilih kategori disini</option>
