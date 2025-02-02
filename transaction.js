@@ -201,6 +201,7 @@ function showData(data) {
   for (let a = 0; a < array.length; a++) {
     let transactionData = array[a];
     console.log(transactionData);
+    //[TODO] tambahkan id untuk setiap transaksi
     let nameTransaction = transactionData.nameTransaction;
     let nominalTransaction = transactionData.nominalTransaction;
     let dateTransaction = dateToWord(transactionData.dateTransaction);
