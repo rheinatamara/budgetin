@@ -4,8 +4,8 @@ console.log("ADAAA");
 //     console.log('buttonEdit');
 // }
 
-// buttonEdit.addEventListener('click', editTransaksi)
 let data = [];
+// buttonEdit.addEventListener('click', editTransaksi)
 function add(event) {
   event.preventDefault();
   const transactionName = document.getElementById("transactionName");
@@ -20,15 +20,21 @@ function add(event) {
     transactionType = transactionIncome.value;
   } else if (transactionExpense.checked) {
     transactionType = transactionExpense.value;
+  } else {
+    transactionType = false
   }
-  let object = {};
+
+  if(transactionName.value.length < 1 || transactionType === false || transactionDate.value.length < 1 || transactionNominal.value.length < 1 || transactionNote.value.length < 1) {
+    return alert(`input jangan kosong!`)
+  } else {
+    let object = {};
   if (object === undefined) {
-    object["nameTransaction"] = ''
-    object["typeTransaction"] = ''
-    object["nominalTransaction"] = 0
-    object["dateTransaction"] = ''
-    object["categoryTransaction"] = ''
-    object["noteTransaction"] = ''
+    object["nameTransaction"] = "";
+    object["typeTransaction"] = "";
+    object["nominalTransaction"] = 0;
+    object["dateTransaction"] = "";
+    object["categoryTransaction"] = "";
+    object["noteTransaction"] = "";
   }
   object["nameTransaction"] = transactionName.value;
   object["typeTransaction"] = transactionType;
@@ -37,14 +43,18 @@ function add(event) {
   object["categoryTransaction"] = transactionCategory.value;
   object["noteTransaction"] = transactionNote.value;
 
-  data.push(object)
+  data.push(object);
   console.log(data);
-  // console.log(transactionName.value,);
-  // console.log(transactionType);
-  // console.log(transactionDate.value);
-  // console.log(transactionNominal.value);
-  // console.log(transactionCategory.value);
-  // console.log(transactionNote.value);
+//   console.log(typeof transactionName.value, transactionName.value.length);
+//   console.log(transactionType);
+//   console.log(typeof transactionDate.value, transactionDate.value.length);
+//   console.log(typeof transactionNominal.value, transactionNominal.value.length);
+//   console.log(typeof transactionCategory.value, transactionCategory.value.length);
+//   console.log(typeof transactionNote.value, transactionNote.value.length);
+  }
+
+  
+  
 }
 
 const buttonAdd = document.getElementById("buttonAddTransaction");
@@ -82,6 +92,27 @@ function filter(event) {
     transactionType = filterTransactionExpense.value;
   }
 
+  let object = {};
+  if (object === undefined) {
+    object["transactionName"] = "";
+    object["transactionType"] = "";
+    object["transactionStartFromNominal"] = 0;
+    object["transactionUntilNominal"] = 0;
+    object["transactionStartFromDate"] = "";
+    object["transactionUntilDate"] = "";
+    object["filterTransactionCategory"] = "";
+  }
+
+  object["transactionName"] = filterTransactionName.value;
+  object["transactionType"] = transactionType;
+  object["transactionStartFromNominal"] = transactionStartFromNominal.value;
+  object["transactionUntilNominal"] = transactionUntilNominal.value;
+  object["transactionStartFromDate"] = transactionStartFromDate.value;
+  object["transactionUntilDate"] = transactionUntilDate.value;
+  object["filterTransactionCategory"] = filterTransactionCategory.value;
+
+  console.log(object);
+
   // console.log(filterTransactionName.value,);
   // console.log(transactionType);
   // console.log(transactionStartFromDate.value);
@@ -92,4 +123,5 @@ function filter(event) {
 }
 
 const buttonFilter = document.getElementById("transactionFilterButton");
+
 buttonFilter.addEventListener("click", filter);
