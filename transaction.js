@@ -279,5 +279,5 @@ function dateToWord(data) {
     return newDate;
   }
 }
-
+// buat munculin data awal 
 showData(data)
