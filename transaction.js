@@ -4,7 +4,48 @@ console.log("ADAAA");
 //     console.log('buttonEdit');
 // }
 
-let data = [];
+let data = [
+  {
+    categoryTransaction: "jajan",
+    dateTransaction: "2025-02-16",
+    nameTransaction: "ASUS ROG RTX 58000",
+    nominalTransaction: 28000000,
+    noteTransaction: "Bjir sultan ",
+    typeTransaction: "transactionExpense",
+  },
+  {
+    categoryTransaction: "kebutuhan",
+    dateTransaction: "2015-11-16",
+    nameTransaction: "Kulkas 5 pintu",
+    nominalTransaction: 29000000,
+    noteTransaction: "Mana ada bjir kulkas 5 pintu ",
+    typeTransaction: "transactionExpense",
+  },
+  {
+    categoryTransaction: "kebutuhan",
+    dateTransaction: "2015-11-16",
+    nameTransaction: "Mie ayam ceu dede",
+    nominalTransaction: 25000,
+    noteTransaction: "enak beut dah",
+    typeTransaction: "transactionExpense",
+  },
+  {
+    categoryTransaction: "sedekah",
+    dateTransaction: "2020-01-16",
+    nameTransaction: "Sedekah subuh",
+    nominalTransaction: 2500000,
+    noteTransaction: "mudah-mudahan Indonesia bebas corona",
+    typeTransaction: "transactionExpense",
+  },
+  {
+    categoryTransaction: "bonus",
+    dateTransaction: "2020-01-16",
+    nameTransaction: "Bonus kantor cair",
+    nominalTransaction: 2500000,
+    noteTransaction: "Alhamdulillah cair jugaaaa",
+    typeTransaction: "transactionIncome",
+  },
+];
 // buttonEdit.addEventListener('click', editTransaksi)
 function add(event) {
   event.preventDefault();
@@ -151,7 +192,7 @@ function hideFormModal() {
 function showData(data) {
   let array = data;
   let tableData = document.getElementById("transactionTable");
-  let template = '';
+  let template = "";
 
   for (let a = 0; a < array.length; a++) {
     let transactionData = array[a];
@@ -193,6 +234,7 @@ function showData(data) {
                 </tr>
     `;
     tableData.innerHTML = template;
+    console.log(array);
   }
 }
 
@@ -237,3 +279,5 @@ function dateToWord(data) {
     return newDate;
   }
 }
+
+showData(data)
