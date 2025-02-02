@@ -99,6 +99,7 @@ const buttonAdd = document.getElementById("buttonAddTransaction");
 buttonAdd.addEventListener("click", add);
 
 // fungsi untuk memfilter transaksi
+// [TODO]: transactionStartFromNominal sama transactionUntilNominal nya masih string belum number
 function filter(event) {
   event.preventDefault();
   const filterTransactionName = document.getElementById(
@@ -244,6 +245,7 @@ function showData(data) {
 }
 
 // fungsi untuk mengubah format tanggal YYYY-MM-DD menjadi kata yg dipahami
+// data = '2018-09-01'
 function dateToWord(data) {
   let array = [];
   let container = "";
