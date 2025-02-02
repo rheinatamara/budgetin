@@ -2,7 +2,7 @@ console.log("ADAAA");
 // [TODO] [FEATURE]: TAMBAHKAN TOMBOL KEMBALI KETIKA DI ADD FORM
 // data awal
 let data = [
-  {
+  { id: 1,
     categoryTransaction: "jajan",
     dateTransaction: "2025-02-16",
     nameTransaction: "ASUS ROG RTX 58000",
@@ -10,7 +10,7 @@ let data = [
     noteTransaction: "Bjir sultan ",
     typeTransaction: "transactionExpense",
   },
-  {
+  { id: 2,
     categoryTransaction: "kebutuhan",
     dateTransaction: "2015-11-16",
     nameTransaction: "Kulkas 5 pintu",
@@ -18,7 +18,7 @@ let data = [
     noteTransaction: "Mana ada bjir kulkas 5 pintu ",
     typeTransaction: "transactionExpense",
   },
-  {
+  { id: 3,
     categoryTransaction: "kebutuhan",
     dateTransaction: "2015-11-16",
     nameTransaction: "Mie ayam ceu dede",
@@ -26,7 +26,7 @@ let data = [
     noteTransaction: "enak beut dah",
     typeTransaction: "transactionExpense",
   },
-  {
+  { id: 4,
     categoryTransaction: "sedekah",
     dateTransaction: "2020-01-16",
     nameTransaction: "Sedekah subuh",
@@ -34,7 +34,7 @@ let data = [
     noteTransaction: "mudah-mudahan Indonesia bebas corona",
     typeTransaction: "transactionExpense",
   },
-  {
+  { id: 5,
     categoryTransaction: "bonus",
     dateTransaction: "2020-01-16",
     nameTransaction: "Bonus kantor cair",
