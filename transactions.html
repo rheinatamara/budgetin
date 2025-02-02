@@ -21,7 +21,7 @@
     >
       <form action="">
         <div class="container p-2 mt-2 rounded-sm bg-blue-300">
-          <label for="filter">Nama transaksi</label>
+          <label for="filter" class="mb-2 font-medium"">Nama transaksi</label>
           <input
             type="text"
             name="filterTransactionName"
@@ -148,7 +148,7 @@
           <form action="">
             <label for="filter" class="ml-1">Filter transaksi</label>
             <div class="container bg-white mt-2 p-2 rounded-md">
-              <label for="filter">Nama transaksi</label>
+              <label for="filter" class="block mb-2 font-medium">Nama transaksi</label>
               <input
                 type="text"
                 name="filterName"
@@ -159,21 +159,23 @@
             </div>
 
             <div class="container bg-white mt-2 p-2 rounded-md">
-              <label for="html">Tipe transaksi</label><br />
+              <h1 class="mb-2 font-medium"">
+                Tipe transaksi
+                </h1>
               <input
                 type="radio"
-                id="pemasukan"
-                name="pemasukan"
-                value="pemasukan"
+                id="transactionIncome"
+                name="transactionIncome"
+                value="transactionIncome"
               />
-              <label for="html">Pemasukan</label><br />
+              <label for="transactionIncome">Pemasukan</label><br />
               <input
                 type="radio"
-                id="pengeluaran"
-                name="pengeluaran"
-                value="pengeluaran"
+                id="transactionExpense"
+                name="transactionExpense"
+                value="transactionExpense"
               />
-              <label for="css">Pengeluaran</label><br />
+              <label for="transactionExpense">Pengeluaran</label><br />
             </div>
 
             <div
@@ -181,12 +183,12 @@
               id="sidebar"
             >
               <label
-                for="categoryTransaction"
-                class="block mb-2 text-sm font-medium"
+                for="transactionCategory"
+                class="block mb-2 font-medium"
                 >Kategori transaksi</label
               >
               <select
-                id="categoryTransaction"
+                id="transactionCategory"
                 class="bg-gray-50 border border-gray-300 text-white-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
                 <option selected>Pilih kategori disini</option>
@@ -230,32 +232,46 @@
             </div>
 
             <div class="container bg-white mt-2 p-2 rounded-md h-auto">
-              <label for="">Rentang transaksi</label><br />
-              <label for="">Dimulai dari</label>
+              <h1 class="mb-2 font-medium"">
+              Rentang transaksi
+              </h1>
+              <label for="transactionStartFromNominal">Dimulai dari</label>
               <input
                 type="number"
                 class="bg-slate-300 w-full"
-                id="transactionStartFrom"
+                id="transactionStartFromNominal"
               />
-              <label for="">Sampai dengan</label>
+              <label for="transactionUntilNominal">Sampai dengan</label>
               <input
                 type="number"
                 class="bg-slate-300 w-full"
-                id="transactionUntil"
+                id="transactionUntilNominal"
               />
             </div>
             <div class="container bg-white mt-2 p-2 rounded-md h-auto">
-              <label for="">Tanggal transaksi</label> <br />
+              <h1 class="mb-2 font-medium"">
+                Tanggal transaksi
+                </h1>
+              <label for="transactionStartFromDate">Mulai dari tanggal</label>
+
               <input
                 type="date"
-                id="filterDateTransaction"
-                name="filterDateTransaction"
+                id="transactionStartFromDate"
+                name="transactionStartFromDate"
+                class="w-full"
+              />
+              <label for="transactionUntilDate">Sampai tanggal</label>
+
+              <input
+                type="date"
+                id="transactionUntilDate"
+                name="transactionUntilDate"
                 class="w-full"
               />
             </div>
             <button
               class="bg-green-500 rounded-sm p-2 mt-2 px-3 w-full"
-              id="filterTransactionButton"
+              id="transactionFilterButton"
             >
               Mulai filter
             </button>
