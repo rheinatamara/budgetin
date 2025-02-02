@@ -44,6 +44,7 @@ function add(event) {
   object["noteTransaction"] = transactionNote.value;
 
   data.push(object);
+  hideFormModal()
   console.log(data);
 //   console.log(typeof transactionName.value, transactionName.value.length);
 //   console.log(transactionType);
@@ -125,3 +126,30 @@ function filter(event) {
 const buttonFilter = document.getElementById("transactionFilterButton");
 
 buttonFilter.addEventListener("click", filter);
+
+function showModalAddForm(event) {
+    event.preventDefault()
+    console.log(`clicked!`);
+
+    const formTransaction = document.getElementById('addFormTransaction')
+    const sidebarAndTable =document.getElementById('transactionDataSidebar')
+        // asalnya form add hidden dan trensaction detail visible
+    // ketika diklik
+    // form add visible dan transaction detail hidden,
+    sidebarAndTable.classList.add('hidden')
+    formTransaction.classList.remove('hidden')
+    
+    //  ketika form submit kembali lagi ke awal
+    
+
+
+}
+const buttonShowModal = document.getElementById('addModalsTransactionButton')
+buttonShowModal.addEventListener('click', showModalAddForm)
+
+function hideFormModal() {
+    const formTransaction = document.getElementById('addFormTransaction')
+    const sidebarAndTable =document.getElementById('transactionDataSidebar')
+    formTransaction.classList.add('hidden')
+    sidebarAndTable.classList.remove('hidden')
+}

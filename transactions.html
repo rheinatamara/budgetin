@@ -11,13 +11,15 @@
       <p>Transaction</p>
       <div
         class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 ml-250"
+        id="addModalsTransactionButton"
       >
         Tambah transaksi
       </div>
     </div>
     <!-- form tambah transaksi -->
     <div
-      class="container border border-blue-400 bg-slate-300 w-200 rounded-md p-4 visible center m-auto"
+      class="container border border-blue-400 bg-slate-300 w-200 rounded-md p-4 hidden center m-auto"
+      id="addFormTransaction"
     >
       <form action="">
         <div class="container p-2 mt-2 rounded-sm bg-blue-300">
@@ -140,7 +142,7 @@
       </form>
     </div>
     <!-- tabel & sidebar -->
-    <div class="container rounded-md m-8 mr-5">
+    <div class="container rounded-md m-8 mr-5" id="transactionDataSidebar">
       <div class="grid grid-cols-5 h-screen">
         <!-- sidebar -->
         <div class="bg-blue-400 rounded-md p-4">
