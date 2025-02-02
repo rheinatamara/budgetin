@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transactions</title>
+  </head>
+  <body>
+    <div class="container h-15 bg-blue-400 rounded-md p-4 m-8 mr-5 flex">
+      <p>Transaction</p>
+      <div
+        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 ml-250"
+        id="addModalsTransactionButton"
+      >
+        Tambah transaksi
+      </div>
+    </div>
+    <!-- form tambah transaksi -->
+    <div
+      class="container border border-blue-400 bg-slate-300 w-200 rounded-md p-4 hidden center m-auto"
+      id="addFormTransaction"
+    >
+      <form action="">
+        <div class="container p-2 mt-2 rounded-sm bg-blue-300">
+          <label for="transactionName" class="mb-2 font-medium"">Nama transaksi</label>
+          <input
+            type="text"
+            name="transactionName"
+            id="transactionName"
+            class="grow py-1.5 pr-3 pl-1 text-base text-blue-900 placeholder:text-white-400 bg-slate-300 focus:outline-none sm:text-sm/6 rounded-sm w-full mt-2"
+            placeholder="Masukkan nama transaksi disini"
+          /><br />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-rows-2 gap 4">
+            <div class="container mt-2 p-2 rounded-md bg-blue-300">
+              <label for="transactionType">Tipe transaksi</label><br />
+              <input
+                type="radio"
+                id="transactionIncome"
+                name="transactionType"
+                value="transactionIncome"
+              />
+              <label for="transactionIncome">Pemasukan</label><br />
+              <input
+                type="radio"
+                id="transactionExpense"
+                name="transactionType"
+                value="transactionExpense"
+              />
+              <label for="transactionExpense">Pengeluaran</label><br />
+            </div>
+            <div class="container bg-blue-300 mt-2 p-2 rounded-md">
+              <label for="">Tanggal transaksi</label><br />
+              <input
+                type="date"
+                id="transactionDate"
+                name="transactionDate"
+                class="w-full bg-zinc-200 rounded-sm mt-1 p-1"
+              />
+            </div>
+          </div>
+          <div class="grid grid-rows-2">
+            <div class="container bg-blue-300 mt-2 p-2 rounded-md">
+              <label
+                for="categoryTransaction"
+                class="block mb-2 text-sm font-medium"
+                >Kategori transaksi</label
+              >
+              <select
+                id="transactionCategory"
+                name="transactionCategory"
+                class="bg-gray-50 border border-gray-300 text-white-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              >
+                <option selected value="default">Pilih kategori disini</option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-cyan-100 text-cyan-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-100 text-orange-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+              </select>
+            </div>
+            <div class="container bg-blue-300 mt-2 p-2 rounded-md"></div>
+          </div>
+        </div>
+        <div class="container p-2 mt-2 rounded-sm bg-blue-300">
+          <label for="">Nominal transaksi</label>
+          <input
+            type="number"
+            name="transactionNominal"
+            id="transactionNominal"
+            class="grow py-1.5 pr-3 pl-1 text-base text-blue-900 placeholder:text-white-400 bg-zinc-200 focus:outline-none sm:text-sm/6 rounded-sm w-full mt-2"
+            placeholder="Masukkan nominal transaksi disini"
+          /><br />
+        </div>
+        <div class="container p-2 mt-2 rounded-sm bg-blue-300">
+          <label for="transactionNote">Keterangan transaksi</label><br/>
+
+          <textarea id="transactionNote" class="mt-2 p-3 bg-slate-300" name="transactionNote" rows="4" cols="96"></textarea>
+        </div>
+        <div class="grid justify-items-center">
+          <button
+            class="bg-green-400 p-2 m-2 rounded-sm justify-self-auto"
+            id="buttonAddTransaction"
+          >
+            Tambahkan transaksi
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- tabel & sidebar -->
+    <div class="container rounded-md m-8 mr-5" id="transactionDataSidebar">
+      <div class="grid grid-cols-5 h-screen">
+        <!-- sidebar -->
+        <div class="bg-blue-400 rounded-md p-4">
+          <form action="">
+            <label for="filter" class="ml-1">Filter transaksi</label>
+            <div class="container bg-white mt-2 p-2 rounded-md">
+              <label for="filter" class="block mb-2 font-medium">Nama transaksi</label>
+              <input
+                type="text"
+                name="filterTransactionName"
+                id="filterTransactionName"
+                class="block min-w-0 grow py-1.5 text-base text-blue-900 placeholder:text-white-400 bg-slate-300 focus:outline-none sm:text-sm/6 rounded-sm w-full mt-2"
+                placeholder="Masukkan nama transaksi disini"
+              />
+            </div>
+
+            <div class="container bg-white mt-2 p-2 rounded-md">
+              <h1 class="mb-2 font-medium"">
+                Tipe transaksi
+                </h1>
+              <input
+                type="radio"
+                id="filterTransactionIncome"
+                name="transactionType"
+                value="transactionIncome"
+              />
+              <label for="transactionIncome">Pemasukan</label><br />
+              <input
+                type="radio"
+                id="filterTransactionExpense"
+                name="transactionType"
+                value="transactionExpense"
+              />
+              <label for="transactionExpense">Pengeluaran</label><br />
+            </div>
+
+            <div
+              class="container bg-white mt-2 p-2 rounded-md h-auto"
+              id="sidebar"
+            >
+              <label
+                for="transactionCategory"
+                class="block mb-2 font-medium"
+                >Kategori transaksi</label
+              >
+              <select
+              name="transactionCategory"
+                id="filterTransactionCategory"
+                class="bg-gray-50 border border-gray-300 text-white-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              >
+                <option selected value="default">Pilih kategori disini</option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-cyan-100 text-cyan-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-100 text-orange-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+                <option
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                  value="jajan"
+                >
+                  United States
+                </option>
+              </select>
+            </div>
+
+            <div class="container bg-white mt-2 p-2 rounded-md h-auto">
+              <h1 class="mb-2 font-medium"">
+              Rentang transaksi
+              </h1>
+              <label for="transactionStartFromNominal">Dimulai dari</label>
+              <input
+                type="number"
+                class="bg-slate-300 w-full"
+                name="transactionStartFromNominal"
+                id="transactionStartFromNominal"
+              />
+              <label for="transactionUntilNominal">Sampai dengan</label>
+              <input
+                type="number"
+                class="bg-slate-300 w-full"
+                name="transactionUntilNominal"
+                id="transactionUntilNominal"
+              />
+            </div>
+            <div class="container bg-white mt-2 p-2 rounded-md h-auto">
+              <h1 class="mb-2 font-medium"">
+                Tanggal transaksi
+                </h1>
+              <label for="transactionStartFromDate">Mulai dari tanggal</label>
+
+              <input
+                type="date"
+                id="transactionStartFromDate"
+                name="transactionStartFromDate"
+                class="w-full"
+              />
+              <label for="transactionUntilDate">Sampai tanggal</label>
+
+              <input
+                type="date"
+                id="transactionUntilDate"
+                name="transactionUntilDate"
+                class="w-full"
+              />
+            </div>
+            <button
+              class="bg-green-500 rounded-sm p-2 mt-2 px-3 w-full"
+              id="transactionFilterButton"
+            >
+              Mulai filter
+            </button>
+          </form>
+        </div>
+        <!-- Tabel transaksi -->
+        <div class="bg-blue-300 rounded-md col-span-4">
+          <div class="overflow-x-auto rounded-md">
+            <table class="min-w-full divide-y divide-gray-200">
+              <!-- Judul kolom transaksi -->
+              <thead class="bg-blue-50">
+                <tr>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-blue-500 uppercase tracking-wider"
+                  >
+                    Nama transaksi
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-blue-500 uppercase tracking-wider"
+                  >
+                    Nominal
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-blue-500 uppercase tracking-wider"
+                  >
+                    Jenis transaksi
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-blue-500 uppercase tracking-wider"
+                  >
+                    Tanggal transaksi
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-blue-500 uppercase tracking-wider"
+                  >
+                    Label
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-blue-500 uppercase tracking-wider"
+                  ></th>
+                </tr>
+              </thead>
+              <!-- isi kolom transaksi -->
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    Beli nasgor
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Rp. 30.000
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Pengeluaran
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    20 Januari 2025
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div
+                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800"
+                    >
+                      Jajan
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                      id="buttonEdit"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
+                      id="buttonDelete"
+                    >
+                      Hapus
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    Fotokopi KTP
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Rp. 5.000
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Pengeluaran
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    19 Januari 2025
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div
+                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800"
+                    >
+                      Alat - alat
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                      id="buttonEdit"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
+                      id="buttonDelete"
+                    >
+                      Hapus
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    Bonus gajian
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Rp. 2.000.000
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 bg-"
+                  >
+                    Pemasukan
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    10 Januari 2025
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div
+                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-100 text-orange-800"
+                    >
+                      Bonus
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                      id="buttonEdit"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
+                      id="buttonDelete"
+                    >
+                      Hapus
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    Beli leptop
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Rp. 2.000.000
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Pengeluaran
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    02 Januari 2025
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div
+                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-lime-100 text-lime-800"
+                    >
+                      Hobi
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                      id="buttonEdit"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
+                      id="buttonDelete"
+                    >
+                      Hapus
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    Sedekah subuh
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Rp. 50.000
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Pengeluaran
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    04 Januari 2025
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div
+                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-teal-100 text-teal-800"
+                    >
+                      Sedekah
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                      id="buttonEdit"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
+                      id="buttonDelete"
+                    >
+                      Hapus
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    Beli emas
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Rp. 200.000
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Pengeluaran
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    10 Januari 2025
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 bg"
+                  >
+                    <div
+                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-sky-100 text-sky-800"
+                    >
+                      Investasi
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                      id="buttonEdit"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
+                      id="buttonDelete"
+                    >
+                      Hapus
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    Floyd Miles
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Principal Designer
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    floyd.miles@example.com
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Member
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    Floyd Miles
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Principal Designer
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    floyd.miles@example.com
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Member
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    Floyd Miles
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Principal Designer
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    floyd.miles@example.com
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Member
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    Floyd Miles
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Principal Designer
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    floyd.miles@example.com
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Member
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    Floyd Miles
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Principal Designer
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    floyd.miles@example.com
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Member
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="./transaction.js"></script>
+  </body>
+</html>
