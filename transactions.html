@@ -21,11 +21,11 @@
     >
       <form action="">
         <div class="container p-2 mt-2 rounded-sm bg-blue-300">
-          <label for="filter" class="mb-2 font-medium"">Nama transaksi</label>
+          <label for="addTransactionName" class="mb-2 font-medium"">Nama transaksi</label>
           <input
             type="text"
-            name="filterTransactionName"
-            id="filterTransactionName"
+            name="addTransactionName"
+            id="addTransactionName"
             class="grow py-1.5 pr-3 pl-1 text-base text-blue-900 placeholder:text-white-400 bg-slate-300 focus:outline-none sm:text-sm/6 rounded-sm w-full mt-2"
             placeholder="Masukkan nama transaksi disini"
           /><br />
@@ -34,28 +34,28 @@
         <div class="grid grid-cols-2 gap-4">
           <div class="grid grid-rows-2 gap 4">
             <div class="container mt-2 p-2 rounded-md bg-blue-300">
-              <label for="transactionType">Tipe transaksi</label><br />
+              <label for="addTransactionType">Tipe transaksi</label><br />
               <input
                 type="radio"
-                id="pemasukan"
-                name="pemasukan"
-                value="pemasukan"
+                id="addTransactionIncome"
+                name="addTransactionType"
+                value="addTransactionIncome"
               />
-              <label for="html">Pemasukan</label><br />
+              <label for="addTransactionIncome">Pemasukan</label><br />
               <input
                 type="radio"
-                id="pengeluaran"
-                name="pengeluaran"
-                value="pengeluaran"
+                id="addTransactionExpense"
+                name="addTransactionType"
+                value="addTransactionExpense"
               />
-              <label for="css">Pengeluaran</label><br />
+              <label for="addTransactionExpense">Pengeluaran</label><br />
             </div>
             <div class="container bg-blue-300 mt-2 p-2 rounded-md">
               <label for="">Tanggal transaksi</label><br />
               <input
                 type="date"
-                id="tanggalTransaksi"
-                name="tanggalTransaksi"
+                id="addTransactionDate"
+                name="addTransactionDate"
                 class="w-full bg-zinc-200 rounded-sm mt-1 p-1"
               />
             </div>
@@ -68,7 +68,8 @@
                 >Kategori transaksi</label
               >
               <select
-                id="categoryTransaction"
+                id="addTransactionCategory"
+                name="addTransactionCategory"
                 class="bg-gray-50 border border-gray-300 text-white-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
                 <option selected>Pilih kategori disini</option>
@@ -117,8 +118,8 @@
           <label for="">Nominal transaksi</label>
           <input
             type="number"
-            name="filterNominal"
-            id="filterNominal"
+            name="addTransactionNominal"
+            id="addTransactionNominal"
             class="grow py-1.5 pr-3 pl-1 text-base text-blue-900 placeholder:text-white-400 bg-zinc-200 focus:outline-none sm:text-sm/6 rounded-sm w-full mt-2"
             placeholder="Masukkan nominal transaksi disini"
           /><br />
@@ -126,9 +127,7 @@
         <div class="container p-2 mt-2 rounded-sm bg-blue-300">
           <label for="transactionNote">Keterangan transaksi</label><br/>
 
-          <textarea id="transactionNote" class="mt-2 bg-slate-300" name="transactionNote" rows="4" cols="100">
-          </textarea
-          >
+          <textarea id="transactionNote" class="mt-2 p-3 bg-slate-300" name="transactionNote" rows="4" cols="96"></textarea>
         </div>
         <div class="grid justify-items-center">
           <button
