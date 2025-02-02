@@ -7,14 +7,20 @@
     <title>Transactions</title>
   </head>
   <body>
-    <div class="container h-15 bg-blue-400 rounded-md p-4 m-8 mr-5 flex">
-      <p>Transaction</p>
+    <div class="container h-15 bg-blue-400 rounded-md p-4 m-8 mr-5 inline-block">
+      <p id="titleBar" class="w-full">Transaction</p>
       <div
         class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 ml-250"
         id="addModalsTransactionButton"
       >
         Tambah transaksi
       </div>
+      <button
+      class="bg-red-400 p-2 m-2 rounded-sm hidden justify-self-auto"
+      id="buttonBack"
+    >
+      Kembali
+    </button>
     </div>
     <!-- form tambah transaksi -->
     <div
@@ -138,6 +144,7 @@
           >
             Tambahkan transaksi
           </button>
+         
         </div>
       </form>
     </div>

@@ -1,5 +1,5 @@
 console.log("ADAAA");
-
+// [TODO] [FEATURE]: TAMBAHKAN TOMBOL KEMBALI KETIKA DI ADD FORM
 // data awal
 let data = [
   {
@@ -166,31 +166,48 @@ const buttonFilter = document.getElementById("transactionFilterButton");
 
 buttonFilter.addEventListener("click", filter);
 
-// fungsi untuk menampilkan formulir tambah transaksi dan menghilangkan kembali tabel transaksi
+// fungsi untuk menampilkan (formulir tambah transaksi dan tombol kembali) dan menghilangkan ( tabel transaksi dan tombol add)
 function showModalAddForm(event) {
   event.preventDefault();
   console.log(`clicked!`);
 
   const formTransaction = document.getElementById("addFormTransaction");
   const sidebarAndTable = document.getElementById("transactionDataSidebar");
+  const buttonAdd = document.getElementById('buttonAddTransaction')
+  const buttonBack = document.getElementById('buttonBack')
+  const titleBar = document.getElementById('titleBar')
   // asalnya form add hidden dan trensaction detail visible
   // ketika diklik
   // form add visible dan transaction detail hidden,
+  titleBar.textContent = 'Tambah Transaksi'
   sidebarAndTable.classList.add("hidden");
+  buttonAdd.classList.add('hidden')
   formTransaction.classList.remove("hidden");
+  buttonBack.classList.remove('hidden')
 
   //  ketika form submit kembali lagi ke awal
 }
 const buttonShowModal = document.getElementById("addModalsTransactionButton");
 buttonShowModal.addEventListener("click", showModalAddForm);
 
-// fungsi untuk menghilangkan formulir tambah transaksi dan memunculkan kembali tabel transaksi
+// fungsi untuk menghilangkan (formulir tambah transaksi dan tombol kembali) dan menampilkan ( tabel transaksi dan tombol add)
 function hideFormModal() {
   const formTransaction = document.getElementById("addFormTransaction");
   const sidebarAndTable = document.getElementById("transactionDataSidebar");
+  const buttonAdd = document.getElementById('addModalsTransactionButton')
+  const buttonBack = document.getElementById('buttonBack')
+  const titleBar = document.getElementById('titleBar')
+
+  titleBar.textContent = 'Daftar Transaksi'
   formTransaction.classList.add("hidden");
+  buttonBack.classList.add('hidden')
   sidebarAndTable.classList.remove("hidden");
+  buttonAdd.classList.remove('hidden')
+  
 }
+
+const buttonBack = document.getElementById('buttonBack')
+buttonBack.addEventListener('click', hideFormModal)
 
 // fungsi untuk memunculkan data transaksi
 function showData(data) {
