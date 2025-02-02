@@ -55,6 +55,7 @@ function add(event) {
   const transactionDate = document.getElementById("transactionDate");
   const transactionNominal = document.getElementById("transactionNominal");
   const transactionCategory = document.getElementById("transactionCategory");
+  // ![TODO] buat opsi untuk membuat kategori label yang belum ada
   const transactionNote = document.getElementById("transactionNote");
   let transactionType = "";
   if (transactionIncome.checked) {
@@ -200,8 +201,10 @@ function showData(data) {
     let nameTransaction = transactionData.nameTransaction;
     let nominalTransaction = transactionData.nominalTransaction;
     let dateTransaction = dateToWord(transactionData.dateTransaction);
+    //! [TODO] tampilkan data label dengan yang sudah tersimpan sebelumnya
     let categoryTransaction = transactionData.categoryTransaction;
     let typeTransaction = transactionData.typeTransaction;
+    //! [TODO] data warna pada label belum dinamis
     let colorTransaction = "yellow";
     let word = "";
     if (typeTransaction === "transactionExpense") {
