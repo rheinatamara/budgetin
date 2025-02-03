@@ -34,7 +34,7 @@ let data = [
     noteTransaction: "mudah-mudahan Indonesia bebas corona",
     typeTransaction: "transactionExpense",
   },
-  { id: 'TX-IN-01',
+  { id: 'TX-IN-05',
     categoryTransaction: "bonus",
     dateTransaction: "2020-01-16",
     nameTransaction: "Bonus kantor cair",
