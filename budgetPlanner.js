@@ -65,10 +65,50 @@ const options = {
     show: false,
   },
 }
+let savingsHistory = [
+  {
+    id: 1,
+    type: "Incoming budget",
+    amount: 40_000,
+  },
+  {
+    id: 2,
+    type: "Incoming budget",
+    amount: 40_000,
+    date: new Date()
+  },
+]
+let goalData = {
+  name: "Budget to bahamas",
+  category: "Trip",
+  startDate: new Date().toISOString().split('T')[0] ,
+  endDate: new Date().toISOString().split('T')[0],
+  goalAmount : 500_000
+}
+function formatIDR(num){
+  return `Rp. ${num.toLocaleString('id-ID')}`
+}
 
-document.querySelectorAll(".area-chart").forEach((chartElement) => {
-    if (typeof ApexCharts !== "undefined") {
-        const chart = new ApexCharts(chartElement, options);
-        chart.render();
-    }
-});
+function addGoal(data){
+  return data
+  //add remaining date from today to the goalData and percentage
+}
+function getTotal(history,goal){
+  let total = 0
+  for(let element of history){
+    total += element["amount"]
+  }
+  return [formatIDR(total),formatIDR(goal)]
+}
+function goalPercentage(data){
+  console.log(data)
+}
+//input getTotal(savingsHistory, 500000)
+//output [ 'Rp. 80.000', 'Rp. 400.000' ]
+
+// document.querySelectorAll(".area-chart").forEach((chartElement) => {
+//     if (typeof ApexCharts !== "undefined") {
+//         const chart = new ApexCharts(chartElement, options);
+//         chart.render();
+//     }
+// });
