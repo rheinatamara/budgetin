@@ -2,7 +2,7 @@ console.log("ADAAA");
 // [TODO] [FEATURE]: TAMBAHKAN TOMBOL KEMBALI KETIKA DI ADD FORM
 // data awal
 let data = [
-  { id: 1,
+  { id: 'TX-EX-01',
     categoryTransaction: "jajan",
     dateTransaction: "2025-02-16",
     nameTransaction: "ASUS ROG RTX 58000",
@@ -10,7 +10,7 @@ let data = [
     noteTransaction: "Bjir sultan ",
     typeTransaction: "transactionExpense",
   },
-  { id: 2,
+  { id: 'TX-EX-02',
     categoryTransaction: "kebutuhan",
     dateTransaction: "2015-11-16",
     nameTransaction: "Kulkas 5 pintu",
@@ -18,7 +18,7 @@ let data = [
     noteTransaction: "Mana ada bjir kulkas 5 pintu ",
     typeTransaction: "transactionExpense",
   },
-  { id: 3,
+  { id: 'TX-EX-03',
     categoryTransaction: "kebutuhan",
     dateTransaction: "2015-11-16",
     nameTransaction: "Mie ayam ceu dede",
@@ -26,7 +26,7 @@ let data = [
     noteTransaction: "enak beut dah",
     typeTransaction: "transactionExpense",
   },
-  { id: 4,
+  { id: 'TX-EX-04',
     categoryTransaction: "sedekah",
     dateTransaction: "2020-01-16",
     nameTransaction: "Sedekah subuh",
@@ -34,12 +34,20 @@ let data = [
     noteTransaction: "mudah-mudahan Indonesia bebas corona",
     typeTransaction: "transactionExpense",
   },
-  { id: 5,
+  { id: 'TX-IN-01',
     categoryTransaction: "bonus",
     dateTransaction: "2020-01-16",
     nameTransaction: "Bonus kantor cair",
     nominalTransaction: 2500000,
     noteTransaction: "Alhamdulillah cair jugaaaa",
+    typeTransaction: "transactionIncome",
+  },
+  { id: 'TX-IN-06',
+    categoryTransaction: "bonus",
+    dateTransaction: "2020-01-16",
+    nameTransaction: "Bibi ngasih uang banyak",
+    nominalTransaction: 2500000,
+    noteTransaction: "Banyak beut",
     typeTransaction: "transactionIncome",
   },
 ];
@@ -64,6 +72,8 @@ function add(event) {
     transactionType = false;
   }
 
+  
+
   if (
     transactionName.value.length < 1 ||
     transactionType === false ||
@@ -73,8 +83,10 @@ function add(event) {
   ) {
     return alert(`input jangan kosong!`);
   } else {
+    let generatedID = generateId(data, transactionType)
     let object = {};
     if (object === undefined) {
+      object['id'] = ''
       object["nameTransaction"] = "";
       object["typeTransaction"] = "";
       object["nominalTransaction"] = 0;
@@ -82,6 +94,7 @@ function add(event) {
       object["categoryTransaction"] = "";
       object["noteTransaction"] = "";
     }
+    object['id'] = generatedID
     object["nameTransaction"] = transactionName.value;
     object["typeTransaction"] = transactionType;
     object["nominalTransaction"] = Number(transactionNominal.value);
@@ -97,6 +110,36 @@ function add(event) {
 
 const buttonAdd = document.getElementById("buttonAddTransaction");
 buttonAdd.addEventListener("click", add);
+
+function generateId(data, transactionType) {
+  //cek id
+  let num = 0;
+  console.log(data.length);
+  if (data.length < 1) {
+    num = 1;
+  } else {
+    num = data.length + 1;
+  }
+
+  let code = "";
+
+  if (transactionType === "transactionExpense") {
+    code += "EX";
+  } else if (transactionType === "transactionIncome") {
+    code += "IN";
+  } else {
+    return alert(`tipe transaksi tidak ada`);
+  }
+
+  if(num < 10) {
+    num = '0' + num
+  }
+  console.log(num);
+
+
+  let newID = `TX-${code}-${num}`
+  return newID
+}
 
 // fungsi untuk memfilter transaksi
 // [TODO]: transactionStartFromNominal sama transactionUntilNominal nya masih string belum number
