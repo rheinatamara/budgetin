@@ -1,56 +1,58 @@
+import  { array }  from "./data-source.js";
 console.log("ADAAA");
 // [TODO] [FEATURE]: TAMBAHKAN TOMBOL KEMBALI KETIKA DI ADD FORM
 // data awal
-let data = [
-  { id: 'TX-EX-01',
-    categoryTransaction: "jajan",
-    dateTransaction: "2025-02-16",
-    nameTransaction: "ASUS ROG RTX 58000",
-    nominalTransaction: 28000000,
-    noteTransaction: "Bjir sultan ",
-    typeTransaction: "transactionExpense",
-  },
-  { id: 'TX-EX-02',
-    categoryTransaction: "kebutuhan",
-    dateTransaction: "2015-11-16",
-    nameTransaction: "Kulkas 5 pintu",
-    nominalTransaction: 29000000,
-    noteTransaction: "Mana ada bjir kulkas 5 pintu ",
-    typeTransaction: "transactionExpense",
-  },
-  { id: 'TX-EX-03',
-    categoryTransaction: "kebutuhan",
-    dateTransaction: "2015-11-16",
-    nameTransaction: "Mie ayam ceu dede",
-    nominalTransaction: 25000,
-    noteTransaction: "enak beut dah",
-    typeTransaction: "transactionExpense",
-  },
-  { id: 'TX-EX-04',
-    categoryTransaction: "sedekah",
-    dateTransaction: "2020-01-16",
-    nameTransaction: "Sedekah subuh",
-    nominalTransaction: 2500000,
-    noteTransaction: "mudah-mudahan Indonesia bebas corona",
-    typeTransaction: "transactionExpense",
-  },
-  { id: 'TX-IN-05',
-    categoryTransaction: "bonus",
-    dateTransaction: "2020-01-16",
-    nameTransaction: "Bonus kantor cair",
-    nominalTransaction: 2500000,
-    noteTransaction: "Alhamdulillah cair jugaaaa",
-    typeTransaction: "transactionIncome",
-  },
-  { id: 'TX-IN-06',
-    categoryTransaction: "bonus",
-    dateTransaction: "2020-01-16",
-    nameTransaction: "Bibi ngasih uang banyak",
-    nominalTransaction: 2500000,
-    noteTransaction: "Banyak beut",
-    typeTransaction: "transactionIncome",
-  },
-];
+let data = array
+// let data = [
+//   { id: 'TX-EX-01',
+//     categoryTransaction: "jajan",
+//     dateTransaction: "2025-02-16",
+//     nameTransaction: "ASUS ROG RTX 58000",
+//     nominalTransaction: 28000000,
+//     noteTransaction: "Bjir sultan ",
+//     typeTransaction: "transactionExpense",
+//   },
+//   { id: 'TX-EX-02',
+//     categoryTransaction: "kebutuhan",
+//     dateTransaction: "2015-11-16",
+//     nameTransaction: "Kulkas 5 pintu",
+//     nominalTransaction: 29000000,
+//     noteTransaction: "Mana ada bjir kulkas 5 pintu ",
+//     typeTransaction: "transactionExpense",
+//   },
+//   { id: 'TX-EX-03',
+//     categoryTransaction: "kebutuhan",
+//     dateTransaction: "2015-11-16",
+//     nameTransaction: "Mie ayam ceu dede",
+//     nominalTransaction: 25000,
+//     noteTransaction: "enak beut dah",
+//     typeTransaction: "transactionExpense",
+//   },
+//   { id: 'TX-EX-04',
+//     categoryTransaction: "sedekah",
+//     dateTransaction: "2020-01-16",
+//     nameTransaction: "Sedekah subuh",
+//     nominalTransaction: 2500000,
+//     noteTransaction: "mudah-mudahan Indonesia bebas corona",
+//     typeTransaction: "transactionExpense",
+//   },
+//   { id: 'TX-IN-05',
+//     categoryTransaction: "bonus",
+//     dateTransaction: "2020-01-16",
+//     nameTransaction: "Bonus kantor cair",
+//     nominalTransaction: 2500000,
+//     noteTransaction: "Alhamdulillah cair jugaaaa",
+//     typeTransaction: "transactionIncome",
+//   },
+//   { id: 'TX-IN-06',
+//     categoryTransaction: "bonus",
+//     dateTransaction: "2020-01-16",
+//     nameTransaction: "Bibi ngasih uang banyak",
+//     nominalTransaction: 2500000,
+//     noteTransaction: "Banyak beut",
+//     typeTransaction: "transactionIncome",
+//   },
+// ];
 
 // fungsi untuk menambah data transaksi
 function add(event) {
@@ -72,8 +74,6 @@ function add(event) {
     transactionType = false;
   }
 
-  
-
   if (
     transactionName.value.length < 1 ||
     transactionType === false ||
@@ -83,10 +83,10 @@ function add(event) {
   ) {
     return alert(`input jangan kosong!`);
   } else {
-    let generatedID = generateId(data, transactionType)
+    let generatedID = generateId(data, transactionType);
     let object = {};
     if (object === undefined) {
-      object['id'] = ''
+      object["id"] = "";
       object["nameTransaction"] = "";
       object["typeTransaction"] = "";
       object["nominalTransaction"] = 0;
@@ -94,7 +94,7 @@ function add(event) {
       object["categoryTransaction"] = "";
       object["noteTransaction"] = "";
     }
-    object['id'] = generatedID
+    object["id"] = generatedID;
     object["nameTransaction"] = transactionName.value;
     object["typeTransaction"] = transactionType;
     object["nominalTransaction"] = Number(transactionNominal.value);
@@ -131,14 +131,13 @@ function generateId(data, transactionType) {
     return alert(`tipe transaksi tidak ada`);
   }
 
-  if(num < 10) {
-    num = '0' + num
+  if (num < 10) {
+    num = "0" + num;
   }
   console.log(num);
 
-
-  let newID = `TX-${code}-${num}`
-  return newID
+  let newID = `TX-${code}-${num}`;
+  return newID;
 }
 
 // fungsi untuk memfilter transaksi
@@ -216,17 +215,17 @@ function showModalAddForm(event) {
 
   const formTransaction = document.getElementById("addFormTransaction");
   const sidebarAndTable = document.getElementById("transactionDataSidebar");
-  const buttonAdd = document.getElementById('addModalsTransactionButton')
-  const buttonBack = document.getElementById('buttonBack')
-  const titleBar = document.getElementById('titleBar')
+  const buttonAdd = document.getElementById("addModalsTransactionButton");
+  const buttonBack = document.getElementById("buttonBack");
+  const titleBar = document.getElementById("titleBar");
   // asalnya form add hidden dan trensaction detail visible
   // ketika diklik
   // form add visible dan transaction detail hidden,
-  titleBar.textContent = 'Tambah Transaksi'
+  titleBar.textContent = "Tambah Transaksi";
   sidebarAndTable.classList.add("hidden");
-  buttonAdd.classList.add('invisible')
+  buttonAdd.classList.add("invisible");
   formTransaction.classList.remove("hidden");
-  buttonBack.classList.remove('hidden')
+  buttonBack.classList.remove("hidden");
 
   //  ketika form submit kembali lagi ke awal
 }
@@ -237,20 +236,19 @@ buttonShowModal.addEventListener("click", showModalAddForm);
 function hideFormModal() {
   const formTransaction = document.getElementById("addFormTransaction");
   const sidebarAndTable = document.getElementById("transactionDataSidebar");
-  const buttonAdd = document.getElementById('addModalsTransactionButton')
-  const buttonBack = document.getElementById('buttonBack')
-  const titleBar = document.getElementById('titleBar')
+  const buttonAdd = document.getElementById("addModalsTransactionButton");
+  const buttonBack = document.getElementById("buttonBack");
+  const titleBar = document.getElementById("titleBar");
 
-  titleBar.textContent = 'Daftar Transaksi'
+  titleBar.textContent = "Daftar Transaksi";
   formTransaction.classList.add("hidden");
-  buttonBack.classList.add('hidden')
+  buttonBack.classList.add("hidden");
   sidebarAndTable.classList.remove("hidden");
-  buttonAdd.classList.remove('invisible')
-  
+  buttonAdd.classList.remove("invisible");
 }
 
-const buttonBack = document.getElementById('buttonBack')
-buttonBack.addEventListener('click', hideFormModal)
+const buttonBack = document.getElementById("buttonBack");
+buttonBack.addEventListener("click", hideFormModal);
 
 // fungsi untuk memunculkan data transaksi
 function showData(data) {
@@ -348,5 +346,5 @@ function dateToWord(data) {
     return newDate;
   }
 }
-// buat munculin data awal 
-showData(data)
+// buat munculin data awal
+showData(data);
