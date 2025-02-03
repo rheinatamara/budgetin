@@ -66,7 +66,7 @@ const options = {
   },
 }
 // Logic
-let goalData = []
+let goalData = JSON.parse(localStorage.getItem('goalData')) || [];
 const today = new Date();
 function formatDate(date) {
   const day = ('0' + date.getDate()).slice(-2);
@@ -87,20 +87,20 @@ function formatIDR(num){
     currency: "IDR"
   }).format(num);
 }
-function addIncome(data, amount) {
+function addIncome(data, amount) { // {itemSelected}
   data.totalSaved += amount;
   data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount });
   data.percentage = ((data.totalSaved / data.goalAmount) * 100);
+  data.remainingAmount = data.goalAmount - data.totalSaved
   if (data.percentage > 100) {
     data.percentage = 100;
   }
   return data
 }
-function focusedItem(arr){
+function focusedItem(arr){ //[{item},{item}]
   for (let i = 0; i < arr.length; i++) {
     let data = arr[i];
     if (i === arr.length - 1) {
-      console.log(data, "last item")
       return data;
     } 
   }
@@ -126,7 +126,73 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       
   });
-  // addIncome({budgetName: "rheina",
+  // Default
+  if (!Array.isArray(goalData) || goalData.length === 0) {
+    goalData = []
+    } else {
+      let data = focusedItem(goalData)
+      updateUI(data)
+    }
+
+    document.querySelector("form").addEventListener("submit", function (e) {
+      e.preventDefault(); 
+      const budgetData = {
+          id: goalData.length + 1,
+          budgetName: document.getElementById("first_name").value,
+          category: document.getElementById("budget_name").value,
+          startDate: document.getElementById("datepicker-range-start").value,
+          endDate: document.getElementById("datepicker-range-end").value,
+          goalAmount: Number(document.getElementById("currency-input").value),
+          remainingDays: calculateRemainingDays(document.getElementById("datepicker-range-end").value),
+          percentage: 0,
+          totalSaved : 0,
+          savingsHistory:[],
+          remainingAmount: Number(document.getElementById("currency-input").value)
+      };
+    
+      goalData.push(budgetData) 
+      localStorage.setItem('goalData', JSON.stringify(goalData));
+      document.getElementById("first_name").value = '';
+      document.getElementById("budget_name").value = 'Choose a category';
+      document.getElementById("datepicker-range-start").value = formatDate(new Date());
+      document.getElementById("datepicker-range-end").value = '';
+      document.getElementById("currency-input").value = '';
+          let data = focusedItem(goalData)
+
+          updateUI(data)
+    });
+    function updateUI(data) {
+      const remainingAmount = document.querySelector('#remainingAmount');
+      const progressBar = document.querySelector('#progressBar');
+      const remainingDays = document.querySelector('#remainingDays');
+      const goalName = document.querySelector('#goalName');
+      if (data) {
+          remainingAmount.textContent = formatIDR(data.remainingAmount);
+          progressBar.style.width = `${data.percentage}%`;
+          progressBar.textContent = `${data.percentage}%`;
+          remainingDays.textContent = `${data.remainingDays} days left`;
+          goalName.textContent = `${data.budgetName}`
+      }
+  }
+
+  // On page load, update UI with the latest data
+  if (goalData.length > 0) {
+      updateUI(focusedItem(goalData));
+  }
+    document.querySelectorAll(".area-chart").forEach((chartElement) => {
+      if (typeof ApexCharts !== "undefined") {
+          const chart = new ApexCharts(chartElement, options);
+          chart.render();
+      }
+  });
+});
+
+
+
+
+
+
+// addIncome({budgetName: "rheina",
   //   category: "Trip",
   //   endDate: "2025-02-05",
   //   goalAmount: Number("100000"),
@@ -136,37 +202,4 @@ document.addEventListener('DOMContentLoaded', function () {
   //   startDate: "2025-02-03",
   //   totalSaved:0,
   //   savingsHistory: []},20000)
-});
-
-document.querySelector("form").addEventListener("submit", function (e) {
-  e.preventDefault(); 
-  const budgetData = {
-      id: goalData.length + 1,
-      budgetName: document.getElementById("first_name").value,
-      category: document.getElementById("budget_name").value,
-      startDate: document.getElementById("datepicker-range-start").value,
-      endDate: document.getElementById("datepicker-range-end").value,
-      goalAmount: Number(document.getElementById("currency-input").value),
-      remainingDays: calculateRemainingDays(document.getElementById("datepicker-range-end").value),
-      percentage: 0,
-      totalSaved : 0,
-      savingsHistory:[]
-  };
-
-  goalData.push(budgetData) 
-  document.getElementById("first_name").value = '';
-  document.getElementById("budget_name").value = 'Choose a category';
-  document.getElementById("datepicker-range-start").value = formatDate(new Date());
-  document.getElementById("datepicker-range-end").value = '';
-  document.getElementById("currency-input").value = '';
-});
-
-
-document.querySelectorAll(".area-chart").forEach((chartElement) => {
-    if (typeof ApexCharts !== "undefined") {
-        const chart = new ApexCharts(chartElement, options);
-        chart.render();
-    }
-});
-
 
