@@ -90,7 +90,7 @@ function add(event) {
     transactionType === false ||
     transactionDate.value.length < 1 ||
     transactionNominal.value.length < 1 ||
-    transactionNote.value.length < 1
+    transactionNote.value.length < 1 || transactionCategory === 'default' || !transactionCategory
   ) {
     return alert(`input jangan kosong!`);
   } else {
