@@ -65,6 +65,7 @@ const options = {
     show: false,
   },
 }
+
 // Logic
 let goalData = JSON.parse(localStorage.getItem('goalData')) || [];
 const today = new Date();
@@ -87,7 +88,7 @@ function formatIDR(num){
     currency: "IDR"
   }).format(num);
 }
-function addIncome(data, amount) { // {itemSelected}
+function addIncome(data, amount) { 
   data.totalSaved += amount;
   data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount });
   data.percentage = ((data.totalSaved / data.goalAmount) * 100);
@@ -97,19 +98,48 @@ function addIncome(data, amount) { // {itemSelected}
   }
   return data
 }
-function focusedItem(arr){ //[{item},{item}]
-  for (let i = 0; i < arr.length; i++) {
-    let data = arr[i];
-    if (i === arr.length - 1) {
-      return data;
-    } 
+function showDataCards(arr) {
+  const parentCard = document.querySelector('#grid-cards');
+  parentCard.innerHTML = ''; 
+
+  for (let data of arr) {
+    if (!data["selected"]) {
+      parentCard.innerHTML += `
+        <div class="flex flex-col justify-between max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm  h-[20rem]">
+          <div>
+            <h5 id="dataTitle" class="mb-4 text-2xl font-medium tracking-tight text-gray-900">${data["budgetName"]}</h5>
+          </div>
+          <div class="mb-4">
+            <p class="py-3 font-bold text-2xl text-gray-700">${formatIDR(data["remainingAmount"])}</p>
+            <p class="font-normal text-gray-400">of ${formatIDR(data["goalAmount"])}</p>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-1.5 mb-6">
+            <div class="bg-blue-600 h-1.5 rounded-full" style="width: ${data["percentage"]}%"></div>
+          </div>
+          <a href="#" class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+            More details
+            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+            </svg>
+          </a>
+        </div>
+      `;
+    }
+  }
+}
+
+function focusedItem(arr){ 
+  for(let data of arr){
+    if(data["selected"]){
+      return data
+    }
   }
 }
 
 // DOM Manipulation
 document.addEventListener('DOMContentLoaded', function () {
-  const startDateInput = document.getElementById('datepicker-range-start');
-  const endDateInput = document.getElementById('datepicker-range-end');
+  const startDateInput = document.querySelector('#datepicker-range-start');
+  const endDateInput = document.querySelector('#datepicker-range-end');
   if (startDateInput) {
       startDateInput.value = formatDate(today);
       startDateInput.readOnly = true;
@@ -126,40 +156,67 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       
   });
-  // Default
-  if (!Array.isArray(goalData) || goalData.length === 0) {
-    goalData = []
-    } else {
-      let data = focusedItem(goalData)
-      updateUI(data)
-    }
-
     document.querySelector("form").addEventListener("submit", function (e) {
-      e.preventDefault(); 
-      const budgetData = {
+      e.preventDefault();
+      if(goalData.length !== 0) {
+        for(let data of goalData){
+          data["selected"] = false
+        }
+        const budgetData = {
           id: goalData.length + 1,
-          budgetName: document.getElementById("first_name").value,
-          category: document.getElementById("budget_name").value,
-          startDate: document.getElementById("datepicker-range-start").value,
-          endDate: document.getElementById("datepicker-range-end").value,
-          goalAmount: Number(document.getElementById("currency-input").value),
-          remainingDays: calculateRemainingDays(document.getElementById("datepicker-range-end").value),
+          budgetName: document.querySelector("#first_name").value,
+          category: document.querySelector("#budget_name").value,
+          startDate: document.querySelector("#datepicker-range-start").value,
+          endDate: document.querySelector("#datepicker-range-end").value,
+          goalAmount: Number(document.querySelector("#currency-input").value),
+          remainingDays: calculateRemainingDays(document.querySelector("#datepicker-range-end").value),
           percentage: 0,
           totalSaved : 0,
+          selected: true,
           savingsHistory:[],
-          remainingAmount: Number(document.getElementById("currency-input").value)
+          remainingAmount: Number(document.querySelector("#currency-input").value)
       };
     
       goalData.push(budgetData) 
       localStorage.setItem('goalData', JSON.stringify(goalData));
-      document.getElementById("first_name").value = '';
-      document.getElementById("budget_name").value = 'Choose a category';
-      document.getElementById("datepicker-range-start").value = formatDate(new Date());
-      document.getElementById("datepicker-range-end").value = '';
-      document.getElementById("currency-input").value = '';
+      document.querySelector("#first_name").value = '';
+      document.querySelector("#budget_name").value = 'Choose a category';
+      document.querySelector("#datepicker-range-start").value = formatDate(new Date());
+      document.querySelector("#datepicker-range-end").value = '';
+      document.querySelector("#currency-input").value = '';
           let data = focusedItem(goalData)
-
           updateUI(data)
+
+      } else {
+        const budgetData = {
+          id: goalData.length + 1,
+          budgetName: document.querySelector("#first_name").value,
+          category: document.querySelector("#budget_name").value,
+          startDate: document.querySelector("#datepicker-range-start").value,
+          endDate: document.querySelector("#datepicker-range-end").value,
+          goalAmount: Number(document.querySelector("#currency-input").value),
+          remainingDays: calculateRemainingDays(document.querySelector("#datepicker-range-end").value),
+          percentage: 0,
+          totalSaved : 0,
+          selected: true,
+          savingsHistory:[],
+          remainingAmount: Number(document.querySelector("#currency-input").value)
+      };
+    
+      goalData.push(budgetData) 
+      localStorage.setItem('goalData', JSON.stringify(goalData));
+      document.querySelector("#first_name").value = '';
+      document.querySelector("#budget_name").value = 'Choose a category';
+      document.querySelector("#datepicker-range-start").value = formatDate(new Date());
+      document.querySelector("#datepicker-range-end").value = '';
+      document.querySelector("#currency-input").value = '';
+          let data = focusedItem(goalData)
+          updateUI(data)
+          showDataCards(goalData)
+
+      }
+      
+          
     });
     function updateUI(data) {
       const remainingAmount = document.querySelector('#remainingAmount');
@@ -172,12 +229,12 @@ document.addEventListener('DOMContentLoaded', function () {
           progressBar.textContent = `${data.percentage}%`;
           remainingDays.textContent = `${data.remainingDays} days left`;
           goalName.textContent = `${data.budgetName}`
+          showDataCards(goalData)
       }
   }
-
-  // On page load, update UI with the latest data
   if (goalData.length > 0) {
       updateUI(focusedItem(goalData));
+      showDataCards(goalData)
   }
     document.querySelectorAll(".area-chart").forEach((chartElement) => {
       if (typeof ApexCharts !== "undefined") {
