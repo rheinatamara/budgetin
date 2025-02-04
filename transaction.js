@@ -332,7 +332,7 @@ function dynamicLabel(data) {
       `;
   }
   let categoryContainer = document.getElementById("transactionCategory");
-  let categoryFilterContainer = document.getElementById("filterTtransactionCategory");
+  let categoryFilterContainer = document.getElementById("filterTransactionCategory");
   categoryContainer.innerHTML = template;
   categoryFilterContainer.innerHTML = template;
 }
