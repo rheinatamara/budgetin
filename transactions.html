@@ -82,8 +82,33 @@
               >
               <option selected value="default">Pilih kategori disini</option>
               </select>
+              <input type="checkbox" id="newLabel" name="newLabel">
+              <label for="newLabel" class="text-sm">Buat kategori baru</label><br>
             </div>
-            <div class="container bg-blue-300 mt-2 p-2 rounded-md"></div>
+            <div class="container bg-blue-300 mt-2 p-2 rounded-md grid grid-cols-2">
+              <div>           
+                   <label for="newLabelCategoryName" class="text-sm">Nama kategori baru</label><br/>
+                <input type="text" id="newLabelCategoryName" class="w-40 h-10 bg-white" placeholder="Centang dulu untuk memasukan"
+                name="newLabelCategoryName"><br><br>
+              </div>
+              <div>
+                <label for="newLabelCategoryColor" class="text-sm">Warna kategori</label>
+                <select
+                id="newLabelCategoryColor"
+                  name="newLabelCategoryColor"
+                  class="bg-gray-50 border border-gray-300 text-white-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                >
+                <option selected value="green">Hijau</option>
+                <option selected value="orange">Jingga</option>
+                <option selected value="blue">Biru</option>
+                <option selected value="gray">Abu-abu</option>
+                <option selected value="red">Merah</option>
+                <option selected value="purple">Ungu</option>
+                </select>
+              </div>
+
+
+            </div>
           </div>
         </div>
         <div class="container p-2 mt-2 rounded-sm bg-blue-300">

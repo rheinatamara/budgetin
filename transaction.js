@@ -63,7 +63,11 @@ function add(event) {
   const transactionExpense = document.getElementById("transactionExpense");
   const transactionDate = document.getElementById("transactionDate");
   const transactionNominal = document.getElementById("transactionNominal");
-  const transactionCategory = document.getElementById("transactionCategory");
+  let transactionCategoryAndColor = document.getElementById("transactionCategory").value;
+  let filteredValue = filteringValue(transactionCategoryAndColor)
+  let transactionCategory = filteredValue[0];
+  let transactionColor = filteredValue[1]
+  
   // ![TODO] buat opsi untuk membuat kategori label yang belum ada
   const transactionNote = document.getElementById("transactionNote");
   let transactionType = "";
@@ -91,6 +95,7 @@ function add(event) {
       object["nameTransaction"] = "";
       object["typeTransaction"] = "";
       object["nominalTransaction"] = 0;
+      object['colorTransaction'] = ''
       object["dateTransaction"] = "";
       object["categoryTransaction"] = "";
       object["noteTransaction"] = "";
@@ -99,8 +104,9 @@ function add(event) {
     object["nameTransaction"] = transactionName.value;
     object["typeTransaction"] = transactionType;
     object["nominalTransaction"] = Number(transactionNominal.value);
+    object['colorTransaction'] = transactionColor
     object["dateTransaction"] = transactionDate.value;
-    object["categoryTransaction"] = transactionCategory.value;
+    object["categoryTransaction"] = transactionCategory;
     object["noteTransaction"] = transactionNote.value;
 
     data.push(object);
@@ -111,6 +117,22 @@ function add(event) {
 
 const buttonAdd = document.getElementById("buttonAddTransaction");
 buttonAdd.addEventListener("click", add);
+
+function filteringValue(selectValue) {
+  let array = []
+  let container = ''
+  for (let a = 0; a <= selectValue.length; a++) {
+      let index = selectValue[a];
+      if(index === '|' || index === undefined) {
+          array.push(container)
+          container = ''
+      } else {
+          container += index
+      }
+  }
+  
+  return array
+}
 
 function generateId(data, transactionType) {
   //cek id
@@ -321,18 +343,19 @@ function dynamicLabel(data) {
   // console.log(categoryArray);
   let template = `
   <option selected value="default">Pilih kategori disini</option>
-  <option id="addLabel" value="addLabel">Bikin kategori baru</option>
+  <option value="addLabel">Bikin kategori baru</option>
   `;
   for (let b = 0; b < categoryArray.length; b++) {
     let categoryAndColor = categoryArray[b];
     let categoryName = categoryAndColor[0];
     let categoryColor = categoryAndColor[1];
+    console.log(categoryAndColor);
 
     template += `
       
       <option
       class="items-center px-3 py-1 rounded-full text-sm font-medium bg-${categoryColor}-100 text-${categoryColor}-800"
-      value="${categoryName}"
+      value="${categoryName}|${categoryColor}"
       >
       ${categoryName}
       </option>
@@ -344,10 +367,38 @@ function dynamicLabel(data) {
   categoryFilterContainer.innerHTML = template;
 }
 
-function newLabel(event) {
-event.preventDefault();
-console.log("NEW LABEL CLICKED");
+// function newLabel() {
+
+// const labelDefault = document.getElementById('newLabel')
+
+//   console.log(labelDefault.value);
+
+
+
+// }
+// newLabel()
+function label() {
+  const labelDefault = document.getElementById('newLabel')
+  const newLabelCategoryName = document.getElementById('newLabelCategoryName')
+  const newLabelCategoryColor = document.getElementById('newLabelCategoryColor')
+  const transactionCategory = document.getElementById('transactionCategory')
+  if(labelDefault.checked === true) {
+    transactionCategory.value = 'default';
+    transactionCategory.disabled = true
+    newLabelCategoryName.required = true
+    newLabelCategoryColor.required = true
+  } else {
+    transactionCategory.disabled = false
+    transactionCategory.required = true
+    newLabelCategoryName.disabled = true
+    newLabelCategoryColor.disabled = true
+  }
 }
+const labelDefault = document.getElementById('newLabel')
+
+labelDefault.addEventListener('change', label)
+
+
 
 
 // fungsi untuk mengubah format tanggal YYYY-MM-DD menjadi kata yg dipahami
