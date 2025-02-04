@@ -98,14 +98,21 @@ function addIncome(data, amount) {
   }
   return data
 }
-function showDataCards(arr) {
-  const parentCard = document.querySelector('#grid-cards');
-  parentCard.innerHTML = ''; 
 
+function focusedItem(arr){ 
+  for(let data of arr){
+    if(data["selected"]){
+      return data
+    }
+  }
+}
+const parentCard = document.querySelector('#grid-cards');
+function showDataCards(arr) {
+  parentCard.innerHTML = '';
   for (let data of arr) {
     if (!data["selected"]) {
       parentCard.innerHTML += `
-        <div class="flex flex-col justify-between max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm  h-[20rem]">
+        <div class="flex flex-col justify-between max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm h-[20rem]">
           <div>
             <h5 id="dataTitle" class="mb-4 text-2xl font-medium tracking-tight text-gray-900">${data["budgetName"]}</h5>
           </div>
@@ -116,22 +123,14 @@ function showDataCards(arr) {
           <div class="w-full bg-gray-200 rounded-full h-1.5 mb-6">
             <div class="bg-blue-600 h-1.5 rounded-full" style="width: ${data["percentage"]}%"></div>
           </div>
-          <a href="#" class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+          <button class="detailButton inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300" data-id="${data["id"]}">
             More details
             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
             </svg>
-          </a>
+          </button>
         </div>
       `;
-    }
-  }
-}
-
-function focusedItem(arr){ 
-  for(let data of arr){
-    if(data["selected"]){
-      return data
     }
   }
 }
@@ -236,27 +235,33 @@ document.addEventListener('DOMContentLoaded', function () {
       updateUI(focusedItem(goalData));
       showDataCards(goalData)
   }
+  parentCard.addEventListener("click", function (e) {
+    if (e.target.classList.contains("detailButton")) {
+      const id = Number(e.target.getAttribute("data-id"));
+      if (goalData.length !== 0) {
+        goalData.forEach((data) => {
+          data["selected"] = data.id === id;
+        });
+        let selectedItem = focusedItem(goalData);
+        console.log(selectedItem, '<<')
+        updateUI(selectedItem);
+        showDataCards(goalData);
+      }
+    }
+  });
     document.querySelectorAll(".area-chart").forEach((chartElement) => {
       if (typeof ApexCharts !== "undefined") {
           const chart = new ApexCharts(chartElement, options);
           chart.render();
       }
   });
+
+  document.querySelectorAll(".select-item").forEach(button => {
+    button.addEventListener("click", function (e) {
+      e.preventDefault();
+      const selectedId = Number(this.getAttribute("data-id"));
+      selectItem(selectedId);
+    });
+  });
+ 
 });
-
-
-
-
-
-
-// addIncome({budgetName: "rheina",
-  //   category: "Trip",
-  //   endDate: "2025-02-05",
-  //   goalAmount: Number("100000"),
-  //   id: 1,
-  //   percentage: 0,
-  //   remainingDays: 2,
-  //   startDate: "2025-02-03",
-  //   totalSaved:0,
-  //   savingsHistory: []},20000)
-
