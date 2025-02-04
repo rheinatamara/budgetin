@@ -171,7 +171,7 @@ function filter(event) {
 
 
   let object = {};
-  let array = []
+
 
   if (object === undefined) {
     object["transactionName"] = "";
@@ -321,6 +321,7 @@ function dynamicLabel(data) {
   // console.log(categoryArray);
   let template = `
   <option selected value="default">Pilih kategori disini</option>
+  <option id="addLabel" value="addLabel">Bikin kategori baru</option>
   `;
   for (let b = 0; b < categoryArray.length; b++) {
     let categoryAndColor = categoryArray[b];
@@ -342,6 +343,12 @@ function dynamicLabel(data) {
   categoryContainer.innerHTML = template;
   categoryFilterContainer.innerHTML = template;
 }
+
+function newLabel(event) {
+event.preventDefault();
+console.log("NEW LABEL CLICKED");
+}
+
 
 // fungsi untuk mengubah format tanggal YYYY-MM-DD menjadi kata yg dipahami
 // data = '2018-09-01'
