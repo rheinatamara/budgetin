@@ -1,6 +1,5 @@
 import { array } from "./data-source.js";
 console.log("ADAAA");
-// [TODO] [FEATURE]: TAMBAHKAN TOMBOL KEMBALI KETIKA DI ADD FORM
 //[TODO] [FEATURE]: TAMBAHKAN LOCALSTORAGE
 // data awal
 let data = array;
@@ -68,8 +67,6 @@ function add(event) {
   let transactionCategory = filteredValue[0];
   let transactionColor = filteredValue[1]
   const labelDefault = document.getElementById('newLabel')
-  
-  // ![TODO] buat opsi untuk membuat kategori label yang belum ada
   const transactionNote = document.getElementById("transactionNote");
   let transactionType = "";
   if (transactionIncome.checked) {
@@ -170,7 +167,6 @@ function generateId(data, transactionType) {
 }
 
 // fungsi untuk memfilter transaksi
-// [TODO]: transactionStartFromNominal sama transactionUntilNominal nya masih string belum number
 function filter(event) {
   event.preventDefault();
   const filterTransactionName = document.getElementById(
@@ -222,8 +218,8 @@ function filter(event) {
   if (filterTransactionExpense.checked) {
     object['transactionType'].push(filterTransactionExpense.value);
   }
-  object["transactionStartFromNominal"] = transactionStartFromNominal.value;
-  object["transactionUntilNominal"] = transactionUntilNominal.value;
+  object["transactionStartFromNominal"] = Number(transactionStartFromNominal.value);
+  object["transactionUntilNominal"] = Number(transactionUntilNominal.value;)
   object["transactionStartFromDate"] = transactionStartFromDate.value;
   object["transactionUntilDate"] = transactionUntilDate.value;
   object["filterTransactionCategory"] = filterTransactionCategory.value;
@@ -294,11 +290,9 @@ function showData(data) {
   for (let a = 0; a < array.length; a++) {
     let transactionData = array[a];
     console.log(transactionData);
-    //[TODO] tambahkan id untuk setiap transaksi
     let nameTransaction = transactionData.nameTransaction;
     let nominalTransaction = transactionData.nominalTransaction;
     let dateTransaction = dateToWord(transactionData.dateTransaction);
-    //! [TODO] tampilkan data label dengan yang sudah tersimpan sebelumnya
     let categoryTransaction = transactionData.categoryTransaction;
     let typeTransaction = transactionData.typeTransaction;
     let colorTransaction = transactionData.colorTransaction;
