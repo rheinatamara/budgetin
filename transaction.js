@@ -1,8 +1,9 @@
-import  { array }  from "./data-source.js";
+import { array } from "./data-source.js";
 console.log("ADAAA");
 // [TODO] [FEATURE]: TAMBAHKAN TOMBOL KEMBALI KETIKA DI ADD FORM
+//[TODO] [FEATURE]: TAMBAHKAN LOCALSTORAGE
 // data awal
-let data = array
+let data = array;
 // let data = [
 //   { id: 'TX-EX-01',
 //     categoryTransaction: "jajan",
@@ -266,8 +267,7 @@ function showData(data) {
     //! [TODO] tampilkan data label dengan yang sudah tersimpan sebelumnya
     let categoryTransaction = transactionData.categoryTransaction;
     let typeTransaction = transactionData.typeTransaction;
-    //! [TODO] data warna pada label belum dinamis
-    let colorTransaction = "yellow";
+    let colorTransaction = transactionData.colorTransaction;
     let word = "";
     if (typeTransaction === "transactionExpense") {
       word = "Pengeluaran";
@@ -301,6 +301,40 @@ function showData(data) {
     tableData.innerHTML = template;
     console.log(array);
   }
+}
+
+function dynamicLabel(data) {
+  let categoryArray = [];
+  for (let a = 0; a < data.length; a++) {
+    let transaction = data[a];
+    let colorTransaction = transaction.colorTransaction;
+    let transactionCategory = transaction.categoryTransaction;
+    categoryArray.push([transactionCategory, colorTransaction]);
+  }
+
+  // console.log(categoryArray);
+  let template = `
+  <option selected value="default">Pilih kategori disini</option>
+  `;
+  for (let b = 0; b < categoryArray.length; b++) {
+    let categoryAndColor = categoryArray[b];
+    let categoryName = categoryAndColor[0];
+    let categoryColor = categoryAndColor[1];
+
+    template += `
+      
+      <option
+      class="items-center px-3 py-1 rounded-full text-sm font-medium bg-${categoryColor}-100 text-${categoryColor}-800"
+      value="${categoryName}"
+      >
+      ${categoryName}
+      </option>
+      `;
+  }
+  let categoryContainer = document.getElementById("transactionCategory");
+  let categoryFilterContainer = document.getElementById("filterTtransactionCategory");
+  categoryContainer.innerHTML = template;
+  categoryFilterContainer.innerHTML = template;
 }
 
 // fungsi untuk mengubah format tanggal YYYY-MM-DD menjadi kata yg dipahami
@@ -348,3 +382,5 @@ function dateToWord(data) {
 }
 // buat munculin data awal
 showData(data);
+//
+dynamicLabel(data)
