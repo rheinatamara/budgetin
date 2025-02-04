@@ -168,17 +168,13 @@ function filter(event) {
   );
   const transactionUntilDate = document.getElementById("transactionUntilDate");
 
-  let transactionType = "";
-  if (filterTransactionIncome.checked) {
-    transactionType = filterTransactionIncome.value;
-  } else if (filterTransactionExpense.checked) {
-    transactionType = filterTransactionExpense.value;
-  }
+
 
   let object = {};
+  let array = []
+
   if (object === undefined) {
     object["transactionName"] = "";
-    object["transactionType"] = "";
     object["transactionStartFromNominal"] = 0;
     object["transactionUntilNominal"] = 0;
     object["transactionStartFromDate"] = "";
@@ -187,7 +183,17 @@ function filter(event) {
   }
 
   object["transactionName"] = filterTransactionName.value;
-  object["transactionType"] = transactionType;
+
+  if(object['transactionType'] === undefined) {
+    object['transactionType'] = []
+  }
+  if (filterTransactionIncome.checked) {
+    object['transactionType'].push(filterTransactionIncome.value);
+  }
+  
+  if (filterTransactionExpense.checked) {
+    object['transactionType'].push(filterTransactionExpense.value);
+  }
   object["transactionStartFromNominal"] = transactionStartFromNominal.value;
   object["transactionUntilNominal"] = transactionUntilNominal.value;
   object["transactionStartFromDate"] = transactionStartFromDate.value;
