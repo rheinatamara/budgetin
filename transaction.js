@@ -67,6 +67,7 @@ function add(event) {
   let filteredValue = filteringValue(transactionCategoryAndColor)
   let transactionCategory = filteredValue[0];
   let transactionColor = filteredValue[1]
+  const labelDefault = document.getElementById('newLabel')
   
   // ![TODO] buat opsi untuk membuat kategori label yang belum ada
   const transactionNote = document.getElementById("transactionNote");
@@ -77,6 +78,11 @@ function add(event) {
     transactionType = transactionExpense.value;
   } else {
     transactionType = false;
+  }
+
+  if(labelDefault.checked) {
+    transactionCategory = document.getElementById('newLabelCategoryName').value
+    transactionColor = document.getElementById('newLabelCategoryColor').value
   }
 
   if (
@@ -343,7 +349,6 @@ function dynamicLabel(data) {
   // console.log(categoryArray);
   let template = `
   <option selected value="default">Pilih kategori disini</option>
-  <option value="addLabel">Bikin kategori baru</option>
   `;
   for (let b = 0; b < categoryArray.length; b++) {
     let categoryAndColor = categoryArray[b];
