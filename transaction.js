@@ -1,4 +1,5 @@
-import { array } from "./data-source.js";
+import {array} from "./data-source.js";
+import totalBalance from "./data-source.js";
 console.log("ADAAA");
 //[TODO] [FEATURE]: TAMBAHKAN LOCALSTORAGE
 // data awal
@@ -62,14 +63,22 @@ function add(event) {
     object["categoryTransaction"] = transactionCategory;
     object["noteTransaction"] = transactionNote.value;
 
-    data.push(object);
+    let i = totalBalance(data)
+    if(typeof i === 'object') {
+      data.push(object);
+    } else {
+      alert(`Tabungan anda tidak cukup`)
+    }
+    
     hideFormModal();
     showData(data);
   }
 }
 
+
 const buttonAdd = document.getElementById("buttonAddTransaction");
 buttonAdd.addEventListener("click", add);
+
 
 function filteringValue(selectValue) {
   let array = []
