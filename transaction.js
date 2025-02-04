@@ -3,56 +3,6 @@ console.log("ADAAA");
 //[TODO] [FEATURE]: TAMBAHKAN LOCALSTORAGE
 // data awal
 let data = array;
-// let data = [
-//   { id: 'TX-EX-01',
-//     categoryTransaction: "jajan",
-//     dateTransaction: "2025-02-16",
-//     nameTransaction: "ASUS ROG RTX 58000",
-//     nominalTransaction: 28000000,
-//     noteTransaction: "Bjir sultan ",
-//     typeTransaction: "transactionExpense",
-//   },
-//   { id: 'TX-EX-02',
-//     categoryTransaction: "kebutuhan",
-//     dateTransaction: "2015-11-16",
-//     nameTransaction: "Kulkas 5 pintu",
-//     nominalTransaction: 29000000,
-//     noteTransaction: "Mana ada bjir kulkas 5 pintu ",
-//     typeTransaction: "transactionExpense",
-//   },
-//   { id: 'TX-EX-03',
-//     categoryTransaction: "kebutuhan",
-//     dateTransaction: "2015-11-16",
-//     nameTransaction: "Mie ayam ceu dede",
-//     nominalTransaction: 25000,
-//     noteTransaction: "enak beut dah",
-//     typeTransaction: "transactionExpense",
-//   },
-//   { id: 'TX-EX-04',
-//     categoryTransaction: "sedekah",
-//     dateTransaction: "2020-01-16",
-//     nameTransaction: "Sedekah subuh",
-//     nominalTransaction: 2500000,
-//     noteTransaction: "mudah-mudahan Indonesia bebas corona",
-//     typeTransaction: "transactionExpense",
-//   },
-//   { id: 'TX-IN-05',
-//     categoryTransaction: "bonus",
-//     dateTransaction: "2020-01-16",
-//     nameTransaction: "Bonus kantor cair",
-//     nominalTransaction: 2500000,
-//     noteTransaction: "Alhamdulillah cair jugaaaa",
-//     typeTransaction: "transactionIncome",
-//   },
-//   { id: 'TX-IN-06',
-//     categoryTransaction: "bonus",
-//     dateTransaction: "2020-01-16",
-//     nameTransaction: "Bibi ngasih uang banyak",
-//     nominalTransaction: 2500000,
-//     noteTransaction: "Banyak beut",
-//     typeTransaction: "transactionIncome",
-//   },
-// ];
 
 // fungsi untuk menambah data transaksi
 function add(event) {
@@ -219,20 +169,12 @@ function filter(event) {
     object['transactionType'].push(filterTransactionExpense.value);
   }
   object["transactionStartFromNominal"] = Number(transactionStartFromNominal.value);
-  object["transactionUntilNominal"] = Number(transactionUntilNominal.value;)
+  object["transactionUntilNominal"] = Number(transactionUntilNominal.value)
   object["transactionStartFromDate"] = transactionStartFromDate.value;
   object["transactionUntilDate"] = transactionUntilDate.value;
   object["filterTransactionCategory"] = filterTransactionCategory.value;
 
-  console.log(object);
-
-  // console.log(filterTransactionName.value,);
-  // console.log(transactionType);
-  // console.log(transactionStartFromDate.value);
-  // console.log(transactionUntilDate.value);
-  // console.log(transactionStartFromNominal.value);
-  // console.log(transactionUntilNominal.value);
-  // console.log(filterTransactionCategory.value);
+  console.log(object)
 }
 
 const buttonFilter = document.getElementById("transactionFilterButton");
@@ -303,7 +245,6 @@ function showData(data) {
       word = "Pemasukan";
     }
 
-    // console.log(nameTransaction);
     template += `<tr>                  
     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     ${nameTransaction}
@@ -340,7 +281,6 @@ function dynamicLabel(data) {
     categoryArray.push([transactionCategory, colorTransaction]);
   }
 
-  // console.log(categoryArray);
   let template = `
   <option selected value="default">Pilih kategori disini</option>
   `;
@@ -366,16 +306,6 @@ function dynamicLabel(data) {
   categoryFilterContainer.innerHTML = template;
 }
 
-// function newLabel() {
-
-// const labelDefault = document.getElementById('newLabel')
-
-//   console.log(labelDefault.value);
-
-
-
-// }
-// newLabel()
 function label() {
   const labelDefault = document.getElementById('newLabel')
   const newLabelCategoryName = document.getElementById('newLabelCategoryName')
@@ -394,11 +324,7 @@ function label() {
   }
 }
 const labelDefault = document.getElementById('newLabel')
-
 labelDefault.addEventListener('change', label)
-
-
-
 
 // fungsi untuk mengubah format tanggal YYYY-MM-DD menjadi kata yg dipahami
 // data = '2018-09-01'
@@ -445,5 +371,5 @@ function dateToWord(data) {
 }
 // buat munculin data awal
 showData(data);
-//
+// memunculkan kumpulan labe
 dynamicLabel(data)
