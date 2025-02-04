@@ -1,58 +1,8 @@
-import  { array }  from "./data-source.js";
+import { array } from "./data-source.js";
 console.log("ADAAA");
-// [TODO] [FEATURE]: TAMBAHKAN TOMBOL KEMBALI KETIKA DI ADD FORM
+//[TODO] [FEATURE]: TAMBAHKAN LOCALSTORAGE
 // data awal
-let data = array
-// let data = [
-//   { id: 'TX-EX-01',
-//     categoryTransaction: "jajan",
-//     dateTransaction: "2025-02-16",
-//     nameTransaction: "ASUS ROG RTX 58000",
-//     nominalTransaction: 28000000,
-//     noteTransaction: "Bjir sultan ",
-//     typeTransaction: "transactionExpense",
-//   },
-//   { id: 'TX-EX-02',
-//     categoryTransaction: "kebutuhan",
-//     dateTransaction: "2015-11-16",
-//     nameTransaction: "Kulkas 5 pintu",
-//     nominalTransaction: 29000000,
-//     noteTransaction: "Mana ada bjir kulkas 5 pintu ",
-//     typeTransaction: "transactionExpense",
-//   },
-//   { id: 'TX-EX-03',
-//     categoryTransaction: "kebutuhan",
-//     dateTransaction: "2015-11-16",
-//     nameTransaction: "Mie ayam ceu dede",
-//     nominalTransaction: 25000,
-//     noteTransaction: "enak beut dah",
-//     typeTransaction: "transactionExpense",
-//   },
-//   { id: 'TX-EX-04',
-//     categoryTransaction: "sedekah",
-//     dateTransaction: "2020-01-16",
-//     nameTransaction: "Sedekah subuh",
-//     nominalTransaction: 2500000,
-//     noteTransaction: "mudah-mudahan Indonesia bebas corona",
-//     typeTransaction: "transactionExpense",
-//   },
-//   { id: 'TX-IN-05',
-//     categoryTransaction: "bonus",
-//     dateTransaction: "2020-01-16",
-//     nameTransaction: "Bonus kantor cair",
-//     nominalTransaction: 2500000,
-//     noteTransaction: "Alhamdulillah cair jugaaaa",
-//     typeTransaction: "transactionIncome",
-//   },
-//   { id: 'TX-IN-06',
-//     categoryTransaction: "bonus",
-//     dateTransaction: "2020-01-16",
-//     nameTransaction: "Bibi ngasih uang banyak",
-//     nominalTransaction: 2500000,
-//     noteTransaction: "Banyak beut",
-//     typeTransaction: "transactionIncome",
-//   },
-// ];
+let data = array;
 
 // fungsi untuk menambah data transaksi
 function add(event) {
@@ -62,8 +12,11 @@ function add(event) {
   const transactionExpense = document.getElementById("transactionExpense");
   const transactionDate = document.getElementById("transactionDate");
   const transactionNominal = document.getElementById("transactionNominal");
-  const transactionCategory = document.getElementById("transactionCategory");
-  // ![TODO] buat opsi untuk membuat kategori label yang belum ada
+  let transactionCategoryAndColor = document.getElementById("transactionCategory").value;
+  let filteredValue = filteringValue(transactionCategoryAndColor)
+  let transactionCategory = filteredValue[0];
+  let transactionColor = filteredValue[1]
+  const labelDefault = document.getElementById('newLabel')
   const transactionNote = document.getElementById("transactionNote");
   let transactionType = "";
   if (transactionIncome.checked) {
@@ -74,12 +27,17 @@ function add(event) {
     transactionType = false;
   }
 
+  if(labelDefault.checked) {
+    transactionCategory = document.getElementById('newLabelCategoryName').value
+    transactionColor = document.getElementById('newLabelCategoryColor').value
+  }
+
   if (
     transactionName.value.length < 1 ||
     transactionType === false ||
     transactionDate.value.length < 1 ||
     transactionNominal.value.length < 1 ||
-    transactionNote.value.length < 1
+    transactionNote.value.length < 1 || transactionCategory === 'default' || !transactionCategory
   ) {
     return alert(`input jangan kosong!`);
   } else {
@@ -90,6 +48,7 @@ function add(event) {
       object["nameTransaction"] = "";
       object["typeTransaction"] = "";
       object["nominalTransaction"] = 0;
+      object['colorTransaction'] = ''
       object["dateTransaction"] = "";
       object["categoryTransaction"] = "";
       object["noteTransaction"] = "";
@@ -98,8 +57,9 @@ function add(event) {
     object["nameTransaction"] = transactionName.value;
     object["typeTransaction"] = transactionType;
     object["nominalTransaction"] = Number(transactionNominal.value);
+    object['colorTransaction'] = transactionColor
     object["dateTransaction"] = transactionDate.value;
-    object["categoryTransaction"] = transactionCategory.value;
+    object["categoryTransaction"] = transactionCategory;
     object["noteTransaction"] = transactionNote.value;
 
     data.push(object);
@@ -110,6 +70,22 @@ function add(event) {
 
 const buttonAdd = document.getElementById("buttonAddTransaction");
 buttonAdd.addEventListener("click", add);
+
+function filteringValue(selectValue) {
+  let array = []
+  let container = ''
+  for (let a = 0; a <= selectValue.length; a++) {
+      let index = selectValue[a];
+      if(index === '|' || index === undefined) {
+          array.push(container)
+          container = ''
+      } else {
+          container += index
+      }
+  }
+  
+  return array
+}
 
 function generateId(data, transactionType) {
   //cek id
@@ -141,7 +117,6 @@ function generateId(data, transactionType) {
 }
 
 // fungsi untuk memfilter transaksi
-// [TODO]: transactionStartFromNominal sama transactionUntilNominal nya masih string belum number
 function filter(event) {
   event.preventDefault();
   const filterTransactionName = document.getElementById(
@@ -167,17 +142,13 @@ function filter(event) {
   );
   const transactionUntilDate = document.getElementById("transactionUntilDate");
 
-  let transactionType = "";
-  if (filterTransactionIncome.checked) {
-    transactionType = filterTransactionIncome.value;
-  } else if (filterTransactionExpense.checked) {
-    transactionType = filterTransactionExpense.value;
-  }
+
 
   let object = {};
+
+
   if (object === undefined) {
     object["transactionName"] = "";
-    object["transactionType"] = "";
     object["transactionStartFromNominal"] = 0;
     object["transactionUntilNominal"] = 0;
     object["transactionStartFromDate"] = "";
@@ -186,22 +157,24 @@ function filter(event) {
   }
 
   object["transactionName"] = filterTransactionName.value;
-  object["transactionType"] = transactionType;
-  object["transactionStartFromNominal"] = transactionStartFromNominal.value;
-  object["transactionUntilNominal"] = transactionUntilNominal.value;
+
+  if(object['transactionType'] === undefined) {
+    object['transactionType'] = []
+  }
+  if (filterTransactionIncome.checked) {
+    object['transactionType'].push(filterTransactionIncome.value);
+  }
+  
+  if (filterTransactionExpense.checked) {
+    object['transactionType'].push(filterTransactionExpense.value);
+  }
+  object["transactionStartFromNominal"] = Number(transactionStartFromNominal.value);
+  object["transactionUntilNominal"] = Number(transactionUntilNominal.value)
   object["transactionStartFromDate"] = transactionStartFromDate.value;
   object["transactionUntilDate"] = transactionUntilDate.value;
   object["filterTransactionCategory"] = filterTransactionCategory.value;
 
-  console.log(object);
-
-  // console.log(filterTransactionName.value,);
-  // console.log(transactionType);
-  // console.log(transactionStartFromDate.value);
-  // console.log(transactionUntilDate.value);
-  // console.log(transactionStartFromNominal.value);
-  // console.log(transactionUntilNominal.value);
-  // console.log(filterTransactionCategory.value);
+  console.log(object)
 }
 
 const buttonFilter = document.getElementById("transactionFilterButton");
@@ -259,15 +232,12 @@ function showData(data) {
   for (let a = 0; a < array.length; a++) {
     let transactionData = array[a];
     console.log(transactionData);
-    //[TODO] tambahkan id untuk setiap transaksi
     let nameTransaction = transactionData.nameTransaction;
     let nominalTransaction = transactionData.nominalTransaction;
     let dateTransaction = dateToWord(transactionData.dateTransaction);
-    //! [TODO] tampilkan data label dengan yang sudah tersimpan sebelumnya
     let categoryTransaction = transactionData.categoryTransaction;
     let typeTransaction = transactionData.typeTransaction;
-    //! [TODO] data warna pada label belum dinamis
-    let colorTransaction = "yellow";
+    let colorTransaction = transactionData.colorTransaction;
     let word = "";
     if (typeTransaction === "transactionExpense") {
       word = "Pengeluaran";
@@ -275,7 +245,6 @@ function showData(data) {
       word = "Pemasukan";
     }
 
-    // console.log(nameTransaction);
     template += `<tr>                  
     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     ${nameTransaction}
@@ -302,6 +271,60 @@ function showData(data) {
     console.log(array);
   }
 }
+
+function dynamicLabel(data) {
+  let categoryArray = [];
+  for (let a = 0; a < data.length; a++) {
+    let transaction = data[a];
+    let colorTransaction = transaction.colorTransaction;
+    let transactionCategory = transaction.categoryTransaction;
+    categoryArray.push([transactionCategory, colorTransaction]);
+  }
+
+  let template = `
+  <option selected value="default">Pilih kategori disini</option>
+  `;
+  for (let b = 0; b < categoryArray.length; b++) {
+    let categoryAndColor = categoryArray[b];
+    let categoryName = categoryAndColor[0];
+    let categoryColor = categoryAndColor[1];
+    console.log(categoryAndColor);
+
+    template += `
+      
+      <option
+      class="items-center px-3 py-1 rounded-full text-sm font-medium bg-${categoryColor}-100 text-${categoryColor}-800"
+      value="${categoryName}|${categoryColor}"
+      >
+      ${categoryName}
+      </option>
+      `;
+  }
+  let categoryContainer = document.getElementById("transactionCategory");
+  let categoryFilterContainer = document.getElementById("filterTransactionCategory");
+  categoryContainer.innerHTML = template;
+  categoryFilterContainer.innerHTML = template;
+}
+
+function label() {
+  const labelDefault = document.getElementById('newLabel')
+  const newLabelCategoryName = document.getElementById('newLabelCategoryName')
+  const newLabelCategoryColor = document.getElementById('newLabelCategoryColor')
+  const transactionCategory = document.getElementById('transactionCategory')
+  if(labelDefault.checked === true) {
+    transactionCategory.value = 'default';
+    transactionCategory.disabled = true
+    newLabelCategoryName.required = true
+    newLabelCategoryColor.required = true
+  } else {
+    transactionCategory.disabled = false
+    transactionCategory.required = true
+    newLabelCategoryName.disabled = true
+    newLabelCategoryColor.disabled = true
+  }
+}
+const labelDefault = document.getElementById('newLabel')
+labelDefault.addEventListener('change', label)
 
 // fungsi untuk mengubah format tanggal YYYY-MM-DD menjadi kata yg dipahami
 // data = '2018-09-01'
@@ -348,3 +371,5 @@ function dateToWord(data) {
 }
 // buat munculin data awal
 showData(data);
+// memunculkan kumpulan labe
+dynamicLabel(data)
