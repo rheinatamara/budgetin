@@ -296,13 +296,14 @@ function newUser(user, password, array) {
 // console.log(newUser(user, password, resultArray));
 
 //LOGIN STATUS
-let name = "Jane Doe";
-let katakunci = "jaden123";
+let name = "Ahmed";
+let katakunci = "1321321";
 let summarized = transactionSummary(resultArray)
 function loginStatus(summarizedTransaction, user, password) {
   let result = {}
   let userBoolean = false;
   let pwdBoolean = false
+  let word = ''
   for(let a = 0; a < summarizedTransaction.length; a++) {
     let transaction = summarizedTransaction[a]
     let nameUser = transaction.name
@@ -316,26 +317,26 @@ function loginStatus(summarizedTransaction, user, password) {
       pwdBoolean = true
     }
 
+    if (userBoolean === true && pwdBoolean === true ) {
+      word = 'Login berhasil'
+      if(result['data'] === undefined) {
+        result['data'] = transaction
+      }
+    } else if(userBoolean === true || pwdBoolean === true ){
+      word =  'Username atau password salah'
+    } else if(userBoolean === false && pwdBoolean === false) {
+      word =  'Akun belum terdaftar'
+    }
+
   }
-  let word = ''
-  // console.log(userBoolean, pwdBoolean);
-  if (userBoolean === true && pwdBoolean === true ) {
-    word = 'Login berhasil'
-  } else if(userBoolean === true || pwdBoolean === true ){
-    word =  'Username atau password salah'
-  } else if(userBoolean === false && pwdBoolean === false) {
-    word =  'Akun belum terdaftar'
-  }
+
   if(result['statusLogin'] === undefined) {
     result['statusLogin'] = ''
   }
-
   result['statusLogin'] = word
-
   return result
 }
 
 let statusLogin = loginStatus(summarized, name, katakunci)
 console.log(statusLogin);
-
 
