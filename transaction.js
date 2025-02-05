@@ -1,8 +1,8 @@
-import {array, totalBalance} from "./data-source.js";
+import {dataSummary, dataTransaksi} from "./data-source.js";
 console.log("ADAAA");
 //[TODO] [FEATURE]: TAMBAHKAN LOCALSTORAGE
 // data awal
-let data = array;
+let data = dataTransaksi;
 
 // fungsi untuk menambah data transaksi
 function add(event) {
@@ -62,12 +62,13 @@ function add(event) {
     object["categoryTransaction"] = transactionCategory;
     object["noteTransaction"] = transactionNote.value;
 
-    let i = totalBalance(data)
-    if(typeof i === 'object') {
+    let i = dataSummary.totalBalance
+    if(typeof i === 'number') {
       data.push(object);
     } else {
-      alert(`Tabungan anda tidak cukup`)
+      alert(`Tabungan anda tidak cukup, sisa uang anda Rp. ${i}`)
     }
+    console.log(i);
     
     hideFormModal();
     showData(data);
@@ -234,6 +235,10 @@ buttonBack.addEventListener("click", hideFormModal);
 // fungsi untuk memunculkan data transaksi
 function showData(data) {
   let array = data;
+  if(array === undefined) {
+    alert('Data kosong!')
+  } else {
+    //todo: tampilkan transaksi kosong ketika data undefined
   let tableData = document.getElementById("transactionTable");
   let template = "";
 
@@ -293,40 +298,47 @@ function showData(data) {
     tableData.innerHTML = template;
     console.log(array);
   }
+  }
+  
 }
 
 function dynamicLabel(data) {
-  let categoryArray = [];
-  for (let a = 0; a < data.length; a++) {
-    let transaction = data[a];
-    let colorTransaction = transaction.colorTransaction;
-    let transactionCategory = transaction.categoryTransaction;
-    categoryArray.push([transactionCategory, colorTransaction]);
+  if(data === undefined) {
+    alert(`Data label kosong!`)
+  } else {
+    let categoryArray = [];
+    for (let a = 0; a < data.length; a++) {
+      let transaction = data[a];
+      let colorTransaction = transaction.colorTransaction;
+      let transactionCategory = transaction.categoryTransaction;
+      categoryArray.push([transactionCategory, colorTransaction]);
+    }
+  
+    let template = `
+    <option selected value="default">Pilih kategori disini</option>
+    `;
+    for (let b = 0; b < categoryArray.length; b++) {
+      let categoryAndColor = categoryArray[b];
+      let categoryName = categoryAndColor[0];
+      let categoryColor = categoryAndColor[1];
+      console.log(categoryAndColor);
+  
+      template += `
+        
+        <option
+        class="items-center px-3 py-1 rounded-full text-sm font-medium bg-${categoryColor}-100 text-${categoryColor}-800"
+        value="${categoryName}|${categoryColor}"
+        >
+        ${categoryName}
+        </option>
+        `;
+    }
+    let categoryContainer = document.getElementById("transactionCategory");
+    let categoryFilterContainer = document.getElementById("filterTransactionCategory");
+    categoryContainer.innerHTML = template;
+    categoryFilterContainer.innerHTML = template;
   }
 
-  let template = `
-  <option selected value="default">Pilih kategori disini</option>
-  `;
-  for (let b = 0; b < categoryArray.length; b++) {
-    let categoryAndColor = categoryArray[b];
-    let categoryName = categoryAndColor[0];
-    let categoryColor = categoryAndColor[1];
-    console.log(categoryAndColor);
-
-    template += `
-      
-      <option
-      class="items-center px-3 py-1 rounded-full text-sm font-medium bg-${categoryColor}-100 text-${categoryColor}-800"
-      value="${categoryName}|${categoryColor}"
-      >
-      ${categoryName}
-      </option>
-      `;
-  }
-  let categoryContainer = document.getElementById("transactionCategory");
-  let categoryFilterContainer = document.getElementById("filterTransactionCategory");
-  categoryContainer.innerHTML = template;
-  categoryFilterContainer.innerHTML = template;
 }
 
 function label() {

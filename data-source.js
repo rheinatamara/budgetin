@@ -96,29 +96,6 @@ export function totalBalance(dataSourceArray) {
   }
 }
 
-// console.log(totalBalance(array));
-
-// let login_db = [
-//   {
-//     name: "John Doe",
-//     password: "johnd03",
-//     transactionData: [
-//       {
-//         id: "TX-EX-01",
-//         categoryTransaction: "jajan JOHN",
-//         colorTransaction: "blue",
-//         dateTransaction: "2025-02-16",
-//         nameTransaction: "ASUS ROG RTX 58000",
-//         nominalTransaction: 20_000_000,
-//         noteTransaction: "Bjir sultan ",
-//         typeTransaction: "transactionExpense",
-//       },
-//     ],
-//     transactionBudgetData: [],
-//   },
-
-// ];
-// console.log(login_db);
 
 let resultArray = [
   {
@@ -136,11 +113,21 @@ let resultArray = [
         typeTransaction: "transactionExpense",
       },
       {
+        id: "TX-EX-07",
+        categoryTransaction: "jajan",
+        colorTransaction: "blue",
+        dateTransaction: "2025-02-16",
+        nameTransaction: "Ahmed Beli Bubur",
+        nominalTransaction: 20_000,
+        noteTransaction: "enak beut",
+        typeTransaction: "transactionExpense",
+      },
+      {
         id: "TX-EX-02",
         categoryTransaction: "kebutuhan",
         colorTransaction: "yellow",
         dateTransaction: "2015-11-16",
-        nameTransaction: "Kulkas 5 pintu",
+        nameTransaction: "Ahmed beli kulkas 5 pintu",
         nominalTransaction: 2_000_000,
         noteTransaction: "Mana ada bjir kulkas 5 pintu ",
         typeTransaction: "transactionExpense",
@@ -296,8 +283,8 @@ function newUser(user, password, array) {
 // console.log(newUser(user, password, resultArray));
 
 //LOGIN STATUS
-let name = "Ahmed";
-let katakunci = "1321321";
+let name = "darius";
+let katakunci = "0909";
 let summarized = transactionSummary(resultArray)
 function loginStatus(summarizedTransaction, user, password) {
   let result = {}
@@ -338,5 +325,8 @@ function loginStatus(summarizedTransaction, user, password) {
 }
 
 let statusLogin = loginStatus(summarized, name, katakunci)
-console.log(statusLogin);
+export let dataTransaksi = statusLogin.data.transactionData
+export let dataSummary = statusLogin.data.transactionSummary
+console.log(dataSummary);
 
+// console.log(dataTransaksi);
