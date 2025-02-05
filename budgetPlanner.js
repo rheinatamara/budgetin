@@ -75,6 +75,7 @@ function formatDate(date) {
   const year = date.getFullYear();
   return `${year}-${month}-${day}`;
 }
+
 function calculateRemainingDays(endDate) {
   let today = new Date(); 
   let targetDate = new Date(endDate); 
@@ -91,21 +92,38 @@ function formatIDR(num){
 }
 function addSavings(amount, data) { 
   data.totalSaved += amount;
-  data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount });
-  data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
-  data.remainingAmount = data.goalAmount - data.totalSaved
-  if (data.percentage > 100) {
-    data.percentage = 100;
-  } 
- for(let goal of goalData){
-  if(goal.id === data.id){
-    goal = data
-    break
+  if (data.totalSaved > data.goalAmount) {
+      data.totalSaved = data.goalAmount;
+      data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount: data.remainingAmount });
+      data.remainingAmount = 0
+      data.percentage = 100;
+
+  } else {
+    data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount });
+    data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
+    data.remainingAmount = data.goalAmount - data.totalSaved
+    data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
   }
- }
- localStorage.setItem("goalData", JSON.stringify(goalData));
+  for (let goal of goalData) {
+    if (goal.id === data.id) {
+      goal = data;
+      break;
+    }
+  }
+  localStorage.setItem("goalData", JSON.stringify(goalData));
+  updateUI(data);
+  return data;
+
+}
+function filterHistory(arr,id,data){ 
+  let output = []
+  for(let item of arr){
+    if(item.id !== id){
+      output.push(item)
+    }
+  }
   updateUI(data)
-  return data
+  return output
 }
 function historyData(data){ //{focusedData}
   const parentList = document.querySelector("#savings-list")
@@ -114,26 +132,60 @@ function historyData(data){ //{focusedData}
     let sorted = (data.savingsHistory).sort(function(a, b) { 
       return Number(b.id) - Number(a.id);
     });
-    console.log(sorted, '<<')
     for(let savings of sorted){
       parentList.innerHTML += `
       <li class="pb-3 sm:pb-4">
-      <div class="flex items-center space-x-4 rtl:space-x-reverse">
-        <div class="flex-1 min-w-0">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+          <div class="flex-1 min-w-0">
             <p class="text-sm text-gray-500 truncate">Incoming Budget</p>
             <p class="text-base font-bold text-gray-900 truncate">${formatIDR(savings.amount)}</p>
+          </div>
+          <div class="inline-flex items-center space-x-2">
+            <button class="deleteButton" data-id="${savings.id}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="black" class="w-5 h-5">
+                <path d="M170.5 51.6L151.5 80l145 0-19-28.4c-1.5-2.2-4-3.6-6.7-3.6l-93.7 0c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80 368 80l48 0 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-8 0 0 304c0 44.2-35.8 80-80 80l-224 0c-44.2 0-80-35.8-80-80l0-304-8 0c-13.3 0-24-10.7-24-24S10.7 80 24 80l8 0 48 0 13.8 0 36.7-55.1C140.9 9.4 158.4 0 177.1 0l93.7 0c18.7 0 36.2 9.4 46.6 24.9zM80 128l0 304c0 17.7 14.3 32 32 32l224 0c17.7 0 32-14.3 32-32l0-304L80 128zm80 64l0 208c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-208c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0l0 208c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-208c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0l0 208c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-208c0-8.8 7.2-16 16-16s16 7.2 16 16z"/>
+              </svg>
+            </button>
+          </div>
         </div>
-        <div class="inline-flex items-center space-x-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="black" class="w-5 h-5">
-                <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z"/>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="black" class="w-5 h-5"><path d="M170.5 51.6L151.5 80l145 0-19-28.4c-1.5-2.2-4-3.6-6.7-3.6l-93.7 0c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80 368 80l48 0 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-8 0 0 304c0 44.2-35.8 80-80 80l-224 0c-44.2 0-80-35.8-80-80l0-304-8 0c-13.3 0-24-10.7-24-24S10.7 80 24 80l8 0 48 0 13.8 0 36.7-55.1C140.9 9.4 158.4 0 177.1 0l93.7 0c18.7 0 36.2 9.4 46.6 24.9zM80 128l0 304c0 17.7 14.3 32 32 32l224 0c17.7 0 32-14.3 32-32l0-304L80 128zm80 64l0 208c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-208c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0l0 208c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-208c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0l0 208c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-208c0-8.8 7.2-16 16-16s16 7.2 16 16z"/></svg>
-        </div>
-        </div>
-        
-        </li>
-      `;
+      </li>
+    `;
+      
     }
+    const deleteButtons = document.querySelectorAll(".deleteButton");
+    for(let button of deleteButtons){
+      button.addEventListener("click", function(e){
+        e.preventDefault()
+        const savingsHistory = data.savingsHistory
+        const savingsId = Number(button.getAttribute('data-id')); 
+        for(let item of savingsHistory){
+          if(item.id === savingsId){
+            let amount = item.amount
+            data.remainingAmount += amount
+            let filtered =  filterHistory(savingsHistory,savingsId,data)
+            data.savingsHistory = filtered
+            data.totalSaved = data.totalSaved - amount;
+            data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
+          localStorage.setItem("goalData", JSON.stringify(goalData));  
+          updateUI(data)
+          }
+        }
+
+      })
+    }
+    const totalItem = document.createElement('li');
+    totalItem.classList.add('pt-3', 'pb-0', 'sm:pt-4');
+    totalItem.innerHTML = `
+      <div class="flex flex-row justify-between">
+        <div class="inline-flex items-center space-x-2">
+          <p class="text-xl font-bold text-gray-900 truncate">${formatIDR(data.totalSaved)} <span class="font-normal text-xl text-gray-400">of ${formatIDR(data.goalAmount)}</span></p>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-xl font-bold text-gray-900 truncate text-end">Total</p>
+        </div>
+      </div>
+    `;
+    parentList.appendChild(totalItem);
    
   }
 
@@ -150,13 +202,24 @@ function updateUI(data) {
   const progressBar = document.querySelector('#progressBar');
   const remainingDays = document.querySelector('#remainingDays');
   const goalName = document.querySelector('#goalName');
+  const totalSavings = document.querySelector('#totalSavings');
   if (data) {
+      let total = 0
+      for(let item of goalData){
+        if(item.savingsHistory.length){
+          for(let saving of item.savingsHistory){
+            total += saving.amount
+          }
+        }
+      }
       remainingAmount.textContent = formatIDR(data.remainingAmount);
+      totalSavings.textContent = formatIDR(total);
       progressBar.style.width = `${data.percentage}%`;
       progressBar.textContent = `${data.percentage}%`;
       remainingDays.textContent = `${data.remainingDays} days left`;
       goalName.textContent = `${data.budgetName}`
       showDataCards(goalData)
+      historyData(focusedItem(goalData))
   }
 }
 const parentCard = document.querySelector('#grid-cards');
@@ -286,6 +349,7 @@ function render() {
       updateUI(focused);
       showDataCards(goalData)
   }
+  // klik more detail button
   parentCard.addEventListener("click", function (e) {
     if (e.target.classList.contains("detailButton")) {
       const id = Number(e.target.getAttribute("data-id"));
