@@ -61,7 +61,7 @@ export let array = [
   },
 ];
 
-export default function totalBalance(dataSourceArray) {
+export function totalBalance(dataSourceArray) {
   let result = {};
   let totalBalance = 0;
   let totalIncome = 0;

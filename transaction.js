@@ -1,5 +1,4 @@
-import {array} from "./data-source.js";
-import totalBalance from "./data-source.js";
+import {array, totalBalance} from "./data-source.js";
 console.log("ADAAA");
 //[TODO] [FEATURE]: TAMBAHKAN LOCALSTORAGE
 // data awal
