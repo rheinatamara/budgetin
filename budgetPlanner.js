@@ -93,9 +93,17 @@ function addSavings(amount, data) {
   data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount });
   data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
   data.remainingAmount = data.goalAmount - data.totalSaved
+  data.savingsHistory.push(amount)
   if (data.percentage > 100) {
     data.percentage = 100;
   } 
+ for(let goal of goalData){
+  if(goal.id === data.id){
+    goal = data
+    break
+  }
+ }
+ localStorage.setItem("goalData", JSON.stringify(goalData));
   updateUI(data)
   return data
 }
