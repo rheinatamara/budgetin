@@ -239,7 +239,8 @@ function showData(data) {
 
   for (let a = 0; a < array.length; a++) {
     let transactionData = array[a];
-    console.log(transactionData);
+    console.log(transactionData, "data");
+    let id = transactionData.id
     let nameTransaction = transactionData.nameTransaction;
     let nominalTransaction = transactionData.nominalTransaction;
     let dateTransaction = dateToWord(transactionData.dateTransaction);
@@ -253,8 +254,8 @@ function showData(data) {
       word = "Pemasukan";
     }
 
-    template += `<tr>                  
-    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+    template += `<tr id="${id}">                  
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
                     ${nameTransaction}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -273,6 +274,20 @@ function showData(data) {
                       ${categoryTransaction}
                     </div>
                   </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <button
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
+                  id="deleteBtn"
+                  >
+                    Hapus
+                  </button>
+                  <button
+                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                  id="editBtn"
+                  >
+                    Edit
+                  </button>
+                </td>
                 </tr>
     `;
     tableData.innerHTML = template;
