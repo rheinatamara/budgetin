@@ -88,22 +88,40 @@ function formatIDR(num){
     currency: "IDR"
   }).format(num);
 }
-function addIncome(data, amount) { 
+function addSavings(amount, data) { 
   data.totalSaved += amount;
   data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount });
-  data.percentage = ((data.totalSaved / data.goalAmount) * 100);
+  data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
   data.remainingAmount = data.goalAmount - data.totalSaved
   if (data.percentage > 100) {
     data.percentage = 100;
-  }
+  } 
+  updateUI(data)
   return data
 }
+function historyData(data){ //{focusedData}
+  
 
+}
 function focusedItem(arr){ 
   for(let data of arr){
     if(data["selected"]){
       return data
     }
+  }
+}
+function updateUI(data) {
+  const remainingAmount = document.querySelector('#remainingAmount');
+  const progressBar = document.querySelector('#progressBar');
+  const remainingDays = document.querySelector('#remainingDays');
+  const goalName = document.querySelector('#goalName');
+  if (data) {
+      remainingAmount.textContent = formatIDR(data.remainingAmount);
+      progressBar.style.width = `${data.percentage}%`;
+      progressBar.textContent = `${data.percentage}%`;
+      remainingDays.textContent = `${data.remainingDays} days left`;
+      goalName.textContent = `${data.budgetName}`
+      showDataCards(goalData)
   }
 }
 const parentCard = document.querySelector('#grid-cards');
@@ -136,7 +154,7 @@ function showDataCards(arr) {
 }
 
 // DOM Manipulation
-document.addEventListener('DOMContentLoaded', function () {
+function render() {
   const startDateInput = document.querySelector('#datepicker-range-start');
   const endDateInput = document.querySelector('#datepicker-range-end');
   if (startDateInput) {
@@ -155,7 +173,16 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       
   });
-    document.querySelector("form").addEventListener("submit", function (e) {
+  const addSavingsData = document.querySelector("#historySavings")
+  addSavingsData.querySelector("form").addEventListener("submit", function(e){
+    e.preventDefault()
+    let data = focusedItem(goalData) ;
+    const savingsAmount = Number(document.querySelector("#savings-input").value)
+    addSavings(savingsAmount,data)
+    document.querySelector("#savings-input").value = ''
+  })
+  const addNewForm = document.querySelector("#addNewForm");
+    addNewForm.querySelector("form").addEventListener("submit", function (e) {
       e.preventDefault();
       if(goalData.length !== 0) {
         for(let data of goalData){
@@ -163,8 +190,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         const budgetData = {
           id: goalData.length + 1,
-          budgetName: document.querySelector("#first_name").value,
-          category: document.querySelector("#budget_name").value,
+          budgetName: document.querySelector("#budget_name").value,
+          category: document.querySelector("#category_name").value,
           startDate: document.querySelector("#datepicker-range-start").value,
           endDate: document.querySelector("#datepicker-range-end").value,
           goalAmount: Number(document.querySelector("#currency-input").value),
@@ -178,8 +205,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
       goalData.push(budgetData) 
       localStorage.setItem('goalData', JSON.stringify(goalData));
-      document.querySelector("#first_name").value = '';
-      document.querySelector("#budget_name").value = 'Choose a category';
+      document.querySelector("#budget_name").value = '';
+      document.querySelector("#category_name").value = 'Choose a category';
       document.querySelector("#datepicker-range-start").value = formatDate(new Date());
       document.querySelector("#datepicker-range-end").value = '';
       document.querySelector("#currency-input").value = '';
@@ -189,8 +216,8 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         const budgetData = {
           id: goalData.length + 1,
-          budgetName: document.querySelector("#first_name").value,
-          category: document.querySelector("#budget_name").value,
+          budgetName: document.querySelector("#budget_name").value,
+          category: document.querySelector("#category_name").value,
           startDate: document.querySelector("#datepicker-range-start").value,
           endDate: document.querySelector("#datepicker-range-end").value,
           goalAmount: Number(document.querySelector("#currency-input").value),
@@ -204,8 +231,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
       goalData.push(budgetData) 
       localStorage.setItem('goalData', JSON.stringify(goalData));
-      document.querySelector("#first_name").value = '';
-      document.querySelector("#budget_name").value = 'Choose a category';
+      document.querySelector("#budget_name").value = '';
+      document.querySelector("#category_name").value = 'Choose a category';
       document.querySelector("#datepicker-range-start").value = formatDate(new Date());
       document.querySelector("#datepicker-range-end").value = '';
       document.querySelector("#currency-input").value = '';
@@ -213,26 +240,12 @@ document.addEventListener('DOMContentLoaded', function () {
           updateUI(data)
           showDataCards(goalData)
 
-      }
-      
-          
+      }          
     });
-    function updateUI(data) {
-      const remainingAmount = document.querySelector('#remainingAmount');
-      const progressBar = document.querySelector('#progressBar');
-      const remainingDays = document.querySelector('#remainingDays');
-      const goalName = document.querySelector('#goalName');
-      if (data) {
-          remainingAmount.textContent = formatIDR(data.remainingAmount);
-          progressBar.style.width = `${data.percentage}%`;
-          progressBar.textContent = `${data.percentage}%`;
-          remainingDays.textContent = `${data.remainingDays} days left`;
-          goalName.textContent = `${data.budgetName}`
-          showDataCards(goalData)
-      }
-  }
   if (goalData.length > 0) {
-      updateUI(focusedItem(goalData));
+      let focused = focusedItem(goalData)
+      historyData(focused)
+      updateUI(focused);
       showDataCards(goalData)
   }
   parentCard.addEventListener("click", function (e) {
@@ -264,4 +277,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
  
-});
+
+}
+render()
