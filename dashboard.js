@@ -123,6 +123,11 @@ const options = {
   let datas = JSON.parse(localStorage.getItem('LOGIN'))
   let goalData = datas.data.transactionBudgetData // empty array
   let usersTotalBalance = datas.data.transactionSummary.totalBalance
+  let usersTotalExpense = datas.data.transactionSummary.totalExpense
+  let usersTotalIncome = datas.data.transactionSummary.totalIncome
+  const totalIncome = document.querySelector('#totalIncome');
+  const totalBalance = document.querySelector('#totalBalance');
+  const totalExpense = document.querySelector('#totalExpense');
   const remainingSection = document.querySelector("#remainingSection")
   function formatIDR(num){
     return new Intl.NumberFormat("id-ID", {
@@ -131,13 +136,15 @@ const options = {
       maximumFractionDigits: 0,
     }).format(num);
   }
-  // let usersTotalBalance = datas.data.transactionSummary.totalBalance
   function render(){
     if(goalData.length > 0){
       for(let data of goalData){
         if(data.selected){
           remainingSection.innerHTML = `
-              <h1 class="text-black-900 mb-6 mt-10">${data.budgetName}</h1>
+              <h1 class="text-black-900 mb-6 mt-10" style="
+              font-size: 2rem;
+              font-weight: 500;
+          ">${data.budgetName}</h1>
               <div class="bg-white rounded-lg shadow-sm p-6 relative">
                 <div class="p-4">
                   <h3 class="text-gray-500 text-sm text-center">Tersisa</h3>
@@ -158,6 +165,9 @@ const options = {
         }
       }
     }
+    totalBalance.textContent = formatIDR(usersTotalBalance);
+    totalExpense.textContent = formatIDR(usersTotalExpense);
+    totalIncome.textContent = formatIDR(usersTotalIncome);
 
   }
   render()
