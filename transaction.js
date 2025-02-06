@@ -1,5 +1,5 @@
 import {dataSummary, statusLogin} from "./data-source.js";
-console.log("ADAAA");
+// console.log("ADAAA");
 //[TODO] [FEATURE]: TAMBAHKAN LOCALSTORAGE
 // data awal
 let SESSION_LOGIN_KEY = `SESSION_LOGIN-${statusLogin.data.name}`
@@ -81,7 +81,7 @@ function add(event) {
     } else {
       alert(`Tabungan anda tidak cukup, sisa uang anda Rp. ${i}`)
     }
-    console.log(i);
+    // console.log(i);
     
     hideFormModal();
     showData(data);
@@ -112,7 +112,7 @@ function filteringValue(selectValue) {
 function generateId(data, transactionType) {
   //cek id
   let num = 0;
-  console.log(data.length);
+  // console.log(data.length);
   if (data.length < 1) {
     num = 1;
   } else {
@@ -132,7 +132,7 @@ function generateId(data, transactionType) {
   if (num < 10) {
     num = "0" + num;
   }
-  console.log(num);
+  // console.log(num);
 
   let newID = `TX-${code}-${num}`;
   return newID;
@@ -196,7 +196,7 @@ function filter(event) {
   object["transactionUntilDate"] = transactionUntilDate.value;
   object["filterTransactionCategory"] = filterTransactionCategory.value;
 
-  console.log(object)
+  // console.log(object)
 }
 
 const buttonFilter = document.getElementById("transactionFilterButton");
@@ -206,7 +206,7 @@ buttonFilter.addEventListener("click", filter);
 // fungsi untuk menampilkan (formulir tambah transaksi dan tombol kembali) dan menghilangkan ( tabel transaksi dan tombol add)
 function showModalAddForm(event) {
   event.preventDefault();
-  console.log(`clicked!`);
+  // console.log(`clicked!`);
 
   const formTransaction = document.getElementById("addFormTransaction");
   const sidebarAndTable = document.getElementById("transactionDataSidebar");
@@ -257,7 +257,7 @@ function showData(data) {
 
   for (let a = 0; a < array.length; a++) {
     let transactionData = array[a];
-    console.log(transactionData, "data");
+    // console.log(transactionData, "data");
     let id = transactionData.id
     let nameTransaction = transactionData.nameTransaction;
     let nominalTransaction = transactionData.nominalTransaction;
@@ -309,7 +309,7 @@ function showData(data) {
                 </tr>
     `;
     tableData.innerHTML = template;
-    console.log(array);
+    // console.log(array);
   }
   }
   
@@ -334,7 +334,7 @@ function dynamicLabel(data) {
       let categoryAndColor = categoryArray[b];
       let categoryName = categoryAndColor[0];
       let categoryColor = categoryAndColor[1];
-      console.log(categoryAndColor);
+      // console.log(categoryAndColor);
   
       template += `
         
