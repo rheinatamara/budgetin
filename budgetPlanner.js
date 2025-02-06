@@ -137,7 +137,7 @@ function historyData(data){ //{focusedData}
       <li class="pb-3 sm:pb-4">
         <div class="flex items-center space-x-4 rtl:space-x-reverse">
           <div class="flex-1 min-w-0">
-            <p class="text-sm text-gray-500 truncate">Incoming Budget</p>
+            <p class="text-sm text-gray-500 pb-2 truncate">Anggaran Masuk</p>
             <p class="text-base font-bold text-gray-900 truncate">${formatIDR(savings.amount)}</p>
           </div>
           <div class="inline-flex items-center space-x-2">
@@ -178,7 +178,7 @@ function historyData(data){ //{focusedData}
     totalItem.innerHTML = `
       <div class="flex flex-row justify-between">
         <div class="inline-flex items-center space-x-2">
-          <p class="text-xl font-bold text-gray-900 truncate">${formatIDR(data.totalSaved)} <span class="font-normal text-xl text-gray-400">of ${formatIDR(data.goalAmount)}</span></p>
+          <p class="text-xl font-bold text-gray-900 truncate">${formatIDR(data.totalSaved)} <span class="font-normal text-xl text-gray-400">dari ${formatIDR(data.goalAmount)}</span></p>
         </div>
         <div class="flex-1 min-w-0">
           <p class="text-xl font-bold text-gray-900 truncate text-end">Total</p>
@@ -216,7 +216,7 @@ function updateUI(data) {
       totalSavings.textContent = formatIDR(total);
       progressBar.style.width = `${data.percentage}%`;
       progressBar.textContent = `${data.percentage}%`;
-      remainingDays.textContent = `${data.remainingDays} days left`;
+      remainingDays.textContent = `tinggal ${data.remainingDays} hari lagi`;
       goalName.textContent = `${data.budgetName}`
       showDataCards(goalData)
       historyData(focusedItem(goalData))
