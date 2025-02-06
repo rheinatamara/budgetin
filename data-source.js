@@ -62,9 +62,8 @@ export let array = [
 ];
 
 export function totalBalance(dataSourceArray) {
-  if (dataSourceArray === undefined) {
-    return `data kosong`
-  } else {
+
+
     let result = {};
   let totalBalance = 0;
   let totalIncome = 0;
@@ -97,7 +96,7 @@ export function totalBalance(dataSourceArray) {
   } else {
     return `Harap cek kembali tabungan anda, transaksi tidak mencukupi`;
   }
-  }
+
   
 }
 
@@ -181,8 +180,8 @@ let resultArray = [
     transactionBudgetData: [],
   },
   {
-    name: "darius",
-    password: "0909",
+    name: "darius@gmail.com",
+    password: "pass123",
     transactionData: [
       {
         id: "TX-EX-01",
@@ -258,9 +257,8 @@ let resultArray = [
 
 //MENYATUKAN TRANSACTION SUMMARY DGN OBJEK
 function transactionSummary(dataSource) {
-  if(dataSource === undefined) {
-    return `data kosong`
-  } else {
+
+
     for(let a = 0; a < dataSource.length; a++) {
       let count = totalBalance(dataSource[a].transactionData)
       // console.log(count);
@@ -270,7 +268,7 @@ function transactionSummary(dataSource) {
     }
     
     return resultArray;
-  }
+
 
 }
 //USER BARU
@@ -293,8 +291,10 @@ function newUser(user, password, array) {
 // console.log(newUser(user, password, resultArray));
 
 //LOGIN STATUS
-let name = "user@example.com";
-let katakunci = "password123";
+let name = "darius@gmail.com";
+let katakunci = "pass123";
+// let name = "user@example.com";
+// let katakunci = "password123";
 let summarized = transactionSummary(resultArray)
 
 function loginStatus(summarizedTransaction, user, password) {
@@ -302,9 +302,7 @@ function loginStatus(summarizedTransaction, user, password) {
   let userBoolean = false;
   let pwdBoolean = false
   let word = ''
-  if (summarizedTransaction === undefined) {
-    return `data kosong`
-  } else {
+
     for(let a = 0; a < summarizedTransaction.length; a++) {
       let transaction = summarizedTransaction[a]
       let nameUser = transaction.name
@@ -338,12 +336,12 @@ function loginStatus(summarizedTransaction, user, password) {
     return result
   }
 
-}
+
 
 export let statusLogin = loginStatus(summarized, name, katakunci)
-export let dataTransaksi = statusLogin.data.transactionData
-export let dataSummary = statusLogin.data.transactionSummary
-// console.log(statusLogin);
+// export let dataTransaksi = statusLogin.data.transactionData
+// export let dataSummary = statusLogin.data.transactionSummary
+console.log(statusLogin);
 
 // console.log(dataTransaksi);
 let DATABASE = `DATABASE`
@@ -368,6 +366,7 @@ let summarizedFromLocalStorage = transactionSummary(data)
 // console.log(summarizedFromLocalStorage);
 // console.log(summarizedFromLocalStorage);
 let login = loginStatus(summarizedFromLocalStorage, name, katakunci)
+// console.log(login);
 export let LOGIN_DATA = `LOGIN-${login.data.name}`
 let loginStringify = JSON.stringify(login)
 function addLoginData () {
