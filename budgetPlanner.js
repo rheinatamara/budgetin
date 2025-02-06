@@ -405,6 +405,7 @@ function render() {
         historyData(selectedItem)
         updateUI(selectedItem);
         showDataCards(goalData);
+        localStorage.setItem('LOGIN', JSON.stringify(datas));
       }
     }
   });
