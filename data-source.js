@@ -434,6 +434,8 @@ location.href = './dashboard.html'
 }
 
 let button = document.getElementById('loginButton')
-button.addEventListener('click', function() {
-  loginData()
+window.addEventListener('DOMContentLoaded', function () {
+  button.addEventListener('click', function() {
+    loginData()
+  })
 })
