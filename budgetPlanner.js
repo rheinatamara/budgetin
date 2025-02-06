@@ -305,7 +305,7 @@ function render() {
       goalData.push(budgetData) 
       localStorage.setItem('goalData', JSON.stringify(goalData));
       document.querySelector("#budget_name").value = '';
-      document.querySelector("#category_name").value = 'Choose a category';
+      document.querySelector("#category_name").selectedIndex = 0
       document.querySelector("#datepicker-range-start").value = formatDate(new Date());
       document.querySelector("#datepicker-range-end").value = '';
       document.querySelector("#currency-input").value = '';
@@ -332,7 +332,7 @@ function render() {
       goalData.push(budgetData) 
       localStorage.setItem('goalData', JSON.stringify(goalData));
       document.querySelector("#budget_name").value = '';
-      document.querySelector("#category_name").value = 'Choose a category';
+      document.querySelector("#category_name").selectedIndex = 0
       document.querySelector("#datepicker-range-start").value = formatDate(new Date());
       document.querySelector("#datepicker-range-end").value = '';
       document.querySelector("#currency-input").value = '';
