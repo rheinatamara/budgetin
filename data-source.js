@@ -324,7 +324,7 @@ function loginStatus(summarizedTransaction, user, password) {
   return result
 }
 
-let statusLogin = loginStatus(summarized, name, katakunci)
+export let statusLogin = loginStatus(summarized, name, katakunci)
 export let dataTransaksi = statusLogin.data.transactionData
 export let dataSummary = statusLogin.data.transactionSummary
 console.log(dataSummary);
