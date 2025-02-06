@@ -190,6 +190,17 @@ function historyData(data){ //{focusedData}
   }
 
 }
+// function filterBudget(id){
+//   let output = []
+//   for(let eachData of goalData){
+//     if(eachData.id !== id){
+//       output.push(eachData)
+//     } 
+// console.log(eachData);
+//   }
+//   localStorage.setItem("goalData", JSON.stringify(output)); 
+// console.log(output);
+// }
 function focusedItem(arr){ 
   for(let data of arr){
     if(data["selected"]){
@@ -198,11 +209,8 @@ function focusedItem(arr){
   }
 }
 function updateUI(data) {
-  const remainingAmount = document.querySelector('#remainingAmount');
-  const progressBar = document.querySelector('#progressBar');
-  const remainingDays = document.querySelector('#remainingDays');
-  const goalName = document.querySelector('#goalName');
   const totalSavings = document.querySelector('#totalSavings');
+  const remainingSection = document.querySelector("#remainingSection")
   if (data) {
       let total = 0
       for(let item of goalData){
@@ -212,19 +220,52 @@ function updateUI(data) {
           }
         }
       }
-      remainingAmount.textContent = formatIDR(data.remainingAmount);
+      remainingSection.innerHTML = `
+      <h1 id="goalName" class="text-black-900 text-3xl mb-4 mt-10 font-semibold">${data.budgetName}</h1>
+      <div class="bg-white rounded-lg shadow-sm p-6 relative">
+
+
+        <div class="p-4">
+          <h3 class="text-gray-500 text-sm text-center">Tersisa</h3>
+          <p id="remainingAmount" class="text-4xl font-bold text-center text-gray-900 py-2">${formatIDR(data.remainingAmount)}</p>
+          <p id="remainingDays" class="text-gray-600 text-center text-sm">tinggal ${data.remainingDays} hari lagi</p>
+        </div>
+
+        <div class="w-full bg-gray-200 rounded-full mt-2">
+          <div id="progressBar" class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: ${data.percentage}%">${data.percentage}%</div>
+        </div>
+
+        <span class="text-xs text-gray-500 mt-1 block text-center pt-4">Hari ini</span>
+      </div>
+    
+ `
+      // const deleteButtons = document.querySelectorAll(".deleteBudget");
+      // for(let button of deleteButtons){
+      //   button.addEventListener("click", function(e){
+      //     e.preventDefault()
+      //     const dataId = Number(button.getAttribute('data-id')); 
+      //     filterBudget(dataId)
+          
+
+      //   })
+      // }
       totalSavings.textContent = formatIDR(total);
-      progressBar.style.width = `${data.percentage}%`;
-      progressBar.textContent = `${data.percentage}%`;
-      remainingDays.textContent = `tinggal ${data.remainingDays} hari lagi`;
-      goalName.textContent = `${data.budgetName}`
+      
       showDataCards(goalData)
       historyData(focusedItem(goalData))
   }
 }
+const dreamSection = document.querySelector("#dreamSection")
 const parentCard = document.querySelector('#grid-cards');
 function showDataCards(arr) {
   parentCard.innerHTML = '';
+  if(goalData.length > 1){
+    dreamSection.innerHTML=
+    `
+    <div> <h1 class="text-black-900 text-3xl mb-6 mt-10 font-semibold">Impianmu yang lain</h1>
+    </div>
+    `
+  }
   for (let data of arr) {
     if (!data["selected"]) {
       parentCard.innerHTML += `
@@ -271,6 +312,7 @@ function render() {
       }
       
   });
+
   const addSavingsData = document.querySelector("#historySavings")
   addSavingsData.querySelector("form").addEventListener("submit", function(e){
     e.preventDefault()
@@ -343,12 +385,14 @@ function render() {
 
       }          
     });
-  if (goalData.length > 0) {
-      let focused = focusedItem(goalData)
-      historyData(focused)
-      updateUI(focused);
-      showDataCards(goalData)
-  }
+   
+      if (goalData.length > 0) {
+        let focused = focusedItem(goalData);
+        historyData(focused);
+        updateUI(focused);
+        showDataCards(goalData);
+      } 
+    
   // klik more detail button
   parentCard.addEventListener("click", function (e) {
     if (e.target.classList.contains("detailButton")) {
