@@ -148,7 +148,7 @@ let resultArray = [
         colorTransaction: "cyan",
         dateTransaction: "2020-01-16",
         nameTransaction: "Sedekah subuh",
-        nominalTransaction: 25_000_000_000,
+        nominalTransaction: 25_000_000,
         noteTransaction: "mudah-mudahan Indonesia bebas corona",
         typeTransaction: "transactionExpense",
       },
@@ -327,6 +327,40 @@ function loginStatus(summarizedTransaction, user, password) {
 export let statusLogin = loginStatus(summarized, name, katakunci)
 export let dataTransaksi = statusLogin.data.transactionData
 export let dataSummary = statusLogin.data.transactionSummary
-console.log(dataSummary);
+// console.log(statusLogin);
 
 // console.log(dataTransaksi);
+let DATABASE = `DATABASE`
+
+
+
+
+window.addEventListener('load', function() {
+  if(typeof (Storage) !== 'undefined') {
+    if(localStorage.getItem(DATABASE) === null) {
+      localStorage.setItem(DATABASE, JSON.stringify(resultArray))
+    }
+
+    addLoginData()
+  } else {
+    alert('Browser anda tidak mendukung local storage')
+  }
+})
+
+let data = JSON.parse(localStorage.getItem(DATABASE));
+let summarizedFromLocalStorage = transactionSummary(data)
+// console.log(summarizedFromLocalStorage);
+let login = loginStatus(summarizedFromLocalStorage, name, katakunci)
+let LOGIN_DATA = `LOGIN-${login.data.name}`
+let loginStringify = JSON.stringify(login)
+function addLoginData () {
+  if(localStorage.getItem(LOGIN_DATA) === null) {
+    localStorage.setItem(LOGIN_DATA, loginStringify)
+  }
+}
+
+// console.log(JSON.parse(loginStringify));
+
+let loginObject = localStorage.getItem(LOGIN_DATA)
+let loginParsed = JSON.parse(loginObject)
+console.log(loginParsed);
