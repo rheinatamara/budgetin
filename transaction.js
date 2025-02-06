@@ -34,10 +34,10 @@ function add(event) {
     transactionType = false;
   }
 
-  if(labelDefault.checked) {
-    transactionCategory = document.getElementById('newLabelCategoryName').value
-    transactionColor = document.getElementById('newLabelCategoryColor').value
-  }
+  // if(labelDefault.checked) {
+  //   transactionCategory = document.getElementById('newLabelCategoryName').value
+  //   transactionColor = document.getElementById('newLabelCategoryColor').value
+  // }
 
   if (
     transactionName.value.length < 1 ||
@@ -75,7 +75,7 @@ function add(event) {
 
     // console.log(i);
     
-    hideFormModal();
+    // hideFormModal();
     showData(data);
   }
 }
@@ -191,51 +191,51 @@ function filter(event) {
   // console.log(object)
 }
 
-const buttonFilter = document.getElementById("transactionFilterButton");
+// const buttonFilter = document.getElementById("transactionFilterButton");
 
-buttonFilter.addEventListener("click", filter);
+// buttonFilter.addEventListener("click", filter);
 
 // fungsi untuk menampilkan (formulir tambah transaksi dan tombol kembali) dan menghilangkan ( tabel transaksi dan tombol add)
-function showModalAddForm(event) {
-  event.preventDefault();
-  // console.log(`clicked!`);
+// function showModalAddForm(event) {
+//   event.preventDefault();
+//   // console.log(`clicked!`);
 
-  const formTransaction = document.getElementById("addFormTransaction");
-  const sidebarAndTable = document.getElementById("transactionDataSidebar");
-  const buttonAdd = document.getElementById("addModalsTransactionButton");
-  const buttonBack = document.getElementById("buttonBack");
-  const titleBar = document.getElementById("titleBar");
-  // asalnya form add hidden dan trensaction detail visible
-  // ketika diklik
-  // form add visible dan transaction detail hidden,
-  titleBar.textContent = "Tambah Transaksi";
-  sidebarAndTable.classList.add("hidden");
-  buttonAdd.classList.add("invisible");
-  formTransaction.classList.remove("hidden");
-  buttonBack.classList.remove("hidden");
+//   const formTransaction = document.getElementById("addFormTransaction");
+//   const sidebarAndTable = document.getElementById("transactionDataSidebar");
+//   const buttonAdd = document.getElementById("addModalsTransactionButton");
+//   const buttonBack = document.getElementById("buttonBack");
+//   const titleBar = document.getElementById("titleBar");
+//   // asalnya form add hidden dan trensaction detail visible
+//   // ketika diklik
+//   // form add visible dan transaction detail hidden,
+//   titleBar.textContent = "Tambah Transaksi";
+//   sidebarAndTable.classList.add("hidden");
+//   buttonAdd.classList.add("invisible");
+//   formTransaction.classList.remove("hidden");
+//   buttonBack.classList.remove("hidden");
 
-  //  ketika form submit kembali lagi ke awal
-}
-const buttonShowModal = document.getElementById("addModalsTransactionButton");
-buttonShowModal.addEventListener("click", showModalAddForm);
+//   //  ketika form submit kembali lagi ke awal
+// }
+// const buttonShowModal = document.getElementById("addModalsTransactionButton");
+// buttonShowModal.addEventListener("click", showModalAddForm);
 
 // fungsi untuk menghilangkan (formulir tambah transaksi dan tombol kembali) dan menampilkan ( tabel transaksi dan tombol add)
-function hideFormModal() {
-  const formTransaction = document.getElementById("addFormTransaction");
-  const sidebarAndTable = document.getElementById("transactionDataSidebar");
-  const buttonAdd = document.getElementById("addModalsTransactionButton");
-  const buttonBack = document.getElementById("buttonBack");
-  const titleBar = document.getElementById("titleBar");
+// function hideFormModal() {
+//   const formTransaction = document.getElementById("addFormTransaction");
+//   const sidebarAndTable = document.getElementById("transactionDataSidebar");
+//   const buttonAdd = document.getElementById("addModalsTransactionButton");
+//   const buttonBack = document.getElementById("buttonBack");
+//   const titleBar = document.getElementById("titleBar");
 
-  titleBar.textContent = "Daftar Transaksi";
-  formTransaction.classList.add("hidden");
-  buttonBack.classList.add("hidden");
-  sidebarAndTable.classList.remove("hidden");
-  buttonAdd.classList.remove("invisible");
-}
+//   titleBar.textContent = "Daftar Transaksi";
+//   formTransaction.classList.add("hidden");
+//   buttonBack.classList.add("hidden");
+//   sidebarAndTable.classList.remove("hidden");
+//   buttonAdd.classList.remove("invisible");
+// }
 
-const buttonBack = document.getElementById("buttonBack");
-buttonBack.addEventListener("click", hideFormModal);
+// const buttonBack = document.getElementById("buttonBack");
+// buttonBack.addEventListener("click", hideFormModal);
 
 // fungsi untuk memunculkan data transaksi
 function showData(data) {
@@ -339,9 +339,9 @@ function dynamicLabel(data) {
         `;
     }
     let categoryContainer = document.getElementById("transactionCategory");
-    let categoryFilterContainer = document.getElementById("filterTransactionCategory");
+    // let categoryFilterContainer = document.getElementById("filterTransactionCategory");
     categoryContainer.innerHTML = template;
-    categoryFilterContainer.innerHTML = template;
+    // categoryFilterContainer.innerHTML = template;
   }
 
 }
@@ -363,8 +363,8 @@ function label() {
     newLabelCategoryColor.disabled = true
   }
 }
-const labelDefault = document.getElementById('newLabel')
-labelDefault.addEventListener('change', label)
+// const labelDefault = document.getElementById('newLabel')
+// labelDefault.addEventListener('change', label)
 
 // fungsi untuk mengubah format tanggal YYYY-MM-DD menjadi kata yg dipahami
 // data = '2018-09-01'
