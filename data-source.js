@@ -60,7 +60,6 @@ export let array = [
     typeTransaction: "transactionIncome",
   },
 ];
-console.log(array,"ada")
 export function totalBalance(dataSourceArray) {
 
 
