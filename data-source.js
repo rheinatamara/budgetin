@@ -349,9 +349,10 @@ window.addEventListener('load', function() {
 
 let data = JSON.parse(localStorage.getItem(DATABASE));
 let summarizedFromLocalStorage = transactionSummary(data)
+console.log(summarizedFromLocalStorage);
 // console.log(summarizedFromLocalStorage);
 let login = loginStatus(summarizedFromLocalStorage, name, katakunci)
-let LOGIN_DATA = `LOGIN-${login.data.name}`
+export let LOGIN_DATA = `LOGIN-${login.data.name}`
 let loginStringify = JSON.stringify(login)
 function addLoginData () {
   if(localStorage.getItem(LOGIN_DATA) === null) {
@@ -362,5 +363,5 @@ function addLoginData () {
 // console.log(JSON.parse(loginStringify));
 
 let loginObject = localStorage.getItem(LOGIN_DATA)
-let loginParsed = JSON.parse(loginObject)
-console.log(loginParsed);
+export let loginParsed = JSON.parse(loginObject)
+// console.log(loginParsed);

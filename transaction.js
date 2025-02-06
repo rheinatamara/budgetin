@@ -1,20 +1,23 @@
-import {dataSummary, statusLogin} from "./data-source.js";
+import {dataSummary, statusLogin, loginParsed, LOGIN_DATA} from "./data-source.js";
 // console.log("ADAAA");
 //[TODO] [FEATURE]: TAMBAHKAN LOCALSTORAGE
 // data awal
-let SESSION_LOGIN_KEY = `SESSION_LOGIN-${statusLogin.data.name}`
-let data = JSON.parse(localStorage.getItem(SESSION_LOGIN_KEY));
+console.log(loginParsed);
+// let SESSION_LOGIN_KEY = `SESSION_LOGIN-${statusLogin.data.name}`
+let dataFromLocalStorage = JSON.parse(localStorage.getItem(LOGIN_DATA));
+let data = dataFromLocalStorage.data.transactionData
+console.log(data);
 
 
-window.addEventListener('load', function() {
-  if(typeof (Storage) !== 'undefined') {
-    if(localStorage.getItem(SESSION_LOGIN_KEY) === null) {
-      localStorage.setItem(SESSION_LOGIN_KEY, JSON.stringify(statusLogin.data.transactionData))
-    }
-  } else {
-    alert('Browser anda tidak mendukung local storage')
-  }
-})
+// window.addEventListener('load', function() {
+//   if(typeof (Storage) !== 'undefined') {
+//     if(localStorage.getItem(SESSION_LOGIN_KEY) === null) {
+//       localStorage.setItem(SESSION_LOGIN_KEY, JSON.stringify(statusLogin.data.transactionData))
+//     }
+//   } else {
+//     alert('Browser anda tidak mendukung local storage')
+//   }
+// })
 
 // fungsi untuk menambah data transaksi
 function add(event) {
@@ -74,13 +77,10 @@ function add(event) {
     object["categoryTransaction"] = transactionCategory;
     object["noteTransaction"] = transactionNote.value;
 
-    let i = dataSummary.totalBalance
-    if(typeof i === 'number') {
-      data.push(object);
-      localStorage.setItem(SESSION_LOGIN_KEY, JSON.stringify(data))
-    } else {
-      alert(`Tabungan anda tidak cukup, sisa uang anda Rp. ${i}`)
-    }
+   
+      loginParsed.data.transactionData.push(object);
+      localStorage.setItem(LOGIN_DATA, JSON.stringify(loginParsed))
+
     // console.log(i);
     
     hideFormModal();
