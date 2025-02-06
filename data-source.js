@@ -283,8 +283,8 @@ function newUser(user, password, array) {
 // console.log(newUser(user, password, resultArray));
 
 //LOGIN STATUS
-let name = "darius";
-let katakunci = "0909";
+let name = "Ahmed";
+let katakunci = "1321321";
 let summarized = transactionSummary(resultArray)
 function loginStatus(summarizedTransaction, user, password) {
   let result = {}

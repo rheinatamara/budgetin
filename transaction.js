@@ -9,19 +9,11 @@ let data = dataFromLocalStorage.data.transactionData
 console.log(data);
 
 
-// window.addEventListener('load', function() {
-//   if(typeof (Storage) !== 'undefined') {
-//     if(localStorage.getItem(SESSION_LOGIN_KEY) === null) {
-//       localStorage.setItem(SESSION_LOGIN_KEY, JSON.stringify(statusLogin.data.transactionData))
-//     }
-//   } else {
-//     alert('Browser anda tidak mendukung local storage')
-//   }
-// })
+
 
 // fungsi untuk menambah data transaksi
 function add(event) {
-  event.preventDefault();
+  // event.preventDefault()
   const transactionName = document.getElementById("transactionName");
   const transactionIncome = document.getElementById("transactionIncome");
   const transactionExpense = document.getElementById("transactionExpense");
