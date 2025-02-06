@@ -62,7 +62,10 @@ export let array = [
 ];
 
 export function totalBalance(dataSourceArray) {
-  let result = {};
+  if (dataSourceArray === undefined) {
+    return `data kosong`
+  } else {
+    let result = {};
   let totalBalance = 0;
   let totalIncome = 0;
   let totalExpense = 0;
@@ -94,13 +97,15 @@ export function totalBalance(dataSourceArray) {
   } else {
     return `Harap cek kembali tabungan anda, transaksi tidak mencukupi`;
   }
+  }
+  
 }
 
 
 let resultArray = [
   {
-    name: "Ahmed",
-    password: "1321321",
+    name: "user@example.com",
+    password: "password123",
     transactionData: [
       {
         id: "TX-EX-01",
@@ -253,15 +258,20 @@ let resultArray = [
 
 //MENYATUKAN TRANSACTION SUMMARY DGN OBJEK
 function transactionSummary(dataSource) {
-  for(let a = 0; a < dataSource.length; a++) {
-    let count = totalBalance(dataSource[a].transactionData)
-    // console.log(count);
-    if(dataSource[a]['transactionSummary'] === undefined) {
-      dataSource[a]['transactionSummary'] = count
+  if(dataSource === undefined) {
+    return `data kosong`
+  } else {
+    for(let a = 0; a < dataSource.length; a++) {
+      let count = totalBalance(dataSource[a].transactionData)
+      // console.log(count);
+      if(dataSource[a]['transactionSummary'] === undefined) {
+        dataSource[a]['transactionSummary'] = count
+      }
     }
+    
+    return resultArray;
   }
-  
-  return resultArray;
+
 }
 //USER BARU
 
@@ -283,45 +293,51 @@ function newUser(user, password, array) {
 // console.log(newUser(user, password, resultArray));
 
 //LOGIN STATUS
-let name = "Ahmed";
-let katakunci = "1321321";
+let name = "user@example.com";
+let katakunci = "password123";
 let summarized = transactionSummary(resultArray)
+
 function loginStatus(summarizedTransaction, user, password) {
   let result = {}
   let userBoolean = false;
   let pwdBoolean = false
   let word = ''
-  for(let a = 0; a < summarizedTransaction.length; a++) {
-    let transaction = summarizedTransaction[a]
-    let nameUser = transaction.name
-    let pwdUser = transaction.password
-
-    if(nameUser === user) {
-      userBoolean = true
-    }
-
-    if(pwdUser === password) {
-      pwdBoolean = true
-    }
-
-    if (userBoolean === true && pwdBoolean === true ) {
-      word = 'Login berhasil'
-      if(result['data'] === undefined) {
-        result['data'] = transaction
+  if (summarizedTransaction === undefined) {
+    return `data kosong`
+  } else {
+    for(let a = 0; a < summarizedTransaction.length; a++) {
+      let transaction = summarizedTransaction[a]
+      let nameUser = transaction.name
+      let pwdUser = transaction.password
+  
+      if(nameUser === user) {
+        userBoolean = true
       }
-    } else if(userBoolean === true || pwdBoolean === true ){
-      word =  'Username atau password salah'
-    } else if(userBoolean === false && pwdBoolean === false) {
-      word =  'Akun belum terdaftar'
+  
+      if(pwdUser === password) {
+        pwdBoolean = true
+      }
+  
+      if (userBoolean === true && pwdBoolean === true ) {
+        word = 'Login berhasil'
+        if(result['data'] === undefined) {
+          result['data'] = transaction
+        }
+      } else if(userBoolean === true || pwdBoolean === true ){
+        word =  'Username atau password salah'
+      } else if(userBoolean === false && pwdBoolean === false) {
+        word =  'Akun belum terdaftar'
+      }
+  
     }
-
+  
+    if(result['statusLogin'] === undefined) {
+      result['statusLogin'] = ''
+    }
+    result['statusLogin'] = word
+    return result
   }
 
-  if(result['statusLogin'] === undefined) {
-    result['statusLogin'] = ''
-  }
-  result['statusLogin'] = word
-  return result
 }
 
 export let statusLogin = loginStatus(summarized, name, katakunci)
