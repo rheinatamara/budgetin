@@ -367,7 +367,7 @@ let summarizedFromLocalStorage = transactionSummary(data)
 // console.log(summarizedFromLocalStorage);
 let login = loginStatus(summarizedFromLocalStorage, name, katakunci)
 // console.log(login);
-export let LOGIN_DATA = `LOGIN-${login.data.name}`
+export let LOGIN_DATA = `LOGIN`
 let loginStringify = JSON.stringify(login)
 function addLoginData () {
   if(localStorage.getItem(LOGIN_DATA) === null) {
