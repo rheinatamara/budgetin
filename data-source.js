@@ -365,7 +365,7 @@ window.addEventListener('load', function() {
 
 let data = JSON.parse(localStorage.getItem(DATABASE));
 let summarizedFromLocalStorage = transactionSummary(data)
-console.log(summarizedFromLocalStorage);
+// console.log(summarizedFromLocalStorage);
 // console.log(summarizedFromLocalStorage);
 let login = loginStatus(summarizedFromLocalStorage, name, katakunci)
 export let LOGIN_DATA = `LOGIN-${login.data.name}`

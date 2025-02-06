@@ -2,11 +2,12 @@ import {dataSummary, statusLogin, loginParsed, LOGIN_DATA} from "./data-source.j
 // console.log("ADAAA");
 //[TODO] [FEATURE]: TAMBAHKAN LOCALSTORAGE
 // data awal
-console.log(loginParsed);
+// console.log(loginParsed);
 // let SESSION_LOGIN_KEY = `SESSION_LOGIN-${statusLogin.data.name}`
 let dataFromLocalStorage = JSON.parse(localStorage.getItem(LOGIN_DATA));
 let data = dataFromLocalStorage.data.transactionData
-console.log(data);
+// console.log(dataFromLocalStorage.data.transactionSummary.totalBalance);
+// console.log(data);
 
 
 
@@ -264,7 +265,7 @@ function showData(data) {
       word = "Pemasukan";
     }
 
-    console.log(array.length);
+    // console.log(array.length);
 
     template += `<tr id="${id}">                  
     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
