@@ -103,24 +103,37 @@ function addSavings(amount, data) {
       data.remainingAmount = 0
       data.percentage = 100;
       usersTotalBalance = usersTotalBalance - data.goalAmount
+      for (let goal of goalData) {
+        if (goal.id === data.id) {
+          goal = data;
+          break;
+        }
+      }
+      
+      localStorage.setItem('LOGIN', JSON.stringify(datas));
+      updateUI(data);
+      return data;
 
   } else {
+    console.log(usersTotalBalance, '<< sebelum dikurang');
     data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount });
     data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
     data.remainingAmount = data.goalAmount - data.totalSaved
     data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
     usersTotalBalance = usersTotalBalance - data.totalSaved
-  }
-  for (let goal of goalData) {
-    if (goal.id === data.id) {
-      goal = data;
-      break;
+    for (let goal of goalData) {
+      if (goal.id === data.id) {
+        goal = data;
+        break;
+      }
     }
+    
+    localStorage.setItem('LOGIN', JSON.stringify(datas));
+    updateUI(data);
+    return data;
+
   }
-  
-  localStorage.setItem('LOGIN', JSON.stringify(datas));
-  updateUI(data);
-  return data;
+
 
 }
 function filterHistory(arr,id,data){ 
@@ -344,7 +357,6 @@ function render() {
       };
     
       goalData.push(budgetData) 
-
       localStorage.setItem('LOGIN', JSON.stringify(datas));
       document.querySelector("#budget_name").value = '';
       document.querySelector("#category_name").selectedIndex = 0
