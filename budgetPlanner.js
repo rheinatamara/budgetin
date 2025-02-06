@@ -67,7 +67,12 @@ const options = {
 }
 
 // Logic
-let goalData = JSON.parse(localStorage.getItem('goalData')) || [];
+
+// let goalData = JSON.parse(localStorage.getItem('goalData')) || [];
+const totalBalance = document.querySelector('#totalBalance');
+let datas = JSON.parse(localStorage.getItem('LOGIN'))
+let goalData = datas.data.transactionBudgetData // empty array
+let usersTotalBalance = datas.data.transactionSummary.totalBalance
 const today = new Date();
 function formatDate(date) {
   const day = ('0' + date.getDate()).slice(-2);
@@ -97,12 +102,14 @@ function addSavings(amount, data) {
       data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount: data.remainingAmount });
       data.remainingAmount = 0
       data.percentage = 100;
+      usersTotalBalance = usersTotalBalance - data.goalAmount
 
   } else {
     data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount });
     data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
     data.remainingAmount = data.goalAmount - data.totalSaved
     data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
+    usersTotalBalance = usersTotalBalance - data.totalSaved
   }
   for (let goal of goalData) {
     if (goal.id === data.id) {
@@ -110,7 +117,8 @@ function addSavings(amount, data) {
       break;
     }
   }
-  localStorage.setItem("goalData", JSON.stringify(goalData));
+  
+  localStorage.setItem('LOGIN', JSON.stringify(datas));
   updateUI(data);
   return data;
 
@@ -166,7 +174,8 @@ function historyData(data){ //{focusedData}
             data.savingsHistory = filtered
             data.totalSaved = data.totalSaved - amount;
             data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
-          localStorage.setItem("goalData", JSON.stringify(goalData));  
+                  usersTotalBalance += amount
+            localStorage.setItem('LOGIN', JSON.stringify(datas));
           updateUI(data)
           }
         }
@@ -190,17 +199,6 @@ function historyData(data){ //{focusedData}
   }
 
 }
-// function filterBudget(id){
-//   let output = []
-//   for(let eachData of goalData){
-//     if(eachData.id !== id){
-//       output.push(eachData)
-//     } 
-// console.log(eachData);
-//   }
-//   localStorage.setItem("goalData", JSON.stringify(output)); 
-// console.log(output);
-// }
 function focusedItem(arr){ 
   for(let data of arr){
     if(data["selected"]){
@@ -250,7 +248,7 @@ function updateUI(data) {
       //   })
       // }
       totalSavings.textContent = formatIDR(total);
-      
+      totalBalance.textContent = formatIDR(usersTotalBalance);
       showDataCards(goalData)
       historyData(focusedItem(goalData))
   }
@@ -294,6 +292,7 @@ function showDataCards(arr) {
 
 // DOM Manipulation
 function render() {
+  totalBalance.textContent = formatIDR(usersTotalBalance);
   const startDateInput = document.querySelector('#datepicker-range-start');
   const endDateInput = document.querySelector('#datepicker-range-end');
   if (startDateInput) {
@@ -345,7 +344,8 @@ function render() {
       };
     
       goalData.push(budgetData) 
-      localStorage.setItem('goalData', JSON.stringify(goalData));
+
+      localStorage.setItem('LOGIN', JSON.stringify(datas));
       document.querySelector("#budget_name").value = '';
       document.querySelector("#category_name").selectedIndex = 0
       document.querySelector("#datepicker-range-start").value = formatDate(new Date());
@@ -370,9 +370,9 @@ function render() {
           savingsHistory:[],
           remainingAmount: Number(document.querySelector("#currency-input").value)
       };
-    
       goalData.push(budgetData) 
-      localStorage.setItem('goalData', JSON.stringify(goalData));
+      // usersTotalBalance = usersTotalBalance - Number(document.querySelector("#currency-input").value)
+      localStorage.setItem('LOGIN', JSON.stringify(datas));
       document.querySelector("#budget_name").value = '';
       document.querySelector("#category_name").selectedIndex = 0
       document.querySelector("#datepicker-range-start").value = formatDate(new Date());
