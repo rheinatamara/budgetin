@@ -45,26 +45,4 @@ tailwind.config = {
     }
   }
 
-
-  document.getElementById("loginButton").addEventListener("click", onlogin);
-
-  function onlogin(){
-      let email = document.getElementById("emailInput").value;
-      let password = document.getElementById("passwordInput").value;
-  
-      if (!email || !password) {
-          alert("Email dan password harus diisi!");
-          return;
-      }
-      const user ={
-        email: "user@example.com",
-        password: "password123"
-      }
-      if (email === user.email && password === user.password) {
-          localStorage.setItem("isLoggedIn", "true");
-          document.location.href = "dashboard.html";
-      } else {
-          alert("Email atau password salah!");
-      }
-  }
   

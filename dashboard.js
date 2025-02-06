@@ -119,3 +119,55 @@ const options = {
       }
     }
   }
+  // const totalBalance = document.querySelector('#totalBalance');
+  let datas = JSON.parse(localStorage.getItem('LOGIN'))
+  let goalData = datas.data.transactionBudgetData // empty array
+  let usersTotalBalance = datas.data.transactionSummary.totalBalance
+  let usersTotalExpense = datas.data.transactionSummary.totalExpense
+  let usersTotalIncome = datas.data.transactionSummary.totalIncome
+  const totalIncome = document.querySelector('#totalIncome');
+  const totalBalance = document.querySelector('#totalBalance');
+  const totalExpense = document.querySelector('#totalExpense');
+  const remainingSection = document.querySelector("#remainingSection")
+  function formatIDR(num){
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0,
+    }).format(num);
+  }
+  function render(){
+    if(goalData.length > 0){
+      for(let data of goalData){
+        if(data.selected){
+          remainingSection.innerHTML = `
+              <h1 class="text-black-900 mb-6 mt-10" style="
+              font-size: 2rem;
+              font-weight: 500;
+          ">${data.budgetName}</h1>
+              <div class="bg-white rounded-lg shadow-sm p-6 relative">
+                <div class="p-4">
+                  <h3 class="text-gray-500 text-sm text-center">Tersisa</h3>
+                  <p id="remainingAmount" class="text-4xl font-bold text-center text-gray-900 py-2">${formatIDR(data.remainingAmount)}</p>
+                  <p id="remainingDays" class="text-gray-600 text-center text-sm">tinggal ${data.remainingDays} hari lagi</p>
+                </div>
+        
+                <div class="w-full bg-gray-200 rounded-full mt-2">
+                  <div id="progressBar" class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: ${data.percentage}%">${data.percentage}%</div>
+                </div>
+        
+                <span class="text-xs text-gray-500 mt-1 block text-center pt-4">Hari ini</span>
+              </div>
+            
+        `
+        
+
+        }
+      }
+    }
+    totalBalance.textContent = formatIDR(usersTotalBalance);
+    totalExpense.textContent = formatIDR(usersTotalExpense);
+    totalIncome.textContent = formatIDR(usersTotalIncome);
+
+  }
+  render()

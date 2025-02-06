@@ -11,7 +11,7 @@
     />
     <title>Budget Planner</title>
   </head>
-  <body>
+  <body class="bg-gray-50 ">
     
 <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
     <span class="sr-only">Open sidebar</span>
@@ -21,56 +21,48 @@
  </button>
  
  <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-       <ul class="space-y-2 font-medium">
-          <li>
-             <a href="dashboard.html" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                   <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
-                   <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
-                </svg>
-                <span class="ms-3">Dashboard</span>
-             </a>
-          </li>
-          <li>
-             <a href="transactions.html" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                   <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z"/>
-                   <path d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z"/>
-                   <path d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z"/>
-                </svg>
-                <span class="flex-1 ms-3 whitespace-nowrap">Transaction</span>
-             </a>
-          </li>
-          <li>
-             <a href="budget-planner.html" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                   <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>
-                </svg>
-                <span class="flex-1 ms-3 whitespace-nowrap">Goals</span>
-             </a>
-          </li>
-          <li>
-            <a href="index.html" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-              <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
-                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
-              </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
+  <div class="h-full px-3 py-4 overflow-y-auto bg-white ">
+     <ul class="space-y-2 font-medium">
+        <li>
+           <a href="dashboard.html" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" class="w-6 h-6"><path d="M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"/></svg>
+              <span class="ms-3">Dashboard</span>
            </a>
-          </li>
-       </ul>
-    </div>
- </aside>
+        </li>
+        <li>
+           <a href="transactions.html" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor" class="w-6 h-6"><path d="M96 96l0 224c0 35.3 28.7 64 64 64l416 0c35.3 0 64-28.7 64-64l0-224c0-35.3-28.7-64-64-64L160 32c-35.3 0-64 28.7-64 64zm64 160c35.3 0 64 28.7 64 64l-64 0 0-64zM224 96c0 35.3-28.7 64-64 64l0-64 64 0zM576 256l0 64-64 0c0-35.3 28.7-64 64-64zM512 96l64 0 0 64c-35.3 0-64-28.7-64-64zM288 208a80 80 0 1 1 160 0 80 80 0 1 1 -160 0zM48 120c0-13.3-10.7-24-24-24S0 106.7 0 120L0 360c0 66.3 53.7 120 120 120l400 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-400 0c-39.8 0-72-32.2-72-72l0-240z"/></svg>
+              <span class="flex-1 ms-3 whitespace-nowrap">Transactions</span>
+           </a>
+        </li>
+        <li>
+           <a href="budget-planner.html" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor" class="w-6 h-6"><path d="M64 64C28.7 64 0 92.7 0 128L0 384c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64L64 64zm64 320l-64 0 0-64c35.3 0 64 28.7 64 64zM64 192l0-64 64 0c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64l0 64-64 0zm64-192c-35.3 0-64-28.7-64-64l64 0 0 64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>
+              <span class="flex-1 ms-3 whitespace-nowrap">Budget Planner</span>
+           </a>
+        </li>
+        <li>
+          <a href="index.html" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 group">
+            <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
+               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
+            </svg>
+            <span class="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
+         </a>
+        </li>
+
+     </ul>
+  </div>
+</aside>
  
  <div class="p-4 sm:ml-64">
-    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+    <div class="p-4  rounded-lg ">
        <div class="grid grid-cols-3 gap-4 mb-4">
           <!-- Chart Balance -->
           <div class="w-full bg-white rounded-lg shadow-sm p-4 md:p-6 h-[20rem]">
             <div class="flex justify-between">
               <div>
-                <p class="text-3xl font-bold text-gray-900  pb-2">Rp. 2.000.000</p>
-                <h5 class="leading-none text-xl font-light text-gray-500">Total Balance</h5>
+                <p id="totalBalance" class="text-3xl font-bold text-gray-900  pb-2">Rp 0</p>
+                <h5 class="leading-none text-xl font-light text-gray-500">Total Saldo</h5>
               </div>
               <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">12%
                 <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
@@ -84,8 +76,8 @@
           <div class="w-full bg-white rounded-lg shadow-sm p-4 md:p-6 h-[20rem]">
             <div class="flex justify-between">
               <div>
-                <p class="text-3xl font-bold text-gray-900  pb-2">Rp. 6.000.000</p>
-                <h5 class="leading-none text-xl font-light text-gray-500">Total Income</h5>
+                <p id="totalIncome" class="text-3xl font-bold text-gray-900  pb-2">Rp 0</p>
+                <h5 class="leading-none text-xl font-light text-gray-500">Total Penghasilan</h5>
               </div>
               <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">12%
                 <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
@@ -99,8 +91,8 @@
           <div class="w-full bg-white rounded-lg shadow-sm p-4 md:p-6 h-[20rem]">
             <div class="flex justify-between">
               <div>
-                <p class="text-3xl font-bold text-gray-900  pb-2">Rp. 4.000.000</p>
-                <h5 class="leading-none text-xl font-light text-gray-500">Total Expense</h5>
+                <p id="totalExpense" class="text-3xl font-bold text-gray-900  pb-2">Rp 0</p>
+                <h5 class="leading-none text-xl font-light text-gray-500">Total Pengeluaran</h5>
               </div>
               <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">12%
                 <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
@@ -112,25 +104,8 @@
           </div>
         </div>
         <!-- goals -->
-        <div class="flex flex-col mb-4">
-          <div>
-            <h1 id="goalName" class="text-black-900 text-3xl mb-6 mt-10 font-semibold">Hawaii Trip</h1>
-          </div>
-          <div class="">
-            <div class=" bg-white rounded-lg shadow-sm p-6">
-              <div class="p-4">
-                <h3 class="text-gray-500 text-sm text-center">Remaining</h3>
-                <p id="remainingAmount" class="text-4xl font-bold text-center text-gray-900 py-2">Rp 200.000</p>
-                <p id="remainingDays" class="text-gray-600 text-center text-sm">64 days left</p>
-        
-              </div>
-              <div class="w-full bg-gray-200 rounded-full mt-2">
-                <div id="progressBar" class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 45%">45%</div>
-              </div>
-          
-              <span class="text-xs text-gray-500 mt-1 block text-center pt-4">Today</span>  
-            </div>
-          </div>
+        <div id="remainingSection" class="flex flex-col mb-4">
+
         </div>
         <!-- History -->
         <div class="flex justify-center text-4xl p-4 font-bold">

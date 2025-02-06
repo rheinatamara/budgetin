@@ -67,7 +67,12 @@ const options = {
 }
 
 // Logic
-let goalData = JSON.parse(localStorage.getItem('goalData')) || [];
+
+// let goalData = JSON.parse(localStorage.getItem('goalData')) || [];
+const totalBalance = document.querySelector('#totalBalance');
+let datas = JSON.parse(localStorage.getItem('LOGIN'))
+let goalData = datas.data.transactionBudgetData // empty array
+let usersTotalBalance = datas.data.transactionSummary.totalBalance
 const today = new Date();
 function formatDate(date) {
   const day = ('0' + date.getDate()).slice(-2);
@@ -97,22 +102,38 @@ function addSavings(amount, data) {
       data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount: data.remainingAmount });
       data.remainingAmount = 0
       data.percentage = 100;
+      usersTotalBalance = usersTotalBalance - data.goalAmount
+      for (let goal of goalData) {
+        if (goal.id === data.id) {
+          goal = data;
+          break;
+        }
+      }
+      
+      localStorage.setItem('LOGIN', JSON.stringify(datas));
+      updateUI(data);
+      return data;
 
   } else {
+    console.log(usersTotalBalance, '<< sebelum dikurang');
     data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount });
     data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
     data.remainingAmount = data.goalAmount - data.totalSaved
     data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
-  }
-  for (let goal of goalData) {
-    if (goal.id === data.id) {
-      goal = data;
-      break;
+    usersTotalBalance = usersTotalBalance - data.totalSaved
+    for (let goal of goalData) {
+      if (goal.id === data.id) {
+        goal = data;
+        break;
+      }
     }
+    
+    localStorage.setItem('LOGIN', JSON.stringify(datas));
+    updateUI(data);
+    return data;
+
   }
-  localStorage.setItem("goalData", JSON.stringify(goalData));
-  updateUI(data);
-  return data;
+
 
 }
 function filterHistory(arr,id,data){ 
@@ -166,7 +187,8 @@ function historyData(data){ //{focusedData}
             data.savingsHistory = filtered
             data.totalSaved = data.totalSaved - amount;
             data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
-          localStorage.setItem("goalData", JSON.stringify(goalData));  
+                  usersTotalBalance += amount
+            localStorage.setItem('LOGIN', JSON.stringify(datas));
           updateUI(data)
           }
         }
@@ -198,11 +220,8 @@ function focusedItem(arr){
   }
 }
 function updateUI(data) {
-  const remainingAmount = document.querySelector('#remainingAmount');
-  const progressBar = document.querySelector('#progressBar');
-  const remainingDays = document.querySelector('#remainingDays');
-  const goalName = document.querySelector('#goalName');
   const totalSavings = document.querySelector('#totalSavings');
+  const remainingSection = document.querySelector("#remainingSection")
   if (data) {
       let total = 0
       for(let item of goalData){
@@ -212,19 +231,52 @@ function updateUI(data) {
           }
         }
       }
-      remainingAmount.textContent = formatIDR(data.remainingAmount);
+      remainingSection.innerHTML = `
+      <h1 id="goalName" class="text-black-900 text-3xl mb-4 mt-10 font-semibold">${data.budgetName}</h1>
+      <div class="bg-white rounded-lg shadow-sm p-6 relative">
+
+
+        <div class="p-4">
+          <h3 class="text-gray-500 text-sm text-center">Tersisa</h3>
+          <p id="remainingAmount" class="text-4xl font-bold text-center text-gray-900 py-2">${formatIDR(data.remainingAmount)}</p>
+          <p id="remainingDays" class="text-gray-600 text-center text-sm">tinggal ${data.remainingDays} hari lagi</p>
+        </div>
+
+        <div class="w-full bg-gray-200 rounded-full mt-2">
+          <div id="progressBar" class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: ${data.percentage}%">${data.percentage}%</div>
+        </div>
+
+        <span class="text-xs text-gray-500 mt-1 block text-center pt-4">Hari ini</span>
+      </div>
+    
+ `
+      // const deleteButtons = document.querySelectorAll(".deleteBudget");
+      // for(let button of deleteButtons){
+      //   button.addEventListener("click", function(e){
+      //     e.preventDefault()
+      //     const dataId = Number(button.getAttribute('data-id')); 
+      //     filterBudget(dataId)
+          
+
+      //   })
+      // }
       totalSavings.textContent = formatIDR(total);
-      progressBar.style.width = `${data.percentage}%`;
-      progressBar.textContent = `${data.percentage}%`;
-      remainingDays.textContent = `tinggal ${data.remainingDays} hari lagi`;
-      goalName.textContent = `${data.budgetName}`
+      totalBalance.textContent = formatIDR(usersTotalBalance);
       showDataCards(goalData)
       historyData(focusedItem(goalData))
   }
 }
+const dreamSection = document.querySelector("#dreamSection")
 const parentCard = document.querySelector('#grid-cards');
 function showDataCards(arr) {
   parentCard.innerHTML = '';
+  if(goalData.length > 1){
+    dreamSection.innerHTML=
+    `
+    <div> <h1 class="text-black-900 text-3xl mb-6 mt-10 font-semibold">Impianmu yang lain</h1>
+    </div>
+    `
+  }
   for (let data of arr) {
     if (!data["selected"]) {
       parentCard.innerHTML += `
@@ -253,6 +305,7 @@ function showDataCards(arr) {
 
 // DOM Manipulation
 function render() {
+  totalBalance.textContent = formatIDR(usersTotalBalance);
   const startDateInput = document.querySelector('#datepicker-range-start');
   const endDateInput = document.querySelector('#datepicker-range-end');
   if (startDateInput) {
@@ -271,6 +324,7 @@ function render() {
       }
       
   });
+
   const addSavingsData = document.querySelector("#historySavings")
   addSavingsData.querySelector("form").addEventListener("submit", function(e){
     e.preventDefault()
@@ -303,7 +357,7 @@ function render() {
       };
     
       goalData.push(budgetData) 
-      localStorage.setItem('goalData', JSON.stringify(goalData));
+      localStorage.setItem('LOGIN', JSON.stringify(datas));
       document.querySelector("#budget_name").value = '';
       document.querySelector("#category_name").selectedIndex = 0
       document.querySelector("#datepicker-range-start").value = formatDate(new Date());
@@ -328,9 +382,9 @@ function render() {
           savingsHistory:[],
           remainingAmount: Number(document.querySelector("#currency-input").value)
       };
-    
       goalData.push(budgetData) 
-      localStorage.setItem('goalData', JSON.stringify(goalData));
+      // usersTotalBalance = usersTotalBalance - Number(document.querySelector("#currency-input").value)
+      localStorage.setItem('LOGIN', JSON.stringify(datas));
       document.querySelector("#budget_name").value = '';
       document.querySelector("#category_name").selectedIndex = 0
       document.querySelector("#datepicker-range-start").value = formatDate(new Date());
@@ -343,12 +397,14 @@ function render() {
 
       }          
     });
-  if (goalData.length > 0) {
-      let focused = focusedItem(goalData)
-      historyData(focused)
-      updateUI(focused);
-      showDataCards(goalData)
-  }
+   
+      if (goalData.length > 0) {
+        let focused = focusedItem(goalData);
+        historyData(focused);
+        updateUI(focused);
+        showDataCards(goalData);
+      } 
+    
   // klik more detail button
   parentCard.addEventListener("click", function (e) {
     if (e.target.classList.contains("detailButton")) {
@@ -361,6 +417,7 @@ function render() {
         historyData(selectedItem)
         updateUI(selectedItem);
         showDataCards(goalData);
+        localStorage.setItem('LOGIN', JSON.stringify(datas));
       }
     }
   });

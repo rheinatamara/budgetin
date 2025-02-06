@@ -401,6 +401,7 @@ window.addEventListener('load', function() {
 // let summarizedFromLocalStorage = transactionSummary(data)
 // console.log(summarizedFromLocalStorage);
 // console.log(summarizedFromLocalStorage);
+
 // let login = loginData()
 export let LOGIN_DATA = `LOGIN`
 
