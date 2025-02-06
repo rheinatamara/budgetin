@@ -1,12 +1,19 @@
-import {array, totalBalance} from "./data-source.js";
-console.log("ADAAA");
+import {dataSummary, statusLogin, loginParsed, LOGIN_DATA} from "./data-source.js";
+// console.log("ADAAA");
 //[TODO] [FEATURE]: TAMBAHKAN LOCALSTORAGE
 // data awal
-let data = array;
+console.log(loginParsed);
+// let SESSION_LOGIN_KEY = `SESSION_LOGIN-${statusLogin.data.name}`
+let dataFromLocalStorage = JSON.parse(localStorage.getItem(LOGIN_DATA));
+let data = dataFromLocalStorage.data.transactionData
+console.log(data);
+
+
+
 
 // fungsi untuk menambah data transaksi
 function add(event) {
-  event.preventDefault();
+  // event.preventDefault()
   const transactionName = document.getElementById("transactionName");
   const transactionIncome = document.getElementById("transactionIncome");
   const transactionExpense = document.getElementById("transactionExpense");
@@ -62,12 +69,11 @@ function add(event) {
     object["categoryTransaction"] = transactionCategory;
     object["noteTransaction"] = transactionNote.value;
 
-    let i = totalBalance(data)
-    if(typeof i === 'object') {
-      data.push(object);
-    } else {
-      alert(`Tabungan anda tidak cukup`)
-    }
+   
+      loginParsed.data.transactionData.push(object);
+      localStorage.setItem(LOGIN_DATA, JSON.stringify(loginParsed))
+
+    // console.log(i);
     
     hideFormModal();
     showData(data);
@@ -98,7 +104,7 @@ function filteringValue(selectValue) {
 function generateId(data, transactionType) {
   //cek id
   let num = 0;
-  console.log(data.length);
+  // console.log(data.length);
   if (data.length < 1) {
     num = 1;
   } else {
@@ -118,7 +124,7 @@ function generateId(data, transactionType) {
   if (num < 10) {
     num = "0" + num;
   }
-  console.log(num);
+  // console.log(num);
 
   let newID = `TX-${code}-${num}`;
   return newID;
@@ -182,7 +188,7 @@ function filter(event) {
   object["transactionUntilDate"] = transactionUntilDate.value;
   object["filterTransactionCategory"] = filterTransactionCategory.value;
 
-  console.log(object)
+  // console.log(object)
 }
 
 const buttonFilter = document.getElementById("transactionFilterButton");
@@ -192,7 +198,7 @@ buttonFilter.addEventListener("click", filter);
 // fungsi untuk menampilkan (formulir tambah transaksi dan tombol kembali) dan menghilangkan ( tabel transaksi dan tombol add)
 function showModalAddForm(event) {
   event.preventDefault();
-  console.log(`clicked!`);
+  // console.log(`clicked!`);
 
   const formTransaction = document.getElementById("addFormTransaction");
   const sidebarAndTable = document.getElementById("transactionDataSidebar");
@@ -234,12 +240,16 @@ buttonBack.addEventListener("click", hideFormModal);
 // fungsi untuk memunculkan data transaksi
 function showData(data) {
   let array = data;
+  if(array === undefined) {
+    alert('Data kosong!')
+  } else {
+    //todo: tampilkan transaksi kosong ketika data undefined
   let tableData = document.getElementById("transactionTable");
   let template = "";
 
   for (let a = 0; a < array.length; a++) {
     let transactionData = array[a];
-    console.log(transactionData, "data");
+    // console.log(transactionData, "data");
     let id = transactionData.id
     let nameTransaction = transactionData.nameTransaction;
     let nominalTransaction = transactionData.nominalTransaction;
@@ -291,42 +301,49 @@ function showData(data) {
                 </tr>
     `;
     tableData.innerHTML = template;
-    console.log(array);
+    // console.log(array);
   }
+  }
+  
 }
 
 function dynamicLabel(data) {
-  let categoryArray = [];
-  for (let a = 0; a < data.length; a++) {
-    let transaction = data[a];
-    let colorTransaction = transaction.colorTransaction;
-    let transactionCategory = transaction.categoryTransaction;
-    categoryArray.push([transactionCategory, colorTransaction]);
+  if(data === undefined) {
+    alert(`Data label kosong!`)
+  } else {
+    let categoryArray = [];
+    for (let a = 0; a < data.length; a++) {
+      let transaction = data[a];
+      let colorTransaction = transaction.colorTransaction;
+      let transactionCategory = transaction.categoryTransaction;
+      categoryArray.push([transactionCategory, colorTransaction]);
+    }
+  
+    let template = `
+    <option selected value="default">Pilih kategori disini</option>
+    `;
+    for (let b = 0; b < categoryArray.length; b++) {
+      let categoryAndColor = categoryArray[b];
+      let categoryName = categoryAndColor[0];
+      let categoryColor = categoryAndColor[1];
+      // console.log(categoryAndColor);
+  
+      template += `
+        
+        <option
+        class="items-center px-3 py-1 rounded-full text-sm font-medium bg-${categoryColor}-100 text-${categoryColor}-800"
+        value="${categoryName}|${categoryColor}"
+        >
+        ${categoryName}
+        </option>
+        `;
+    }
+    let categoryContainer = document.getElementById("transactionCategory");
+    let categoryFilterContainer = document.getElementById("filterTransactionCategory");
+    categoryContainer.innerHTML = template;
+    categoryFilterContainer.innerHTML = template;
   }
 
-  let template = `
-  <option selected value="default">Pilih kategori disini</option>
-  `;
-  for (let b = 0; b < categoryArray.length; b++) {
-    let categoryAndColor = categoryArray[b];
-    let categoryName = categoryAndColor[0];
-    let categoryColor = categoryAndColor[1];
-    console.log(categoryAndColor);
-
-    template += `
-      
-      <option
-      class="items-center px-3 py-1 rounded-full text-sm font-medium bg-${categoryColor}-100 text-${categoryColor}-800"
-      value="${categoryName}|${categoryColor}"
-      >
-      ${categoryName}
-      </option>
-      `;
-  }
-  let categoryContainer = document.getElementById("transactionCategory");
-  let categoryFilterContainer = document.getElementById("filterTransactionCategory");
-  categoryContainer.innerHTML = template;
-  categoryFilterContainer.innerHTML = template;
 }
 
 function label() {

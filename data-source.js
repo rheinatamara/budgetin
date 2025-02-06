@@ -96,29 +96,6 @@ export function totalBalance(dataSourceArray) {
   }
 }
 
-// console.log(totalBalance(array));
-
-// let login_db = [
-//   {
-//     name: "John Doe",
-//     password: "johnd03",
-//     transactionData: [
-//       {
-//         id: "TX-EX-01",
-//         categoryTransaction: "jajan JOHN",
-//         colorTransaction: "blue",
-//         dateTransaction: "2025-02-16",
-//         nameTransaction: "ASUS ROG RTX 58000",
-//         nominalTransaction: 20_000_000,
-//         noteTransaction: "Bjir sultan ",
-//         typeTransaction: "transactionExpense",
-//       },
-//     ],
-//     transactionBudgetData: [],
-//   },
-
-// ];
-// console.log(login_db);
 
 let resultArray = [
   {
@@ -136,11 +113,21 @@ let resultArray = [
         typeTransaction: "transactionExpense",
       },
       {
+        id: "TX-EX-07",
+        categoryTransaction: "jajan",
+        colorTransaction: "blue",
+        dateTransaction: "2025-02-16",
+        nameTransaction: "Ahmed Beli Bubur",
+        nominalTransaction: 20_000,
+        noteTransaction: "enak beut",
+        typeTransaction: "transactionExpense",
+      },
+      {
         id: "TX-EX-02",
         categoryTransaction: "kebutuhan",
         colorTransaction: "yellow",
         dateTransaction: "2015-11-16",
-        nameTransaction: "Kulkas 5 pintu",
+        nameTransaction: "Ahmed beli kulkas 5 pintu",
         nominalTransaction: 2_000_000,
         noteTransaction: "Mana ada bjir kulkas 5 pintu ",
         typeTransaction: "transactionExpense",
@@ -161,7 +148,7 @@ let resultArray = [
         colorTransaction: "cyan",
         dateTransaction: "2020-01-16",
         nameTransaction: "Sedekah subuh",
-        nominalTransaction: 25_000_000_000,
+        nominalTransaction: 25_000_000,
         noteTransaction: "mudah-mudahan Indonesia bebas corona",
         typeTransaction: "transactionExpense",
       },
@@ -337,6 +324,44 @@ function loginStatus(summarizedTransaction, user, password) {
   return result
 }
 
-let statusLogin = loginStatus(summarized, name, katakunci)
-console.log(statusLogin);
+export let statusLogin = loginStatus(summarized, name, katakunci)
+export let dataTransaksi = statusLogin.data.transactionData
+export let dataSummary = statusLogin.data.transactionSummary
+// console.log(statusLogin);
 
+// console.log(dataTransaksi);
+let DATABASE = `DATABASE`
+
+
+
+
+window.addEventListener('load', function() {
+  if(typeof (Storage) !== 'undefined') {
+    if(localStorage.getItem(DATABASE) === null) {
+      localStorage.setItem(DATABASE, JSON.stringify(resultArray))
+    }
+
+    addLoginData()
+  } else {
+    alert('Browser anda tidak mendukung local storage')
+  }
+})
+
+let data = JSON.parse(localStorage.getItem(DATABASE));
+let summarizedFromLocalStorage = transactionSummary(data)
+console.log(summarizedFromLocalStorage);
+// console.log(summarizedFromLocalStorage);
+let login = loginStatus(summarizedFromLocalStorage, name, katakunci)
+export let LOGIN_DATA = `LOGIN-${login.data.name}`
+let loginStringify = JSON.stringify(login)
+function addLoginData () {
+  if(localStorage.getItem(LOGIN_DATA) === null) {
+    localStorage.setItem(LOGIN_DATA, loginStringify)
+  }
+}
+
+// console.log(JSON.parse(loginStringify));
+
+let loginObject = localStorage.getItem(LOGIN_DATA)
+export let loginParsed = JSON.parse(loginObject)
+// console.log(loginParsed);
