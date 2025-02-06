@@ -137,7 +137,7 @@ function historyData(data){ //{focusedData}
       <li class="pb-3 sm:pb-4">
         <div class="flex items-center space-x-4 rtl:space-x-reverse">
           <div class="flex-1 min-w-0">
-            <p class="text-sm text-gray-500 truncate">Incoming Budget</p>
+            <p class="text-sm text-gray-500 pb-2 truncate">Anggaran Masuk</p>
             <p class="text-base font-bold text-gray-900 truncate">${formatIDR(savings.amount)}</p>
           </div>
           <div class="inline-flex items-center space-x-2">
@@ -178,7 +178,7 @@ function historyData(data){ //{focusedData}
     totalItem.innerHTML = `
       <div class="flex flex-row justify-between">
         <div class="inline-flex items-center space-x-2">
-          <p class="text-xl font-bold text-gray-900 truncate">${formatIDR(data.totalSaved)} <span class="font-normal text-xl text-gray-400">of ${formatIDR(data.goalAmount)}</span></p>
+          <p class="text-xl font-bold text-gray-900 truncate">${formatIDR(data.totalSaved)} <span class="font-normal text-xl text-gray-400">dari ${formatIDR(data.goalAmount)}</span></p>
         </div>
         <div class="flex-1 min-w-0">
           <p class="text-xl font-bold text-gray-900 truncate text-end">Total</p>
@@ -216,7 +216,7 @@ function updateUI(data) {
       totalSavings.textContent = formatIDR(total);
       progressBar.style.width = `${data.percentage}%`;
       progressBar.textContent = `${data.percentage}%`;
-      remainingDays.textContent = `${data.remainingDays} days left`;
+      remainingDays.textContent = `tinggal ${data.remainingDays} hari lagi`;
       goalName.textContent = `${data.budgetName}`
       showDataCards(goalData)
       historyData(focusedItem(goalData))
@@ -234,13 +234,13 @@ function showDataCards(arr) {
           </div>
           <div class="mb-4">
             <p class="py-3 font-bold text-2xl text-gray-700">${formatIDR(data["remainingAmount"])}</p>
-            <p class="font-normal text-gray-400">of ${formatIDR(data["goalAmount"])}</p>
+            <p class="font-normal text-gray-400">dari ${formatIDR(data["goalAmount"])}</p>
           </div>
           <div class="w-full bg-gray-200 rounded-full h-1.5 mb-6">
             <div class="bg-blue-600 h-1.5 rounded-full" style="width: ${data["percentage"]}%"></div>
           </div>
           <button class="detailButton inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300" data-id="${data["id"]}">
-            More details
+            Lebih detail
             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
             </svg>

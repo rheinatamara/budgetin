@@ -98,7 +98,7 @@
           <div class="flex justify-between">
             <div>
               <p class="text-3xl font-bold text-gray-900  pb-2">Rp.30.000.000</p>
-              <h5 class="leading-none text-xl font-light text-gray-500">Total Balance</h5>
+              <h5 class="leading-none text-xl font-light text-gray-500">Total Saldo</h5>
             </div>
             <div
               class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
@@ -115,7 +115,7 @@
           <div class="flex justify-between">
             <div>
               <p id= "totalSavings"class="text-3xl font-bold text-gray-900  pb-2">Rp.30.000.000</p>
-              <h5 class="leading-none text-xl font-light text-gray-500">Total Savings</h5>
+              <h5 class="leading-none text-xl font-light text-gray-500">Total Tabungan</h5>
             </div>
             <div
               class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
@@ -136,21 +136,21 @@
         <div class="">
           <div class=" bg-white rounded-lg shadow-sm p-6">
             <div class="p-4">
-              <h3 class="text-gray-500 text-sm text-center">Remaining</h3>
+              <h3 class="text-gray-500 text-sm text-center">Tersisa</h3>
               <p id="remainingAmount" class="text-4xl font-bold text-center text-gray-900 py-2">Rp 200.000</p>
-              <p id="remainingDays" class="text-gray-600 text-center text-sm">64 days left</p>
+              <p id="remainingDays" class="text-gray-600 text-center text-sm">tinggal 64 hari lagi</p>
 
             </div>
             <div class="w-full bg-gray-200 rounded-full mt-2">
               <div id="progressBar" class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 45%">45%</div>
             </div>
         
-            <span class="text-xs text-gray-500 mt-1 block text-center pt-4">Today</span>  
+            <span class="text-xs text-gray-500 mt-1 block text-center pt-4">Hari ini</span>  
           </div>
         </div>
       </div>
       <div>
-        <div> <h1 class="text-black-900 text-3xl mb-6 mt-10 font-semibold">Your other dreams</h1>
+        <div> <h1 class="text-black-900 text-3xl mb-6 mt-10 font-semibold">Impianmu yang lain</h1>
         </div>
       </div>
        <div id="grid-cards" class="grid grid-cols-4 gap-4">
@@ -160,25 +160,34 @@
   </div>
   <div class="px-14 py-4 w-[35%]">
     <div class="mb-10 w-100">
-      <h1 class="text-black-900 text-3xl mb-4 mt-4 font-semibold">Savings History</h1>
+      <h1 class="text-black-900 text-3xl mb-4 mt-4 font-semibold">Riwayat Tabungan</h1>
         <ul id="savings-list" class="max-w-md divide-y divide-gray-200 ">
         </ul>
-        <button type="button"  data-modal-target="default-modal" data-modal-toggle="default-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center mt-4 ">Add new savings</button>
+        <button type="button"  data-modal-target="default-modal" data-modal-toggle="default-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center mt-4 ">Tambah tabungan baru</button>
     </div>
     <div id="addNewForm">
       <form >
-        <h1 class="text-black-900 text-3xl mb-4 mt-10 font-semibold">Add new</h1>
+        <h1 class="text-black-900 text-3xl mb-4 mt-10 font-semibold">Tambah Rencana</h1>
         <div class="grid gap-6 mb-6 md:grid-cols-1">
             <div>
-                <label for="budget_name" class="block mb-2 text-sm font-medium text-gray-900 ">Budget Name</label>
-                <input type="text" id="budget_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Trip to Bahamas" required />
+                <label for="budget_name" class="block mb-2 text-sm font-medium text-gray-900 ">Nama Anggaran</label>
+                <input type="text" id="budget_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Trip ke Jepang" required />
             </div>
             <div>
               <label for="category" class="block mb-2 text-sm font-medium text-gray-900 ">Select an category</label>
               <select id="category_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                <option selected disabled>Choose a category</option>
-                <option value="Trip">Trip</option>
-                <option value="Mortgage">Mortgage</option>
+                <option selected disabled>Pilih kategori</option>
+                <option value="Wisata">Wisata</option>
+                <option value="Event & Konser">Event & Konser</option>
+                <option value="Hobi">Hobi</option>
+                <option value="Teknologi">Gadget & Teknologi</option>
+                <option value="Kuliner">Kuliner</option>
+                <option value="Pendidikan">Pendidikan</option>
+                <option value="Pernikahan">Pernikahan</option>
+                <option value="Asuransi & Kesehatan">Asuransi & Kesehatan</option>
+                <option value="Rumah">Rumah</option>
+                <option value="Dana Darurat">Dana Darurat</option>
+                <option value="Investasi">Investasi</option>
               </select>
             </div>
             <!-- Calendar -->         
@@ -189,7 +198,7 @@
                           <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                       </svg>
                   </div>
-                  <input id="datepicker-range-start" name="start" type="text" class="bg-gray-100 border border-gray-300 text-gray-500 text-sm rounded-lg  block w-full ps-10 p-2.5 cursor-not-allowed" readonly placeholder="yyyy-mm-dd">
+                  <input id="datepicker-range-start" name="start" type="text" class="bg-gray-100 border border-gray-300 text-gray-500 text-sm rounded-lg  block w-full ps-10 p-2.5 cursor-not-allowed" readonly placeholder="tttt-bb-hh">
               </div>
               <span class="mx-4 text-gray-500">to</span>
               <div class="relative">
@@ -198,13 +207,13 @@
                           <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                       </svg>
                   </div>
-                  <input id="datepicker-range-end" name="end" type="text" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 cursor-pointer" readonly placeholder="yyyy-mm-dd">
+                  <input id="datepicker-range-end" name="end" type="text" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 cursor-pointer" readonly placeholder="tttt-bb-hh">
               </div>
           </div>
           
           
             <div>
-              <label for="goal_amount" class="block text-sm font-medium text-gray-900 ">Goal amount</label>
+              <label for="goal_amount" class="block text-sm font-medium text-gray-900 pb-2">Jumlah Tujuan</label>
               <div class="flex">
                 <div class="relative w-full">
                   <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
@@ -212,7 +221,7 @@
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1M2 5h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
                   </svg>
                   </div>
-                  <input type="number" id="currency-input" class="block p-2.5 w-full z-20 ps-10 text-sm text-gray-900 bg-gray-50 rounded-s-lg border-e-gray-50 border-e-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="Enter amount" required />
+                  <input type="number" id="currency-input" class="block p-2.5 w-full z-20 ps-10 text-sm text-gray-900 bg-gray-50 rounded-s-lg border-e-gray-50 border-e-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="Masukkan jumlah" required />
               </div>
               <button id="dropdown-currency-button" data-dropdown-toggle="dropdown-currency" class="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-e-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 " type="button">
                   Rp
@@ -222,7 +231,7 @@
   
               </div>
   
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Submit</button>
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Kirim</button>
       </form>
 
     </div>
