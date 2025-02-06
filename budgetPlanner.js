@@ -73,6 +73,7 @@ const totalBalance = document.querySelector('#totalBalance');
 let datas = JSON.parse(localStorage.getItem('LOGIN'))
 let goalData = datas.data.transactionBudgetData // empty array
 let usersTotalBalance = datas.data.transactionSummary.totalBalance
+let usersTotalExpense = datas.data.transactionSummary.totalExpense
 const today = new Date();
 function formatDate(date) {
   const day = ('0' + date.getDate()).slice(-2);
@@ -98,43 +99,28 @@ function formatIDR(num){
 function addSavings(amount, data) { 
   data.totalSaved += amount;
   if (data.totalSaved > data.goalAmount) {
-      data.totalSaved = data.goalAmount;
-      data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount: data.remainingAmount });
-      data.remainingAmount = 0
-      data.percentage = 100;
-      usersTotalBalance = usersTotalBalance - data.goalAmount
-      for (let goal of goalData) {
-        if (goal.id === data.id) {
-          goal = data;
-          break;
-        }
-      }
-      
-      localStorage.setItem('LOGIN', JSON.stringify(datas));
-      updateUI(data);
-      return data;
-
+    data.totalSaved = data.goalAmount;
+    data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount: data.remainingAmount });
+    data.remainingAmount = 0;
+    data.percentage = 100;
+    usersTotalExpense -= data.goalAmount;
+    usersTotalBalance -= data.goalAmount;
   } else {
-    console.log(usersTotalBalance, '<< sebelum dikurang');
     data.savingsHistory.push({ id: data.savingsHistory.length + 1, amount });
     data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
-    data.remainingAmount = data.goalAmount - data.totalSaved
-    data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
-    usersTotalBalance = usersTotalBalance - data.totalSaved
-    for (let goal of goalData) {
-      if (goal.id === data.id) {
-        goal = data;
-        break;
-      }
-    }
-    
-    localStorage.setItem('LOGIN', JSON.stringify(datas));
-    updateUI(data);
-    return data;
-
+    data.remainingAmount = data.goalAmount - data.totalSaved;
+    usersTotalBalance -= amount;
+    usersTotalExpense -= amount;
   }
-
-
+  const goalIndex = goalData.findIndex(goal => goal.id === data.id);
+  if (goalIndex !== -1) {
+    goalData[goalIndex] = data;
+  }
+  datas.data.transactionSummary.totalBalance = usersTotalBalance;
+  datas.data.transactionSummary.totalExpense = usersTotalExpense;
+  localStorage.setItem('LOGIN', JSON.stringify(datas));
+  updateUI(data);
+  return data;
 }
 function filterHistory(arr,id,data){ 
   let output = []
@@ -187,11 +173,15 @@ function historyData(data){ //{focusedData}
             data.savingsHistory = filtered
             data.totalSaved = data.totalSaved - amount;
             data.percentage = Math.floor((data.totalSaved / data.goalAmount) * 100);
-                  usersTotalBalance += amount
-            localStorage.setItem('LOGIN', JSON.stringify(datas));
-          updateUI(data)
+              usersTotalBalance += amount
+              usersTotalExpense += amount;
+             
           }
         }
+        datas.data.transactionSummary.totalBalance = usersTotalBalance;
+        datas.data.transactionSummary.totalExpense = usersTotalExpense;
+        localStorage.setItem('LOGIN', JSON.stringify(datas));
+        updateUI(data)
 
       })
     }

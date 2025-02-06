@@ -120,11 +120,7 @@ const options = {
     }
   }
   // const totalBalance = document.querySelector('#totalBalance');
-  let datas = JSON.parse(localStorage.getItem('LOGIN'))
-  let goalData = datas.data.transactionBudgetData // empty array
-  let usersTotalBalance = datas.data.transactionSummary.totalBalance
-  let usersTotalExpense = datas.data.transactionSummary.totalExpense
-  let usersTotalIncome = datas.data.transactionSummary.totalIncome
+ 
   const totalIncome = document.querySelector('#totalIncome');
   const totalBalance = document.querySelector('#totalBalance');
   const totalExpense = document.querySelector('#totalExpense');
@@ -137,6 +133,11 @@ const options = {
     }).format(num);
   }
   function render(){
+    let datas = JSON.parse(localStorage.getItem('LOGIN'))
+    let goalData = datas.data.transactionBudgetData // empty array
+    let usersTotalBalance = datas.data.transactionSummary.totalBalance
+    let usersTotalExpense = datas.data.transactionSummary.totalExpense
+    let usersTotalIncome = datas.data.transactionSummary.totalIncome
     if(goalData.length > 0){
       for(let data of goalData){
         if(data.selected){
