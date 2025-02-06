@@ -1,3 +1,4 @@
+import { array } from ".data-source";
 
 const options = {
     chart: {
@@ -119,3 +120,5 @@ const options = {
       }
     }
   }
+
+console.log(array, "ini data array")
