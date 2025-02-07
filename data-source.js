@@ -1,5 +1,3 @@
-
-
 export let array = [
   {
     id: "TX-EX-01",
@@ -102,36 +100,6 @@ export function totalBalance(dataSourceArray) {
   
 }
 
-// let email = document.getElementById("emailInput").value;
-// let password = document.getElementById("passwordInput").value;
-
-// export function onlogin(email, password) {
-//   let result = {}
-    
-//     if (!email || !password) {
-//         return "Email dan password harus diisi!";
-//         ;
-//     }
-
-//     if(result === undefined) {
-//       result['email'] = ''
-//       result['password'] = ''
-//     }
-
-//     result['email'] = email
-//     result['password'] = password
-
-// return result;
-//   // event.preventDefault()
-
-// }
-
-// console.log(onlogin(email, password));
-
-
-
-
-// document.getElementById("loginButton").addEventListener("click", onlogin);
 
 let resultArray = [
   {
@@ -320,14 +288,21 @@ function newUser(user, password, array) {
   return array;
 }
 
+// console.log(newUser(user, password, resultArray));
+
+//LOGIN STATUS
+let name = "darius@gmail.com";
+let katakunci = "pass123";
+// let name = "user@example.com";
+// let katakunci = "password123";
+let summarized = transactionSummary(resultArray)
+
 function loginStatus(summarizedTransaction, user, password) {
   let result = {}
   let userBoolean = false;
   let pwdBoolean = false
   let word = ''
-  if(user === undefined || password === undefined) {
-    return `Harap isi input`
-  } else {
+
     for(let a = 0; a < summarizedTransaction.length; a++) {
       let transaction = summarizedTransaction[a]
       let nameUser = transaction.name
@@ -348,8 +323,8 @@ function loginStatus(summarizedTransaction, user, password) {
         }
       } else if(userBoolean === true || pwdBoolean === true ){
         word =  'Username atau password salah'
-      } else {
-         word =  'Username belum terdaftar'
+      } else if(userBoolean === false && pwdBoolean === false) {
+        word =  'Akun belum terdaftar'
       }
   
     }
@@ -359,37 +334,26 @@ function loginStatus(summarizedTransaction, user, password) {
     }
     result['statusLogin'] = word
     return result
-
   }
 
-   
-  }
-
-// console.log(newUser(user, password, resultArray));
-// let loginData = onlogin()
-//LOGIN STATUS
 
 
-
-
-// let name = "user@example.com";
-// let katakunci = "password123";
-
+export let statusLogin = loginStatus(summarized, name, katakunci)
 // export let dataTransaksi = statusLogin.data.transactionData
 // export let dataSummary = statusLogin.data.transactionSummary
+console.log(statusLogin);
 
 // console.log(dataTransaksi);
-
+let DATABASE = `DATABASE`
 
 
 
 
 window.addEventListener('load', function() {
   if(typeof (Storage) !== 'undefined') {
-    if(localStorage.getItem('DATABASE') === null) {
-      localStorage.setItem('DATABASE', JSON.stringify(resultArray))
+    if(localStorage.getItem(DATABASE) === null) {
+      localStorage.setItem(DATABASE, JSON.stringify(resultArray))
     }
-
 
     addLoginData()
   } else {
@@ -397,46 +361,22 @@ window.addEventListener('load', function() {
   }
 })
 
-// let data = JSON.parse(localStorage.getItem('DATABASE'));
-// let summarizedFromLocalStorage = transactionSummary(data)
+let data = JSON.parse(localStorage.getItem(DATABASE));
+let summarizedFromLocalStorage = transactionSummary(data)
 // console.log(summarizedFromLocalStorage);
 // console.log(summarizedFromLocalStorage);
-
-// let login = loginData()
+let login = loginStatus(summarizedFromLocalStorage, name, katakunci)
+// console.log(login);
 export let LOGIN_DATA = `LOGIN`
-
-// let loginStringify = JSON.stringify(loginData())
-// console.log(loginStringify, 'login');
-
+let loginStringify = JSON.stringify(login)
 function addLoginData () {
-  
+  if(localStorage.getItem(LOGIN_DATA) === null) {
+    localStorage.setItem(LOGIN_DATA, loginStringify)
+  }
 }
 
 // console.log(JSON.parse(loginStringify));
 
-let loginObject = localStorage.getItem('LOGIN')
+let loginObject = localStorage.getItem(LOGIN_DATA)
 export let loginParsed = JSON.parse(loginObject)
-console.log(loginParsed);
-
-function loginData() {
-  let name = document.getElementById("emailInput").value;;
-  let katakunci = document.getElementById("passwordInput").value;
-  let data = JSON.parse(localStorage.getItem('DATABASE'))
-  let summarized = transactionSummary(data)
-  console.log(summarized);
-let statusLogin = loginStatus(summarized, name, katakunci)
-if(localStorage.getItem('LOGIN') === null) {
-  localStorage.setItem('LOGIN', JSON.stringify(statusLogin))
-} else {
-  localStorage.setItem('LOGIN', JSON.stringify(statusLogin))
-}
-console.log(statusLogin);
-location.href = './dashboard.html'
-}
-
-let button = document.getElementById('loginButton')
-window.addEventListener('DOMContentLoaded', function () {
-  button.addEventListener('click', function() {
-    loginData()
-  })
-})
+// console.log(loginParsed);
