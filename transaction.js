@@ -286,21 +286,6 @@ function showData(data) {
                     >
                       ${categoryTransaction}
                     </div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <button
-                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
-                  id="deleteBtn"
-                  >
-                    Hapus
-                  </button>
-                  <button
-                  class="items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
-                  id="editBtn"
-                  >
-                    Edit
-                  </button>
-                </td>
                 </tr>
     `;
     tableData.innerHTML = template;
@@ -415,4 +400,4 @@ function dateToWord(data) {
 // buat munculin data awal
 showData(data);
 // memunculkan kumpulan labe
-dynamicLabel(data)
+// dynamicLabel(data)
