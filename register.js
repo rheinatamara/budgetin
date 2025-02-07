@@ -46,3 +46,28 @@ tailwind.config = {
   }
 
   
+  function register(){
+    event.preventDefault()
+  
+    let email = document.getElementById("email").value
+    let password = document.getElementById("password").value
+    let confirmPassword = document.getElementById("confirm-password").value
+    let termsAccepted = document.getElementById("terms").checked
+  
+    if(!email || !password || !confirmPassword) {
+      alert("Email, password dan confirm password harus diisi!");
+      return;
+    }
+    if(password !== confirmPassword){
+      alert("Password tidak sama")
+      return
+    }
+    if(!termsAccepted){
+      alert("Silahkan cek Terms and Condition!")
+      return
+    }
+    let userData = {email, password}
+    localStorage.setItem("user", JSON.stringify(userData))
+    alert("Registrasi berhasil! sekarang kamu bisa login")
+    window.location.href = "index.html"
+  }
