@@ -12,6 +12,7 @@
     <title>Budget Planner</title>
   </head>
   <body class="bg-gray-50 ">
+    
 <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
     <span class="sr-only">Open sidebar</span>
     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -60,8 +61,8 @@
           <div class="w-full bg-white rounded-lg shadow-sm p-4 md:p-6 h-[20rem]">
             <div class="flex justify-between">
               <div>
-                <p class="text-3xl font-bold text-gray-900  pb-2">Rp. 2.000.000</p>
-                <h5 class="leading-none text-xl font-light text-gray-500">Total Balance</h5>
+                <p id="totalBalance" class="text-3xl font-bold text-gray-900  pb-2">Rp 0</p>
+                <h5 class="leading-none text-xl font-light text-gray-500">Total Saldo</h5>
               </div>
               <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">12%
                 <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
@@ -75,8 +76,8 @@
           <div class="w-full bg-white rounded-lg shadow-sm p-4 md:p-6 h-[20rem]">
             <div class="flex justify-between">
               <div>
-                <p class="text-3xl font-bold text-gray-900  pb-2">Rp. 6.000.000</p>
-                <h5 class="leading-none text-xl font-light text-gray-500">Total Income</h5>
+                <p id="totalIncome" class="text-3xl font-bold text-gray-900  pb-2">Rp 0</p>
+                <h5 class="leading-none text-xl font-light text-gray-500">Total Penghasilan</h5>
               </div>
               <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">12%
                 <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
@@ -90,8 +91,8 @@
           <div class="w-full bg-white rounded-lg shadow-sm p-4 md:p-6 h-[20rem]">
             <div class="flex justify-between">
               <div>
-                <p class="text-3xl font-bold text-gray-900  pb-2">Rp. 4.000.000</p>
-                <h5 class="leading-none text-xl font-light text-gray-500">Total Expense</h5>
+                <p id="totalExpense" class="text-3xl font-bold text-gray-900  pb-2">Rp 0</p>
+                <h5 class="leading-none text-xl font-light text-gray-500">Total Pengeluaran</h5>
               </div>
               <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">12%
                 <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
@@ -103,25 +104,8 @@
           </div>
         </div>
         <!-- goals -->
-        <div class="flex flex-col mb-4">
-          <div>
-            <h1 id="goalName" class="text-black-900 text-3xl mb-6 mt-10 font-semibold">Hawaii Trip</h1>
-          </div>
-          <div class="">
-            <div class=" bg-white rounded-lg shadow-sm p-6">
-              <div class="p-4">
-                <h3 class="text-gray-500 text-sm text-center">Remaining</h3>
-                <p id="remainingAmount" class="text-4xl font-bold text-center text-gray-900 py-2">Rp 200.000</p>
-                <p id="remainingDays" class="text-gray-600 text-center text-sm">64 days left</p>
-        
-              </div>
-              <div class="w-full bg-gray-200 rounded-full mt-2">
-                <div id="progressBar" class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 45%">45%</div>
-              </div>
-          
-              <span class="text-xs text-gray-500 mt-1 block text-center pt-4">Today</span>  
-            </div>
-          </div>
+        <div id="remainingSection" class="flex flex-col mb-4">
+
         </div>
         <!-- History -->
         <div class="flex justify-center text-4xl p-4 font-bold">
@@ -144,8 +128,79 @@
                  </tr>
                </thead>
                <!-- Isi History -->
-               <tbody id="isiHistory" class="bg-white divide-y divide-gray-200">
-                   
+               <tbody class="bg-white divide-y divide-gray-200">
+                   <tr>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                         
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Beli Nasgor</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp. 30.000,-</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Expense</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">20 Januari 2025</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                       <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">Jajan</div>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                         
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fotokopi KTP</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp. 5.000,-</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Expense</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">19 Januari 2025</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                       <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">Alat - alat</div>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+       
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Bonus gajian</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 bg-">Rp. 2.000.000</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Income</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 Januari 2025</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                       <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-100 text-orange-800">Bonus</div>
+                   </tr>
+                   <tr>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+       
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Beli Laptop</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp. 2.000.000,-</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Expense</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">02 Januari 2025</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                       <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-lime-100 text-lime-800">Hobi
+                       </div>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+       
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sedekah subuh</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp. 50.000,-</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Expense</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">04 Januari 2025</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                       <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-teal-100 text-teal-800">Sedekah</div>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+       
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Beli emas</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp. 200.000,-</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Expense</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 Januari 2025</td>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 bg">
+                       <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-sky-100 text-sky-800">Investasi</div>
+                     </td>
+                   </tr>
                  </tbody>
                </table>
              </div>
@@ -165,10 +220,9 @@
 
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.js"></script>
-    <script src="dashboard.js" type="module"></script>
+    <script src="dashboard.js"></script>
   </body>
 </html>
